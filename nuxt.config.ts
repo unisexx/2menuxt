@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   app: {
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
       head: {
+        link: [
+          { rel: 'stylesheet', href: '/css/tailwind.css' }
+        ],
       htmlAttrs: {
         lang: 'th', // เพิ่มภาษาไทยใน <html>
       },
