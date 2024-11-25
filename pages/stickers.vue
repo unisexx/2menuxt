@@ -122,7 +122,7 @@
     async function fetchStickers(query) {
         try {
             stickerPending.value = true;
-            const url = `https://api.line2me.in.th/api/sticker-more?${query}`;
+            const url = `http://api.line2me.in.th/api/sticker-more?${query}`;
             const res = await fetch(url);
             if (!res.ok) throw new Error("Failed to fetch sticker API");
             const data = await res.json();
