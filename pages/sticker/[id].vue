@@ -160,6 +160,8 @@
                         </NuxtLink>
                     </div>
 
+                    <hr class="my-4 border-t border-gray-200" />
+
                     <!-- ตัวอย่างสติกเกอร์ในชุด -->
                     <div class="mt-4">
                         <h2 class="text-2xl font-semibold mb-4">
@@ -233,7 +235,9 @@
         error,
         pending,
     } = await useAsyncData(`fetchSticker-${id}`, async () => {
-        const res = await fetch(`https://line2me.in.th/api/sticker-view/${id}`);
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-view/${id}`
+        );
         if (!res.ok) throw new Error("Failed to fetch API");
         return res.json();
     });
@@ -318,7 +322,9 @@
 
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
-        const res = await fetch(`https://line2me.in.th/api/sticker-seo/${id}`);
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-seo/${id}`
+        );
         if (!res.ok) throw new Error("Failed to fetch SEO API");
         return res.json();
     });

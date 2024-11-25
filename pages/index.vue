@@ -6,7 +6,6 @@
                 สติกเกอร์ไลน์อัพเดทประจำสัปดาห์
             </h2>
             <StickerCard :stickers="stickerData" />
-            <hr />
         </div>
         <p v-else-if="stickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -17,7 +16,6 @@
                 ธีมไลน์อัพเดทประจำสัปดาห์
             </h2>
             <ThemeCard :themes="themeData" />
-            <hr />
         </div>
         <p v-else-if="themePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -28,7 +26,6 @@
                 อีโมจิไลน์อัพเดทประจำสัปดาห์
             </h2>
             <EmojiCard :emojis="emojiData" />
-            <hr />
         </div>
         <p v-else-if="emojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -76,7 +73,7 @@
         error: stickerError,
         pending: stickerPending,
     } = await useAsyncData(`fetchSticker-${id}`, async () => {
-        const res = await fetch(`https://line2me.in.th/api/sticker-update`);
+        const res = await fetch(`https://api.line2me.in.th/api/sticker-update`);
         if (!res.ok) throw new Error("Failed to fetch sticker API");
         return res.json();
     });
@@ -87,7 +84,7 @@
         error: themeError,
         pending: themePending,
     } = await useAsyncData(`fetchTheme-${id}`, async () => {
-        const res = await fetch(`https://line2me.in.th/api/theme-update`);
+        const res = await fetch(`https://api.line2me.in.th/api/theme-update`);
         if (!res.ok) throw new Error("Failed to fetch theme API");
         return res.json();
     });
@@ -98,7 +95,7 @@
         error: emojiError,
         pending: emojiPending,
     } = await useAsyncData(`fetchEmoji-${id}`, async () => {
-        const res = await fetch(`https://line2me.in.th/api/emoji-update`);
+        const res = await fetch(`https://api.line2me.in.th/api/emoji-update`);
         if (!res.ok) throw new Error("Failed to fetch emoji API");
         return res.json();
     });

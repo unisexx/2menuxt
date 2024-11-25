@@ -14,8 +14,8 @@
                     class="border rounded px-3 py-2"
                 >
                     <option value="">ทั้งหมด</option>
-                    <option value="official">สติกเกอร์ทางการ</option>
-                    <option value="creator">สติกเกอร์ครีเอเตอร์</option>
+                    <option value="official">ธีมทางการ</option>
+                    <option value="creator">ธีมครีเอเตอร์</option>
                 </select>
             </div>
 
@@ -57,37 +57,37 @@
             </div>
         </div>
 
-        <!-- สติกเกอร์ -->
-        <div v-if="stickerData && stickerData.data">
+        <!-- ธีม -->
+        <div v-if="themeData && themeData.data">
             <h2 class="text-xl font-semibold mb-4">
                 {{ headerTitle }}
             </h2>
-            <StickerCard :stickers="stickerData.data" />
+            <ThemeCard :themes="themeData.data" />
             <hr />
 
             <!-- Pagination -->
             <div class="flex justify-between items-center mt-6">
                 <button
-                    @click="changePage(stickerData.current_page - 1)"
-                    :disabled="!stickerData.prev_page_url"
-                    class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                    @click="changePage(themeData.current_page - 1)"
+                    :disabled="!themeData.prev_page_url"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 >
                     ก่อนหน้า
                 </button>
-                <span class="text-gray-700 font-semibold"
-                    >หน้าปัจจุบัน: {{ stickerData.current_page }}</span
+                <span class="text-gray-700 font-medium"
+                    >หน้าปัจจุบัน: {{ themeData.current_page }}</span
                 >
                 <button
-                    @click="changePage(stickerData.current_page + 1)"
-                    :disabled="!stickerData.next_page_url"
-                    class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                    @click="changePage(themeData.current_page + 1)"
+                    :disabled="!themeData.next_page_url"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 >
                     ถัดไป
                 </button>
             </div>
         </div>
-        <p v-else-if="stickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
+        <p v-else-if="themePending">Loading...</p>
+        <p v-else>Error loading theme data</p>
     </div>
 </template>
 
@@ -96,9 +96,9 @@
     import { useRouter, useRoute } from "vue-router";
 
     // ตัวแปรสำหรับเก็บข้อมูล API
-    const stickerData = ref(null);
-    const stickerPending = ref(false);
-    const stickerError = ref(null);
+    const themeData = ref(null);
+    const themePending = ref(false);
+    const themeError = ref(null);
 
     // ตัวแปรสำหรับฟิลเตอร์
     const selectedCountry = ref("");
@@ -118,20 +118,20 @@
     const router = useRouter();
     const route = useRoute();
 
-    // ฟังก์ชันดึงข้อมูลสติกเกอร์
-    async function fetchStickers(query) {
+    // ฟังก์ชันดึงข้อมูลธีม
+    async function fetchThemes(query) {
         try {
-            stickerPending.value = true;
-            const url = `https://api.line2me.in.th/api/sticker-more?${query}`;
+            themePending.value = true;
+            const url = `https://api.line2me.in.th/api/theme-more?${query}`;
             const res = await fetch(url);
-            if (!res.ok) throw new Error("Failed to fetch sticker API");
+            if (!res.ok) throw new Error("Failed to fetch theme API");
             const data = await res.json();
-            stickerData.value = data; // เก็บข้อมูลในตัวแปร
+            themeData.value = data; // เก็บข้อมูลในตัวแปร
         } catch (error) {
-            stickerError.value = error.message;
-            console.error("Error fetching sticker data:", error.message);
+            themeError.value = error.message;
+            console.error("Error fetching theme data:", error.message);
         } finally {
-            stickerPending.value = false;
+            themePending.value = false;
         }
     }
 
@@ -164,10 +164,10 @@
         const countryLabel = countries[selectedCountry.value] || "ทั้งหมด";
         const categoryLabel =
             selectedCategory.value === "official"
-                ? "สติกเกอร์ทางการ"
+                ? "ธีมทางการ"
                 : selectedCategory.value === "creator"
-                ? "สติกเกอร์ครีเอเตอร์"
-                : "สติกเกอร์ทั้งหมด";
+                ? "ธีมครีเอเตอร์"
+                : "ธีมทั้งหมด";
         const orderLabel = selectedOrder.value === "popular" ? "ฮิต" : "ล่าสุด";
 
         return `${categoryLabel} ${countryLabel} (${orderLabel})`;
@@ -177,7 +177,7 @@
     useHead(() => {
         const title = `${headerTitle.value} | Line2Me`;
         const description = `สำรวจ ${headerTitle.value} ที่ Line2Me พร้อมข้อมูลที่อัปเดตล่าสุด`;
-        const keywords = `สติกเกอร์ไลน์, ${headerTitle.value}, ซื้อสติกเกอร์, Line2Me`;
+        const keywords = `ธีมไลน์, ${headerTitle.value}, ซื้อธีม, Line2Me`;
 
         return {
             title,
@@ -193,7 +193,7 @@
                 },
                 {
                     property: "og:image",
-                    content: "https://example.com/default-sticker-image.jpg", // เปลี่ยน URL รูปภาพตามจริง
+                    content: "https://example.com/default-theme-image.jpg", // เปลี่ยน URL รูปภาพตามจริง
                 },
             ],
         };
@@ -204,7 +204,7 @@
         () => route.query,
         (newQuery) => {
             const query = new URLSearchParams(newQuery).toString();
-            fetchStickers(query); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
+            fetchThemes(query); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
         },
         { immediate: true }
     );
