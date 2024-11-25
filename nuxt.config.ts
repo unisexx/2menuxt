@@ -19,9 +19,15 @@ export default defineNuxtConfig({
     },
 
 
-  build: {
-    publicPath: '/_nuxt/', // ต้องตรงกับ Path ของ Static Files
-  },
+    build: {
+      postcss: {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        },
+      },
+      publicPath: '/_nuxt/', // ต้องตรงกับ Path ของ Static Files
+    },
 
   runtimeConfig: {
     public: {
