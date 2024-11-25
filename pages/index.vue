@@ -18,22 +18,17 @@
 export default {
   data() {
     return {
-      stickers: [], // To store sticker data
-      loading: true, // To show a loading state
-      error: null, // To handle errors
+      stickers: [], // เก็บข้อมูลสติกเกอร์
+      loading: true, // สถานะโหลดข้อมูล
+      error: null, // เก็บข้อผิดพลาด
     };
   },
-  async fetch() {
+  async mounted() {
     try {
-      const response = await fetch("https://line2me.in.th/sticker-update");
-      if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
-      }
-      const data = await response.json();
-      // Assuming data structure has an array of stickers
-      this.stickers = data;
+      const response = await this.$axios.$get("/sticker-update"); // ใช้ Axios
+      this.stickers = response; // เก็บข้อมูลจาก API
     } catch (err) {
-      this.error = err.message;
+      this.error = "Failed to fetch sticker updates. Please try again later.";
     } finally {
       this.loading = false;
     }
