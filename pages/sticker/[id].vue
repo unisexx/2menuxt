@@ -165,7 +165,18 @@
                     <!-- ตัวอย่างสติกเกอร์ในชุด -->
                     <div class="mt-4">
                         <h2 class="text-2xl font-semibold mb-4">
-                            ตัวอย่างสติกเกอร์ในชุด
+                            <span
+                                v-if="
+                                    getStickerResourceTypeTextDetail(
+                                        sticker.stickerresourcetype
+                                    )
+                                "
+                                >{{
+                                    getStickerResourceTypeTextDetail(
+                                        sticker.stickerresourcetype
+                                    )
+                                }}</span
+                            >
                         </h2>
 
                         <!-- หากไม่มีข้อมูล -->
@@ -281,6 +292,18 @@
             PER_STICKER_TEXT: "สติกเกอร์ข้อความ",
         };
         return resourceTypeMap[type] || "";
+    };
+
+    const getStickerResourceTypeTextDetail = (type) => {
+        const resourceTypeMap = {
+            ANIMATION: "คลิกสติกเกอร์เพื่อดูรูปเคลื่อนไหว",
+            ANIMATION_SOUND: "คลิกสติกเกอร์เพื่อฟังเสียง",
+            SOUND: "คลิกสติกเกอร์เพื่อฟังเสียง",
+            POPUP: "คลิกสติกเกอร์เพื่อดูรายละเอียด",
+            POPUP_SOUND: "คลิกสติกเกอร์เพื่อฟังเสียง",
+        };
+
+        return resourceTypeMap[type] || "ตัวอย่างสติกเกอร์ในชุด"; // คืนค่าเป็น "" หากไม่มีใน map
     };
 
     const getStickerUrl = (stamp) => {
