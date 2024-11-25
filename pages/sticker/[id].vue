@@ -50,6 +50,7 @@
                                 :alt="sticker.title"
                                 class="w-32 sm:w-48 lg:w-56 xl:w-64 h-auto autoLoopSticker"
                                 :data-animation="sticker.img_url"
+                                loading="lazy"
                             />
                             <!-- เงื่อนไขแสดงเสียง -->
                             <audio
@@ -186,6 +187,7 @@
                                     class="stampImg w-auto object-contain"
                                     :data-animation="getAnimationUrl(stamp)"
                                     @click="changeToAnimation"
+                                    loading="lazy"
                                 />
                                 <audio
                                     v-if="
@@ -321,7 +323,6 @@
         return res.json();
     });
 
-    // Set Meta Tags when SEO data is available
     if (seo.value) {
         useHead({
             title: seo.value.title,
@@ -332,6 +333,36 @@
                 { property: "og:description", content: seo.value.description },
                 { property: "og:image", content: seo.value.image },
                 { property: "og:url", content: seo.value.url },
+                { property: "og:type", content: "article" },
+            ],
+            link: [
+                {
+                    rel: "canonical",
+                    href: seo.value?.url || window.location.href,
+                },
+            ],
+            script: [
+                {
+                    type: "application/ld+json",
+                    children: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        name: seo.value?.title || "Default Title",
+                        description:
+                            seo.value?.description || "Default Description",
+                        image: seo.value?.image,
+                        brand: {
+                            "@type": "Brand",
+                            name: "LINE Stickers",
+                        },
+                        offers: {
+                            "@type": "Offer",
+                            price: sticker.value?.price || 0,
+                            priceCurrency: "THB",
+                            availability: "https://schema.org/InStock",
+                        },
+                    }),
+                },
             ],
         });
     }

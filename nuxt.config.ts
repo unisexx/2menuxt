@@ -12,6 +12,11 @@ export default defineNuxtConfig({
 
   app: {
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
+      head: {
+        htmlAttrs: {
+          lang: 'th', // เพิ่มภาษาไทยใน <html>
+        },
+      },
     },
 
 
@@ -25,11 +30,11 @@ export default defineNuxtConfig({
     //   publicPath: '/_nuxt/',
     // },
 
-  // runtimeConfig: {
-  //   public: {
-  //     apiBase: 'https://line2me.in.th/api',
-  //   },
-  // },
+    runtimeConfig: {
+      public: {
+        apiBaseUrl: 'https://api.line2me.in.th/api',
+      },
+    },
 
   compatibilityDate: '2024-11-01',
   // devtools: { enabled: true }

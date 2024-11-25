@@ -14,6 +14,7 @@
                     :src="`https://stickershop.line-scdn.net/sticonshop/v1/product/${emoji.emoji_code}/iphone/main.png`"
                     :alt="emoji.title"
                     class="w-full"
+                    loading="lazy"
                 />
                 <span
                     v-if="emoji.is_new"
@@ -41,19 +42,19 @@
 </template>
 
 <script>
-export default {
-    props: {
-        emojis: {
-            type: Array,
-            required: true,
+    export default {
+        props: {
+            emojis: {
+                type: Array,
+                required: true,
+            },
         },
-    },
-};
+    };
 </script>
 
 <style scoped>
-/* คุณสามารถเพิ่มสไตล์เฉพาะสำหรับ component นี้ได้ */
-.custom-font-size {
-    font-size: 8px; /* Default สำหรับมือถือ */
-}
+    /* คุณสามารถเพิ่มสไตล์เฉพาะสำหรับ component นี้ได้ */
+    .custom-font-size {
+        font-size: 8px; /* Default สำหรับมือถือ */
+    }
 </style>

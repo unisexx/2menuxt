@@ -10,7 +10,12 @@
         >
             <div class="relative">
                 <!-- รูปภาพเต็มขนาด -->
-                <img :src="theme.img_url" :alt="theme.title" class="w-full" />
+                <img
+                    :src="theme.img_url"
+                    :alt="theme.title"
+                    class="w-full"
+                    loading="lazy"
+                />
                 <span
                     v-if="theme.is_new"
                     class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1 rounded custom-font-size"
@@ -37,19 +42,19 @@
 </template>
 
 <script>
-export default {
-    props: {
-        themes: {
-            type: Array,
-            required: true,
+    export default {
+        props: {
+            themes: {
+                type: Array,
+                required: true,
+            },
         },
-    },
-};
+    };
 </script>
 
 <style scoped>
-/* ใช้ขนาดที่เล็กสำหรับมือถือ และปรับขนาดสำหรับหน้าจอที่ใหญ่ขึ้น */
-.custom-font-size {
-    font-size: 8px; /* Default สำหรับมือถือ */
-}
+    /* ใช้ขนาดที่เล็กสำหรับมือถือ และปรับขนาดสำหรับหน้าจอที่ใหญ่ขึ้น */
+    .custom-font-size {
+        font-size: 8px; /* Default สำหรับมือถือ */
+    }
 </style>
