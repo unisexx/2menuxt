@@ -32,10 +32,39 @@
 </template>
 
 <script setup>
-import { useRoute } from "#app";
+import { useRoute, useHead } from "#app";
 
 const route = useRoute();
 const id = route.params.id;
+
+// SEO
+useHead({
+  title: "สติกเกอร์ไลน์ ธีม และอีโมจิ - อัพเดทประจำสัปดาห์",
+  meta: [
+    {
+      name: "description",
+      content:
+        "ติดตามข้อมูลอัพเดทสติกเกอร์ไลน์ ธีมไลน์ และอีโมจิที่น่าสนใจประจำสัปดาห์จาก Line2Me",
+    },
+    {
+      property: "og:title",
+      content: "สติกเกอร์ไลน์ ธีม และอีโมจิ - อัพเดทประจำสัปดาห์",
+    },
+    {
+      property: "og:description",
+      content:
+        "ค้นพบสติกเกอร์ไลน์ ธีมไลน์ และอีโมจิใหม่ล่าสุด พร้อมข้อมูลที่อัพเดททุกสัปดาห์จาก Line2Me",
+    },
+    {
+      property: "og:image",
+      content: "https://line2me.in.th/og-image.jpg", // เปลี่ยน URL รูปภาพตามต้องการ
+    },
+    {
+      name: "keywords",
+      content: "สติกเกอร์ไลน์, ธีมไลน์, อีโมจิ, Line2Me, อัพเดท",
+    },
+  ],
+});
 
 // สติกเกอร์ API
 const {
