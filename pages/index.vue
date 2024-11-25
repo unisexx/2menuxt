@@ -2,7 +2,12 @@
   <Layout>
     <div class="container mx-auto">
       <!-- แสดงข้อมูลดิบ -->
-      <pre>{{ stickers }}</pre>
+
+      <div v-if="data">
+        <pre>{{ data }}</pre>
+      </div>
+      <p v-else-if="pending">Loading...</p>
+      <p v-else>Error loading data</p>
 
       <!-- <h2 class="text-xl font-semibold mb-4">
         สติกเกอร์ไลน์อัพเดทประจำสัปดาห์
@@ -21,27 +26,26 @@
 </template>
 
 <script setup>
-import { useRuntimeConfig, useFetch, useHead } from "#app";
+import { useRoute } from "#app";
 
 import ThemeCard from "../components/ThemeCard.vue";
 import StickerCard from "../components/StickerCard.vue";
 import EmojiCard from "../components/EmojiCard.vue";
 
-const config = useRuntimeConfig();
+const route = useRoute();
 
-// ใช้ `useAsyncData` ดึงข้อมูลจาก API
-const {
-  data: stickers,
-  error: stickerError,
-  pending,
-} = await useAsyncData(
-  "fetchStickerUpdate", // ตั้งชื่อให้ Cache ข้อมูลใน Nuxt
+const { data, error, pending } = await useAsyncData(
+  `fetchStickerUpdate`,
   async () => {
     const res = await fetch(`${config.public.apiBase}/sticker-update`);
     if (!res.ok) throw new Error("Failed to fetch API");
     return res.json();
   }
 );
+
+if (error.value) {
+  console.error("Error fetching data:", error.value);
+}
 
 // const { data: themes, error: themeError } = useFetch(
 //   `${config.public.apiBase}/theme-update`
