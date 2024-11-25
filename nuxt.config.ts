@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   },
 
   app: {
+      buildAssetsDir: '/dear_nuxt/', // กำหนดชื่อโฟลเดอร์ใหม่ที่ต้องการ
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
       head: {
         link: [
