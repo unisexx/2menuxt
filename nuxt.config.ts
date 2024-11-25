@@ -26,7 +26,7 @@ export default defineNuxtConfig({
           autoprefixer: {},
         },
       },
-      publicPath: '/_nuxt/', // ต้องตรงกับ Path ของ Static Files
+      publicPath: '/_nuxt/',
     },
 
   runtimeConfig: {

@@ -22,8 +22,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRuntimeConfig, useHead } from "#app";
+import { useRuntimeConfig, useFetch, useHead } from "#app";
 
 import ThemeCard from "../components/ThemeCard.vue";
 import StickerCard from "../components/StickerCard.vue";
@@ -31,9 +30,16 @@ import EmojiCard from "../components/EmojiCard.vue";
 
 const config = useRuntimeConfig();
 
-const stickers = ref([]); // ข้อมูลสำหรับสติกเกอร์
-const themes = ref([]); // ข้อมูลสำหรับธีม
-const emojis = ref([]); // ข้อมูลสำหรับอิโมจิ
+// ดึงข้อมูลด้วย useFetch
+const { data: stickers, error: stickerError } = useFetch(
+  `${config.public.apiBase}/sticker-update`
+);
+const { data: themes, error: themeError } = useFetch(
+  `${config.public.apiBase}/theme-update`
+);
+const { data: emojis, error: emojiError } = useFetch(
+  `${config.public.apiBase}/emoji-update`
+);
 
 // ตั้งค่า SEO สำหรับหน้า Index
 useHead({
@@ -64,40 +70,6 @@ useHead({
     },
     { property: "og:url", content: "https://example.com/" },
   ],
-});
-
-// ดึงข้อมูลเมื่อ mounted
-const fetchStickerUpdate = async () => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/sticker-update`);
-    stickers.value = await response.json();
-  } catch (error) {
-    console.error("Error fetching sticker update:", error);
-  }
-};
-
-const fetchThemeUpdate = async () => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/theme-update`);
-    themes.value = await response.json();
-  } catch (error) {
-    console.error("Error fetching theme update:", error);
-  }
-};
-
-const fetchEmojiUpdate = async () => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/emoji-update`);
-    emojis.value = await response.json();
-  } catch (error) {
-    console.error("Error fetching emoji update:", error);
-  }
-};
-
-onMounted(() => {
-  fetchStickerUpdate();
-  fetchThemeUpdate();
-  fetchEmojiUpdate();
 });
 </script>
 
