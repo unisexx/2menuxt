@@ -29,11 +29,11 @@ export default defineNuxtConfig({
     //   publicPath: '/_nuxt/',
     // },
 
-  runtimeConfig: {
-    public: {
-      apiBase: 'https://line2me.in.th/api',
-    },
-  },
+  // runtimeConfig: {
+  //   public: {
+  //     apiBase: 'https://line2me.in.th/api',
+  //   },
+  // },
 
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true }
