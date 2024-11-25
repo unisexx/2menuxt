@@ -1,49 +1,63 @@
 <template>
-  <Layout>
-    <div class="container mx-auto">
-      <!-- แสดงข้อมูลดิบ -->
-
-      <div v-if="data">
-        <pre>{{ data }}</pre>
-      </div>
-      <p v-else-if="pending">Loading...</p>
-      <p v-else>Error loading data</p>
-
-      <!-- <h2 class="text-xl font-semibold mb-4">
-        สติกเกอร์ไลน์อัพเดทประจำสัปดาห์
-      </h2>
-      <StickerCard :stickers="stickers" />
-      <hr />
-      <h2 class="text-xl font-semibold mt-8 mb-4">ธีมไลน์อัพเดทประจำสัปดาห์</h2>
-      <ThemeCard :themes="themes" />
-      <hr />
-      <h2 class="text-xl font-semibold mt-8 mb-4">
-        อิโมจิไลน์อัพเดทประจำสัปดาห์
-      </h2>
-      <EmojiCard :emojis="emojis" /> -->
+  <div>
+    <h1>LINE Sticker Updates</h1>
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error">{{ error }}</div>
+    <div v-else>
+      <ul>
+        <li v-for="(sticker, index) in stickers" :key="index">
+          <h3>{{ sticker.title }}</h3>
+          <img :src="sticker.image" alt="Sticker Image" />
+        </li>
+      </ul>
     </div>
-  </Layout>
+  </div>
 </template>
 
-<script setup>
-import { useRoute } from "#app";
-
-const route = useRoute();
-
-const { data, error, pending } = await useAsyncData(
-  `fetchSticker`,
-  async () => {
-    const res = await fetch(`https://line2me.in.th/sticker-update`);
-    if (!res.ok) throw new Error("Failed to fetch API");
-    return res.json();
-  }
-);
-
-if (error.value) {
-  console.error("Error fetching data:", error.value);
-}
+<script>
+export default {
+  data() {
+    return {
+      stickers: [], // To store sticker data
+      loading: true, // To show a loading state
+      error: null, // To handle errors
+    };
+  },
+  async fetch() {
+    try {
+      const response = await fetch("https://line2me.in.th/sticker-update");
+      if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+      }
+      const data = await response.json();
+      // Assuming data structure has an array of stickers
+      this.stickers = data;
+    } catch (err) {
+      this.error = err.message;
+    } finally {
+      this.loading = false;
+    }
+  },
+};
 </script>
 
 <style scoped>
-/* เพิ่มสไตล์เพิ่มเติมถ้าจำเป็น */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
 </style>
