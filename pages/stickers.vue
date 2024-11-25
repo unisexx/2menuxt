@@ -2,7 +2,6 @@
     <div>
         <!-- ฟิลเตอร์ -->
         <div class="flex flex-wrap gap-4 mb-4">
-            <!-- เลือกประเภท -->
             <div>
                 <label for="category" class="block mb-2 font-medium"
                     >เลือกประเภท:</label
@@ -18,8 +17,6 @@
                     <option value="creator">สติกเกอร์ครีเอเตอร์</option>
                 </select>
             </div>
-
-            <!-- เลือกประเทศ -->
             <div>
                 <label for="country" class="block mb-2 font-medium"
                     >เลือกประเทศ:</label
@@ -39,8 +36,6 @@
                     </option>
                 </select>
             </div>
-
-            <!-- เลือกการเรียงลำดับ -->
             <div>
                 <label for="order" class="block mb-2 font-medium"
                     >เรียงลำดับ:</label
@@ -59,9 +54,7 @@
 
         <!-- สติกเกอร์ -->
         <div v-if="stickerData && stickerData.data">
-            <h2 class="text-xl font-semibold mb-4">
-                {{ headerTitle }}
-            </h2>
+            <h2 class="text-xl font-semibold mb-4">{{ headerTitle }}</h2>
             <StickerCard :stickers="stickerData.data" />
             <hr />
 
@@ -99,7 +92,7 @@
     // ตัวแปรสำหรับฟิลเตอร์
     const selectedCountry = ref("");
     const selectedCategory = ref("");
-    const selectedOrder = ref("new"); // ค่าดีฟอลต์เป็น "ล่าสุด"
+    const selectedOrder = ref("new");
 
     // ตัวเลือกประเทศ
     const countries = {
@@ -114,7 +107,7 @@
     const router = useRouter();
     const route = useRoute();
 
-    // ใช้ useAsyncData ดึงข้อมูล API
+    // ดึงข้อมูลสติกเกอร์
     const {
         data: stickerData,
         pending: stickerPending,
@@ -125,16 +118,15 @@
         return $fetch(`https://api.line2me.in.th/api/sticker-more?${query}`);
     });
 
-    // ฟังก์ชันอัปเดต URL และดึงข้อมูล
+    // ฟังก์ชันอัปเดตฟิลเตอร์
     function applyFilters() {
         const newQuery = {
             ...route.query,
-            page: 1, // รีเซ็ตหน้าเมื่อเปลี่ยนฟิลเตอร์
+            page: 1,
             country: selectedCountry.value,
             category: selectedCategory.value,
-            order: selectedOrder.value, // เพิ่มตัวเลือกการเรียงลำดับ
+            order: selectedOrder.value,
         };
-
         router.push({ query: newQuery });
     }
 
@@ -144,12 +136,11 @@
             ...route.query,
             page,
         };
-
         router.push({ query: newQuery });
         window.scrollTo({ top: 0 });
     }
 
-    // สร้างหัวข้อจาก parameter
+    // หัวข้อแสดงข้อมูล
     const headerTitle = computed(() => {
         const countryLabel = countries[selectedCountry.value] || "ทั้งหมด";
         const categoryLabel =
@@ -163,7 +154,7 @@
         return `${categoryLabel} ${countryLabel} (${orderLabel})`;
     });
 
-    // อัปเดต SEO
+    // ใช้ SEO
     useHead(() => {
         const title = `${headerTitle.value} | Line2Me`;
         const description = `สำรวจ ${headerTitle.value} ที่ Line2Me พร้อมข้อมูลที่อัปเดตล่าสุด`;
@@ -183,23 +174,21 @@
                 },
                 {
                     property: "og:image",
-                    content: "https://example.com/default-sticker-image.jpg", // เปลี่ยน URL รูปภาพตามจริง
+                    content: "https://example.com/default-sticker-image.jpg",
                 },
             ],
         };
     });
 
-    // Watch การเปลี่ยนแปลงของ query string
+    // Watch query string
     watch(
         () => route.query,
-        () => {
-            refresh(); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
+        (newQuery) => {
+            selectedCountry.value = newQuery.country || "";
+            selectedCategory.value = newQuery.category || "";
+            selectedOrder.value = newQuery.order || "new";
+            refresh();
         },
         { immediate: true }
     );
-
-    // ดึงค่าจาก query string ครั้งแรก
-    selectedCountry.value = route.query.country || "";
-    selectedCategory.value = route.query.category || "";
-    selectedOrder.value = route.query.order || "new"; // ค่าดีฟอลต์เป็น "new"
 </script>
