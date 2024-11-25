@@ -13,11 +13,12 @@ export default defineNuxtConfig({
   app: {
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
       head: {
-        htmlAttrs: {
-          lang: 'th', // เพิ่มภาษาไทยใน <html>
-        },
+      htmlAttrs: {
+        lang: 'th', // เพิ่มภาษาไทยใน <html>
       },
     },
+    },
+
 
     // build: {
     //   postcss: {
