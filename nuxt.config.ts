@@ -19,15 +19,15 @@ export default defineNuxtConfig({
     },
 
 
-    build: {
-      postcss: {
-        plugins: {
-          tailwindcss: {},
-          autoprefixer: {},
-        },
-      },
-      publicPath: '/_nuxt/',
-    },
+    // build: {
+    //   postcss: {
+    //     plugins: {
+    //       tailwindcss: {},
+    //       autoprefixer: {},
+    //     },
+    //   },
+    //   publicPath: '/_nuxt/',
+    // },
 
   runtimeConfig: {
     public: {
