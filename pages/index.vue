@@ -1,58 +1,30 @@
 <template>
   <div>
-    <h1>LINE Sticker Updates</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else>
-      <ul>
-        <li v-for="(sticker, index) in stickers" :key="index">
-          <h3>{{ sticker.title }}</h3>
-          <img :src="sticker.image" alt="Sticker Image" />
-        </li>
-      </ul>
+    <h1>ข้อมูลสติกเกอร์</h1>
+    <div v-if="data">
+      <pre>{{ data }}</pre>
     </div>
+    <p v-else-if="pending">Loading...</p>
+    <p v-else>Error loading data</p>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      stickers: [], // เก็บข้อมูลสติกเกอร์
-      loading: true, // สถานะโหลดข้อมูล
-      error: null, // เก็บข้อผิดพลาด
-    };
-  },
-  async mounted() {
-    try {
-      const response = await this.$axios.$get("/sticker-update"); // ใช้ Axios
-      this.stickers = response; // เก็บข้อมูลจาก API
-    } catch (err) {
-      this.error = "Failed to fetch sticker updates. Please try again later.";
-    } finally {
-      this.loading = false;
-    }
-  },
-};
-</script>
+<script setup>
+import { useRoute } from "#app";
 
-<style scoped>
-h1 {
-  text-align: center;
-  color: #2c3e50;
+const route = useRoute();
+const id = route.params.id;
+
+const { data, error, pending } = await useAsyncData(
+  `fetchSticker-${id}`,
+  async () => {
+    const res = await fetch(`https://line2me.in.th/api/sticker-update`);
+    if (!res.ok) throw new Error("Failed to fetch API");
+    return res.json();
+  }
+);
+
+if (error.value) {
+  console.error("Error fetching data:", error.value);
 }
-ul {
-  list-style: none;
-  padding: 0;
-}
-li {
-  margin: 20px 0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-}
-img {
-  max-width: 100%;
-  height: auto;
-}
-</style>
+</script>
