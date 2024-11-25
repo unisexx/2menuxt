@@ -29,10 +29,20 @@ import EmojiCard from "../components/EmojiCard.vue";
 
 const config = useRuntimeConfig();
 
-// ดึงข้อมูลด้วย useFetch
-const { data: stickers, error: stickerError } = useFetch(
-  `${config.public.apiBase}/sticker-update`
+// ใช้ `useAsyncData` ดึงข้อมูลจาก API
+const {
+  data: stickers,
+  error: stickerError,
+  pending,
+} = await useAsyncData(
+  "fetchStickerUpdate", // ตั้งชื่อให้ Cache ข้อมูลใน Nuxt
+  async () => {
+    const res = await fetch(`${config.public.apiBase}/sticker-update`);
+    if (!res.ok) throw new Error("Failed to fetch API");
+    return res.json();
+  }
 );
+
 // const { data: themes, error: themeError } = useFetch(
 //   `${config.public.apiBase}/theme-update`
 // );
