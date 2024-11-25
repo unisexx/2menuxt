@@ -182,4 +182,5 @@
 <style>
     /** ธงชาติ */
     @import "@/assets/css/freakflags/freakflags.css";
+    @import "@/assets/tailwind.css";
 </style>
