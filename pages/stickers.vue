@@ -58,10 +58,8 @@
         </div>
 
         <!-- สติกเกอร์ -->
-        <div v-if="stickerData && stickerData.data">
-            <h2 class="text-xl font-semibold mb-4">
-                {{ headerTitle }}
-            </h2>
+        <div v-if="stickerData">
+            <h2 class="text-xl font-semibold mb-4">{{ headerTitle }}</h2>
             <StickerCard :stickers="stickerData.data" />
             <hr />
 
@@ -86,19 +84,15 @@
                 </button>
             </div>
         </div>
-        <p v-else-if="stickerPending">Loading...</p>
+        <p v-else-if="pending">Loading...</p>
         <p v-else>Error loading sticker data</p>
     </div>
 </template>
 
 <script setup>
-    import { ref, computed, watch } from "vue";
+    import { ref, computed } from "vue";
     import { useRouter, useRoute } from "vue-router";
-
-    // ตัวแปรสำหรับเก็บข้อมูล API
-    const stickerData = ref(null);
-    const stickerPending = ref(false);
-    const stickerError = ref(null);
+    import { useAsyncData } from "#app";
 
     // ตัวแปรสำหรับฟิลเตอร์
     const selectedCountry = ref("");
@@ -118,45 +112,45 @@
     const router = useRouter();
     const route = useRoute();
 
-    // ฟังก์ชันดึงข้อมูลสติกเกอร์
-    async function fetchStickers(query) {
-        try {
-            stickerPending.value = true;
-            const url = `http://api.line2me.in.th/api/sticker-more?${query}`;
-            const res = await fetch(url);
-            if (!res.ok) throw new Error("Failed to fetch sticker API");
-            const data = await res.json();
-            stickerData.value = data; // เก็บข้อมูลในตัวแปร
-        } catch (error) {
-            stickerError.value = error.message;
-            console.error("Error fetching sticker data:", error.message);
-        } finally {
-            stickerPending.value = false;
-        }
-    }
+    // ดึงข้อมูลสติกเกอร์
+    const {
+        data: stickerData,
+        pending,
+        refresh,
+    } = useAsyncData(() =>
+        $fetch(`https://api.line2me.in.th/api/sticker-more`, {
+            params: {
+                page: route.query.page || 1,
+                country: route.query.country || "",
+                category: route.query.category || "",
+                order: route.query.order || "new",
+            },
+        })
+    );
 
     // ฟังก์ชันอัปเดต URL และดึงข้อมูล
     function applyFilters() {
-        const newQuery = {
-            ...route.query,
-            page: 1, // รีเซ็ตหน้าเมื่อเปลี่ยนฟิลเตอร์
-            country: selectedCountry.value,
-            category: selectedCategory.value,
-            order: selectedOrder.value, // เพิ่มตัวเลือกการเรียงลำดับ
-        };
-
-        router.push({ query: newQuery }); // อัปเดต URL
+        router.push({
+            query: {
+                ...route.query,
+                page: 1, // รีเซ็ตหน้าเมื่อเปลี่ยนฟิลเตอร์
+                country: selectedCountry.value,
+                category: selectedCategory.value,
+                order: selectedOrder.value, // เพิ่มตัวเลือกการเรียงลำดับ
+            },
+        });
+        refresh(); // ดึงข้อมูลใหม่
     }
 
     // ฟังก์ชันเปลี่ยนหน้า
     function changePage(page) {
-        const newQuery = {
-            ...route.query,
-            page,
-        };
-
-        router.push({ query: newQuery }); // อัปเดต URL
-        window.scrollTo({ top: 0 }); // เลื่อนกลับไปด้านบน
+        router.push({
+            query: {
+                ...route.query,
+                page,
+            },
+        });
+        refresh(); // ดึงข้อมูลใหม่
     }
 
     // สร้างหัวข้อจาก parameter
@@ -172,45 +166,4 @@
 
         return `${categoryLabel} ${countryLabel} (${orderLabel})`;
     });
-
-    // อัปเดต SEO
-    useHead(() => {
-        const title = `${headerTitle.value} | Line2Me`;
-        const description = `สำรวจ ${headerTitle.value} ที่ Line2Me พร้อมข้อมูลที่อัปเดตล่าสุด`;
-        const keywords = `สติกเกอร์ไลน์, ${headerTitle.value}, ซื้อสติกเกอร์, Line2Me`;
-
-        return {
-            title,
-            meta: [
-                { name: "description", content: description },
-                { name: "keywords", content: keywords },
-                { property: "og:title", content: title },
-                { property: "og:description", content: description },
-                { property: "og:type", content: "website" },
-                {
-                    property: "og:url",
-                    content: window?.location?.href || "",
-                },
-                {
-                    property: "og:image",
-                    content: "https://example.com/default-sticker-image.jpg", // เปลี่ยน URL รูปภาพตามจริง
-                },
-            ],
-        };
-    });
-
-    // Watch การเปลี่ยนแปลงของ query string
-    watch(
-        () => route.query,
-        (newQuery) => {
-            const query = new URLSearchParams(newQuery).toString();
-            fetchStickers(query); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
-        },
-        { immediate: true }
-    );
-
-    // ดึงค่าจาก query string ครั้งแรก
-    selectedCountry.value = route.query.country || "";
-    selectedCategory.value = route.query.category || "";
-    selectedOrder.value = route.query.order || "new"; // ค่าดีฟอลต์เป็น "new"
 </script>
