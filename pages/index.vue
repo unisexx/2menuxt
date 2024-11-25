@@ -38,7 +38,6 @@
 <script setup>
     import { useRoute } from "#app";
 
-    const config = useRuntimeConfig();
     const route = useRoute();
     const id = route.params.id;
 
@@ -77,7 +76,7 @@
         error: stickerError,
         pending: stickerPending,
     } = await useAsyncData(`fetchSticker-${id}`, async () => {
-        const res = await fetch(`${config.public.apiBaseUrl}/sticker-update`);
+        const res = await fetch(`https://line2me.in.th/api/sticker-update`);
         if (!res.ok) throw new Error("Failed to fetch sticker API");
         return res.json();
     });
@@ -88,7 +87,7 @@
         error: themeError,
         pending: themePending,
     } = await useAsyncData(`fetchTheme-${id}`, async () => {
-        const res = await fetch(`${config.public.apiBaseUrl}/theme-update`);
+        const res = await fetch(`https://line2me.in.th/api/theme-update`);
         if (!res.ok) throw new Error("Failed to fetch theme API");
         return res.json();
     });
@@ -99,7 +98,7 @@
         error: emojiError,
         pending: emojiPending,
     } = await useAsyncData(`fetchEmoji-${id}`, async () => {
-        const res = await fetch(`${config.public.apiBaseUrl}/emoji-update`);
+        const res = await fetch(`https://line2me.in.th/api/emoji-update`);
         if (!res.ok) throw new Error("Failed to fetch emoji API");
         return res.json();
     });
