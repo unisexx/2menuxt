@@ -54,7 +54,7 @@
         </aside>
         <!-- Main Content -->
         <main class="flex-1 p-3 transition-all duration-300">
-          <slot />
+          <NuxtPage />
         </main>
       </div>
 
