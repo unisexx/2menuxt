@@ -1,13 +1,13 @@
-module.exports = {
+export default {
     apps: [
         {
             name: "line2me",
-            exec_mode: "cluster",
-            instances: "max", // หรือระบุจำนวน instance ที่ต้องการ
             script: "./.output/server/index.mjs",
+            exec_mode: "cluster",
+            instances: "max",
             env: {
-                PORT: 3000, // หรือพอร์ตที่ต้องการให้แอปพลิเคชันรัน
                 NODE_ENV: "production",
+                PORT: 3000,
             },
         },
     ],
