@@ -6,7 +6,25 @@
       </h2>
       <StickerCard :stickers="stickers" />
 
-      <hr />
+      <div v-if="stickers.length > 0">
+        <div
+          v-for="sticker in stickers"
+          :key="sticker.id"
+          class="border p-4 mb-4 rounded-md"
+        >
+          <img
+            :src="sticker.img_url"
+            :alt="sticker.title_th"
+            class="w-32 h-32 object-cover mb-2"
+          />
+          <h3 class="text-lg font-semibold">{{ sticker.title_th }}</h3>
+          <p>รหัสสติกเกอร์: {{ sticker.sticker_code }}</p>
+          <p>ประเทศ: {{ sticker.country }}</p>
+          <p>ราคา: {{ sticker.price }} THB</p>
+        </div>
+      </div>
+
+      <!-- <hr />
 
       <h2 class="text-xl font-semibold mt-8 mb-4">ธีมไลน์อัพเดทประจำสัปดาห์</h2>
       <ThemeCard :themes="themes" />
@@ -16,7 +34,7 @@
       <h2 class="text-xl font-semibold mt-8 mb-4">
         อิโมจิไลน์อัพเดทประจำสัปดาห์
       </h2>
-      <EmojiCard :emojis="emojis" />
+      <EmojiCard :emojis="emojis" /> -->
     </div>
   </Layout>
 </template>
@@ -34,12 +52,12 @@ const config = useRuntimeConfig();
 const { data: stickers, error: stickerError } = useFetch(
   `${config.public.apiBase}/sticker-update`
 );
-const { data: themes, error: themeError } = useFetch(
-  `${config.public.apiBase}/theme-update`
-);
-const { data: emojis, error: emojiError } = useFetch(
-  `${config.public.apiBase}/emoji-update`
-);
+// const { data: themes, error: themeError } = useFetch(
+//   `${config.public.apiBase}/theme-update`
+// );
+// const { data: emojis, error: emojiError } = useFetch(
+//   `${config.public.apiBase}/emoji-update`
+// );
 
 // ตั้งค่า SEO สำหรับหน้า Index
 useHead({
