@@ -66,18 +66,18 @@
             <!-- Pagination -->
             <div class="flex justify-between items-center mt-6">
                 <button
-                    @click="changePage(stickerData.current_page - 1)"
-                    :disabled="!stickerData.prev_page_url"
+                    @click="changePage(stickerData?.current_page - 1)"
+                    :disabled="!stickerData?.prev_page_url"
                     class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
                 >
                     ก่อนหน้า
                 </button>
-                <span class="text-gray-700 font-semibold"
-                    >หน้าปัจจุบัน: {{ stickerData.current_page }}</span
-                >
+                <span class="text-gray-700 font-semibold">
+                    หน้าปัจจุบัน: {{ stickerData?.current_page || 1 }}
+                </span>
                 <button
-                    @click="changePage(stickerData.current_page + 1)"
-                    :disabled="!stickerData.next_page_url"
+                    @click="changePage(stickerData?.current_page + 1)"
+                    :disabled="!stickerData?.next_page_url"
                     class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
                 >
                     ถัดไป
@@ -144,13 +144,14 @@
 
     // ฟังก์ชันเปลี่ยนหน้า
     function changePage(page) {
+        if (page < 1 || !page) return; // ป้องกันหน้าติดลบหรือ null
         router.push({
             query: {
                 ...route.query,
                 page,
             },
         });
-        refresh(); // ดึงข้อมูลใหม่
+        refresh(); // โหลดข้อมูลใหม่
     }
 
     // สร้างหัวข้อจาก parameter
