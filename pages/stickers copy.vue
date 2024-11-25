@@ -94,7 +94,11 @@
 <script setup>
     import { ref, computed, watch } from "vue";
     import { useRouter, useRoute } from "vue-router";
-    import { useAsyncData, useHead } from "#app";
+
+    // ตัวแปรสำหรับเก็บข้อมูล API
+    const stickerData = ref(null);
+    const stickerPending = ref(false);
+    const stickerError = ref(null);
 
     // ตัวแปรสำหรับฟิลเตอร์
     const selectedCountry = ref("");
@@ -114,16 +118,22 @@
     const router = useRouter();
     const route = useRoute();
 
-    // ใช้ useAsyncData ดึงข้อมูล API
-    const {
-        data: stickerData,
-        pending: stickerPending,
-        error: stickerError,
-        refresh,
-    } = useAsyncData(() => {
-        const query = new URLSearchParams(route.query).toString();
-        return $fetch(`https://api.line2me.in.th/api/sticker-more?${query}`);
-    });
+    // ฟังก์ชันดึงข้อมูลสติกเกอร์
+    async function fetchStickers(query) {
+        try {
+            stickerPending.value = true;
+            const url = `https://api.line2me.in.th/api/sticker-more?${query}`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Failed to fetch sticker API");
+            const data = await res.json();
+            stickerData.value = data; // เก็บข้อมูลในตัวแปร
+        } catch (error) {
+            stickerError.value = error.message;
+            console.error("Error fetching sticker data:", error.message);
+        } finally {
+            stickerPending.value = false;
+        }
+    }
 
     // ฟังก์ชันอัปเดต URL และดึงข้อมูล
     function applyFilters() {
@@ -135,7 +145,7 @@
             order: selectedOrder.value, // เพิ่มตัวเลือกการเรียงลำดับ
         };
 
-        router.push({ query: newQuery });
+        router.push({ query: newQuery }); // อัปเดต URL
     }
 
     // ฟังก์ชันเปลี่ยนหน้า
@@ -145,8 +155,8 @@
             page,
         };
 
-        router.push({ query: newQuery });
-        window.scrollTo({ top: 0 });
+        router.push({ query: newQuery }); // อัปเดต URL
+        window.scrollTo({ top: 0 }); // เลื่อนกลับไปด้านบน
     }
 
     // สร้างหัวข้อจาก parameter
@@ -192,8 +202,9 @@
     // Watch การเปลี่ยนแปลงของ query string
     watch(
         () => route.query,
-        () => {
-            refresh(); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
+        (newQuery) => {
+            const query = new URLSearchParams(newQuery).toString();
+            fetchStickers(query); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
         },
         { immediate: true }
     );

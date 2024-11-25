@@ -1,5 +1,8 @@
 export default defineNuxtConfig({
   ssr: true,
+  nitro: {
+    preset: 'server',
+  },
 
   css: ['@/assets/css/tailwind.css'],
 
@@ -18,7 +21,6 @@ export default defineNuxtConfig({
         },
       },
     },
-
 
     // build: {
     //   postcss: {
