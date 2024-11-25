@@ -12,10 +12,6 @@ export default defineNuxtConfig({
 
   app: {
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
-      head:{
-      title: 'Sticker View',
-            meta: [{ name: 'description', content: 'View Sticker Details by ID' }], 
-      },
     },
 
 

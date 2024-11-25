@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { useRoute, useHead } from "#app";
+import { useRoute } from "#app";
 
 const route = useRoute();
 const id = route.params.id;

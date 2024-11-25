@@ -110,10 +110,10 @@ export default {
       menus: [
         { to: "/", label: "หน้าแรก", icon: "home" },
         { separator: true },
-        // {
-        //   to: "/stickers?category=official&country=",
-        //   label: "สติกเกอร์ไลน์ทางการ",
-        // },
+        {
+          to: "/stickers?category=official&country=",
+          label: "สติกเกอร์ไลน์ทางการ",
+        },
         // {
         //   to: "/stickers?category=creator&country=",
         //   label: "สติกเกอร์ไลน์ครีเอเตอร์",
