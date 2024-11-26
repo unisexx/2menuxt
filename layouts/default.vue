@@ -39,10 +39,11 @@
                                 v-if="menu.to"
                                 :to="menu.to"
                                 :class="[
-                                    'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer',
-                                    isActive(menu.to)
-                                        ? 'bg-blue-100 text-blue-600 font-semibold'
-                                        : '',
+                                    {
+                                        'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer': true,
+                                        'bg-blue-100 text-blue-600 font-semibold':
+                                            isActive(menu.to),
+                                    },
                                 ]"
                                 @click="closeAside"
                             >
@@ -74,10 +75,11 @@
                                 v-if="menu.to"
                                 :to="menu.to"
                                 :class="[
-                                    'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer',
-                                    isActive(menu.to)
-                                        ? 'bg-blue-100 text-blue-600 font-semibold'
-                                        : '',
+                                    {
+                                        'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer': true,
+                                        'bg-blue-100 text-blue-600 font-semibold':
+                                            isActive(menu.to),
+                                    },
                                 ]"
                                 @click="closeAside"
                             >
@@ -165,18 +167,19 @@
                 }
             },
             isActive(link) {
-                // ตัด Query String หรือ Dynamic Parameter ออก
-                const currentPath = this.$route.path
-                    .split("?")[0]
-                    .split("/")[1];
-                const menuPath = link.split("/")[1]; // ใช้เฉพาะส่วน Path หลัก
-                // console.log(
-                //     "Current Path:",
-                //     currentPath,
-                //     "Menu Link:",
-                //     menuPath
-                // );
-                return currentPath === menuPath;
+                const currentPath = this.$route.path.split("/")[1] || ""; // Path หลักจาก URL
+                const menuPath = link.split("/")[1] || ""; // Path หลักจากเมนู
+
+                // สร้างกฎสำหรับตรวจสอบ Active
+                const activeRules = {
+                    "": [""], // สำหรับหน้าแรก
+                    stickers: ["sticker", "stickers"],
+                    themes: ["theme", "themes"],
+                    emojis: ["emoji", "emojis"],
+                };
+
+                // ตรวจสอบว่า currentPath อยู่ในกฎของ menuPath หรือไม่
+                return activeRules[menuPath]?.includes(currentPath) || false;
             },
         },
     };
