@@ -15,7 +15,7 @@ export default defineNuxtConfig({
       baseURL: '/', // กำหนด Base URL ให้ตรงกับโฟลเดอร์ราก
       head: {
         link: [
-          { rel: 'stylesheet', href: '/tailwind.css' }
+          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
         ],
       htmlAttrs: {
         lang: 'th', // เพิ่มภาษาไทยใน <html>
