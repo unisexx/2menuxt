@@ -146,8 +146,8 @@
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto text-center">
                 <p>
-                    &copy; 2024 line2me ร้านขายสติกเกอร์ไลน์. All rights
-                    reserved.
+                    &copy; 2024 line2me ร้านขายสติกเกอร์ไลน์ถูกลิขสิทธิ์ All
+                    rights reserved.
                 </p>
             </div>
         </footer>
