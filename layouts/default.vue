@@ -1,10 +1,27 @@
 <template>
     <div class="flex flex-col min-h-screen">
         <!-- Navbar -->
-        <nav class="bg-white border-b fixed top-0 left-0 w-full z-50">
+        <nav class="bg-white border-b fixed top-0 left-0 w-full z-50 shadow-sm">
             <div class="mx-auto px-4 flex items-center justify-between py-4">
-                <NuxtLink to="/" class="text-2xl font-bold text-gray-800">
-                    line2me
+                <NuxtLink
+                    to="/"
+                    class="text-3xl font-bold tracking-wide relative"
+                >
+                    <!-- ข้อความ LINE -->
+                    <span
+                        class="text-green-500"
+                        style="font-family: 'Arial', sans-serif"
+                    >
+                        LINE
+                    </span>
+                    <!-- ข้อความ 2me -->
+                    <span class="text-gray-800">2me</span>
+                    <!-- ข้อความเสริม -->
+                    <span
+                        class="absolute text-sm text-gray-500 italic top-6 left-1"
+                    >
+                        สติกเกอร์ไลน์ส่งไว
+                    </span>
                 </NuxtLink>
             </div>
         </nav>
