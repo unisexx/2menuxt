@@ -31,7 +31,7 @@
                     class="border rounded px-3 py-2"
                 >
                     <option
-                        v-for="(label, key) in countries"
+                        v-for="(label, key) in filteredCountries"
                         :key="key"
                         :value="key"
                     >
@@ -105,14 +105,24 @@
     const selectedCategory = ref("");
     const selectedOrder = ref("new"); // ค่าดีฟอลต์เป็น "ล่าสุด"
 
-    // ตัวเลือกประเทศ
-    const countries = {
+    // ตัวเลือกประเทศทั้งหมด
+    const allCountries = {
         "": "ทั้งหมด",
         th: "ไทย",
         jp: "ญี่ปุ่น",
         tw: "ไต้หวัน",
-        us: "สหรัฐอเมริกา",
+        id: "อินโดนีเซีย",
     };
+
+    // ตัวเลือกประเทศที่กรองตามประเภท
+    const filteredCountries = computed(() => {
+        if (selectedCategory.value === "creator") {
+            // หากเป็นสติกเกอร์ครีเอเตอร์ ให้นำประเทศอินโดนีเซียออก
+            const { id, ...rest } = allCountries; // ลบ key "id" (อินโดนีเซีย)
+            return rest;
+        }
+        return allCountries;
+    });
 
     // Router และ Route
     const router = useRouter();
@@ -161,7 +171,7 @@
 
     // สร้างหัวข้อจาก parameter
     const headerTitle = computed(() => {
-        const countryLabel = countries[selectedCountry.value] || "ทั้งหมด";
+        const countryLabel = allCountries[selectedCountry.value] || "ทั้งหมด";
         const categoryLabel =
             selectedCategory.value === "official"
                 ? "สติกเกอร์ทางการ"
@@ -175,9 +185,9 @@
 
     // อัปเดต SEO
     useHead(() => {
-        const title = `${headerTitle.value} | Line2Me`;
-        const description = `สำรวจ ${headerTitle.value} ที่ Line2Me พร้อมข้อมูลที่อัปเดตล่าสุด`;
-        const keywords = `สติกเกอร์ไลน์, ${headerTitle.value}, ซื้อสติกเกอร์, Line2Me`;
+        const title = `${headerTitle.value} | line2me`;
+        const description = `ค้นหา ${headerTitle.value} ที่ line2me พร้อมข้อมูลที่อัปเดตล่าสุด`;
+        const keywords = `สติกเกอร์ไลน์, ${headerTitle.value}, ซื้อสติกเกอร์, line2me`;
 
         return {
             title,

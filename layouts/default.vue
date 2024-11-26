@@ -4,7 +4,7 @@
         <nav class="bg-white border-b fixed top-0 left-0 w-full z-50">
             <div class="mx-auto px-4 flex items-center justify-between py-4">
                 <NuxtLink to="/" class="text-2xl font-bold text-gray-800">
-                    Line2me
+                    line2me
                 </NuxtLink>
             </div>
         </nav>

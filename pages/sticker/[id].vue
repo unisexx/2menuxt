@@ -361,13 +361,16 @@
                 { property: "og:title", content: seo.value.title },
                 { property: "og:description", content: seo.value.description },
                 { property: "og:image", content: seo.value.image },
-                { property: "og:url", content: seo.value.url },
-                { property: "og:type", content: "article" },
+                {
+                    property: "og:url",
+                    content: `https://line2me.in.th/sticker/${id}`,
+                },
+                { property: "og:type", content: "product" },
             ],
             link: [
                 {
                     rel: "canonical",
-                    href: seo.value?.url || window.location.href,
+                    href: process.client ? window.location.href : "",
                 },
             ],
             script: [
@@ -376,16 +379,16 @@
                     children: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Product",
-                        name: seo.value?.title || "Default Title",
-                        description:
-                            seo.value?.description || "Default Description",
-                        image: seo.value?.image,
+                        name: seo.value.title,
+                        description: seo.value.description,
+                        image: seo.value.image,
                         brand: {
                             "@type": "Brand",
                             name: "LINE Stickers",
                         },
                         offers: {
                             "@type": "Offer",
+                            url: `https://line2me.in.th/sticker/${id}`,
                             price: sticker.value?.price || 0,
                             priceCurrency: "THB",
                             availability: "https://schema.org/InStock",

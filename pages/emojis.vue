@@ -111,7 +111,7 @@
         th: "ไทย",
         jp: "ญี่ปุ่น",
         tw: "ไต้หวัน",
-        us: "สหรัฐอเมริกา",
+        id: "อินโดนีเซีย",
     };
 
     // Router และ Route
@@ -175,9 +175,9 @@
 
     // อัปเดต SEO
     useHead(() => {
-        const title = `${headerTitle.value} | Line2Me`;
-        const description = `สำรวจ ${headerTitle.value} ที่ Line2Me พร้อมข้อมูลที่อัปเดตล่าสุด`;
-        const keywords = `อีโมจิไลน์, ${headerTitle.value}, ซื้ออีโมจิ, Line2Me`;
+        const title = `${headerTitle.value} | line2me`;
+        const description = `ค้นหา ${headerTitle.value} ที่ line2me พร้อมข้อมูลที่อัปเดตล่าสุด`;
+        const keywords = `อีโมจิไลน์, ${headerTitle.value}, ซื้ออีโมจิ, line2me`;
 
         return {
             title,
