@@ -1,5 +1,13 @@
 <template>
     <div>
+        <!-- โปรโมทสติกเกอร์ -->
+        <div v-if="promoteStickerData">
+            <h2 class="text-xl font-semibold mb-4">สติกเกอร์ไลน์แนะนำ</h2>
+            <StickerCard :stickers="promoteStickerData" />
+        </div>
+        <p v-else-if="promoteStickerPending">Loading...</p>
+        <p v-else>Error loading promote-sticker data</p>
+
         <!-- สติกเกอร์ -->
         <div v-if="stickerData">
             <h2 class="text-xl font-semibold mb-4">
@@ -102,6 +110,19 @@
         return res.json();
     });
 
+    // สติกเกอร์โปรโมท API
+    const {
+        data: promoteStickerData,
+        error: promoteStickerError,
+        pending: promoteStickerPending,
+    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/promote-sticker`
+        );
+        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
+        return res.json();
+    });
+
     // ตรวจสอบข้อผิดพลาด
     if (stickerError.value) {
         console.error("Error fetching sticker data:", stickerError.value);
@@ -111,5 +132,11 @@
     }
     if (emojiError.value) {
         console.error("Error fetching emoji data:", emojiError.value);
+    }
+    if (promoteStickerError.value) {
+        console.error(
+            "Error fetching promote-sticker data:",
+            promoteStickerError.value
+        );
     }
 </script>
