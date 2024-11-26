@@ -75,16 +75,15 @@
                                 :to="menu.to"
                                 class="hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer"
                             >
-                                <span
-                                    v-if="menu.icon"
-                                    :class="`${menu.icon}`"
-                                ></span>
+                                <span v-if="menu.icon" class="material-icons">{{
+                                    menu.icon
+                                }}</span>
                                 <span class="ml-2">
                                     <template v-if="menu.label === 'หน้าแรก'">
                                         {{ menu.label }}
                                     </template>
                                     <template v-else>
-                                        {{ menu.label }}
+                                        - {{ menu.label }}
                                     </template>
                                 </span>
                             </NuxtLink>
@@ -115,12 +114,11 @@
             return {
                 isCollapsed: true, // ค่าเริ่มต้น: ซ่อนเมนูใน Mobile Layout
                 menus: [
-                    { to: "/", label: "หน้าแรก", icon: "fas fa-home" },
+                    { to: "/", label: "หน้าแรก", icon: "home" },
                     { separator: true },
                     {
                         to: "/stickers?category=official&country=",
                         label: "สติกเกอร์ไลน์",
-                        icon: "lar la-smile", // ไอคอนสำหรับสติกเกอร์
                     },
                     // {
                     //   to: "/stickers?category=creator&country=",
@@ -130,7 +128,6 @@
                     {
                         to: "/themes?category=official&country=",
                         label: "ธีมไลน์",
-                        icon: "lar la-brush", // ไอคอนสำหรับธีม
                     },
                     // {
                     //   to: "/themes?category=creator&country=",
@@ -140,7 +137,6 @@
                     {
                         to: "/emojis?category=official&country=",
                         label: "อิโมจิไลน์",
-                        icon: "la-line-friends", // ไอคอนสำหรับอิโมจิ
                     },
                     // {
                     //   to: "/emojis?category=creator&country=",
@@ -179,11 +175,11 @@
 </script>
 
 <style>
-    /* ธงชาติ */
+    /* ใช้ Material Icons */
+    @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+</style>
+
+<style>
+    /** ธงชาติ */
     @import "@/assets/css/freakflags/freakflags.css";
-
-    /* LINE Icons */
-    @import url("https://static.line-scdn.net/laicon/edge/8.0/laicon.min.css");
-
-    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css");
 </style>
