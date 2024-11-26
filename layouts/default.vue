@@ -38,20 +38,20 @@
                             <NuxtLink
                                 v-if="menu.to"
                                 :to="menu.to"
-                                class="hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer"
+                                :class="[
+                                    'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer',
+                                    isActive(menu.to)
+                                        ? 'bg-blue-100 text-blue-600 font-semibold'
+                                        : '',
+                                ]"
+                                @click="closeAside"
                             >
                                 <span v-if="menu.icon" class="material-icons">{{
                                     menu.icon
                                 }}</span>
-                                <span class="ml-2">
-                                    <template v-if="menu.label === 'หน้าแรก'">
-                                        {{ menu.label }}
-                                    </template>
-                                    <template v-else>
-                                        - {{ menu.label }}
-                                    </template>
-                                </span>
+                                <span class="ml-2">{{ menu.label }}</span>
                             </NuxtLink>
+
                             <hr v-else-if="menu.separator" />
                         </li>
                     </ul>
@@ -73,20 +73,20 @@
                             <NuxtLink
                                 v-if="menu.to"
                                 :to="menu.to"
-                                class="hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer"
+                                :class="[
+                                    'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer',
+                                    isActive(menu.to)
+                                        ? 'bg-blue-100 text-blue-600 font-semibold'
+                                        : '',
+                                ]"
+                                @click="closeAside"
                             >
                                 <span v-if="menu.icon" class="material-icons">{{
                                     menu.icon
                                 }}</span>
-                                <span class="ml-2">
-                                    <template v-if="menu.label === 'หน้าแรก'">
-                                        {{ menu.label }}
-                                    </template>
-                                    <template v-else>
-                                        - {{ menu.label }}
-                                    </template>
-                                </span>
+                                <span class="ml-2">{{ menu.label }}</span>
                             </NuxtLink>
+
                             <hr v-else-if="menu.separator" />
                         </li>
                     </ul>
@@ -101,7 +101,10 @@
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto text-center">
-                <p>&copy; 2024 Line2me Stickers Shop. All rights reserved.</p>
+                <p>
+                    &copy; 2024 line2me ร้านขายสติกเกอร์ไลน์. All rights
+                    reserved.
+                </p>
             </div>
         </footer>
     </div>
@@ -117,33 +120,20 @@
                     { to: "/", label: "หน้าแรก", icon: "home" },
                     { separator: true },
                     {
-                        to: "/stickers?category=official&country=",
+                        to: "/stickers",
                         label: "สติกเกอร์ไลน์",
+                        icon: "sticky_note_2", // ไอคอนสำหรับสติกเกอร์
                     },
-                    // {
-                    //   to: "/stickers?category=creator&country=",
-                    //   label: "สติกเกอร์ไลน์ครีเอเตอร์",
-                    // },
-                    // { separator: true },
                     {
-                        to: "/themes?category=official&country=",
+                        to: "/themes",
                         label: "ธีมไลน์",
+                        icon: "palette", // ไอคอนสำหรับธีม
                     },
-                    // {
-                    //   to: "/themes?category=creator&country=",
-                    //   label: "ธีมไลน์ครีเอเตอร์",
-                    // },
-                    // { separator: true },
                     {
-                        to: "/emojis?category=official&country=",
+                        to: "/emojis",
                         label: "อิโมจิไลน์",
+                        icon: "emoji_emotions", // ไอคอนสำหรับอิโมจิ
                     },
-                    // {
-                    //   to: "/emojis?category=creator&country=",
-                    //   label: "อิโมจิไลน์ครีเอเตอร์",
-                    // },
-                    // { separator: true },
-                    // { to: "/series", label: "แนะนำจากทางร้าน" },
                 ],
                 screenIsLarge: false, // ตั้งค่าเริ่มต้นสำหรับ SSR
             };
@@ -163,6 +153,10 @@
             toggleAside() {
                 this.isCollapsed = !this.isCollapsed;
             },
+            closeAside() {
+                // ปิดเมนู Mobile Layout
+                this.isCollapsed = true;
+            },
             setDefaultAsideState() {
                 if (process.client) {
                     const screenWidth = window.innerWidth;
@@ -170,16 +164,24 @@
                     this.isCollapsed = !this.screenIsLarge; // ซ่อนเมนูหากเป็น Mobile Layout
                 }
             },
+            isActive(link) {
+                // ตัด Query String หรือ Dynamic Parameter ออก
+                const currentPath = this.$route.path
+                    .split("?")[0]
+                    .split("/")[1];
+                const menuPath = link.split("/")[1]; // ใช้เฉพาะส่วน Path หลัก
+                // console.log(
+                //     "Current Path:",
+                //     currentPath,
+                //     "Menu Link:",
+                //     menuPath
+                // );
+                return currentPath === menuPath;
+            },
         },
     };
 </script>
 
 <style>
-    /* ใช้ Material Icons */
     @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-</style>
-
-<style>
-    /** ธงชาติ */
-    @import "@/assets/css/freakflags/freakflags.css";
 </style>

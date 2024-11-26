@@ -36,7 +36,14 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                {{ theme.title }}
+                                <a
+                                    class="cursor-default"
+                                    rel="nofollow"
+                                    :href="`https://line.me/S/shop/theme/detail?id=${theme.theme_code}`"
+                                    target="_blank"
+                                >
+                                    {{ theme.title }}
+                                </a>
                             </li>
                         </ol>
                     </nav>

@@ -36,7 +36,13 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                {{ emoji.title }}
+                                <a
+                                    class="cursor-default"
+                                    rel="nofollow"
+                                    :href="`https://line.me/S/emoji/?id=${emoji.emoji_code}`"
+                                    target="_blank"
+                                    >{{ emoji.title }}</a
+                                >
                             </li>
                         </ol>
                     </nav>

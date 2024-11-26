@@ -36,7 +36,14 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                {{ sticker.title_th }}
+                                <a
+                                    class="cursor-default"
+                                    rel="nofollow"
+                                    :href="`https://line.me/S/sticker/${sticker.sticker_code}`"
+                                    target="_blank"
+                                >
+                                    {{ sticker.title_th }}
+                                </a>
                             </li>
                         </ol>
                     </nav>
@@ -106,23 +113,8 @@
                                 {{ sticker.detail }}
                             </p>
                             <p class="mb-2">
-                                <span class="font-bold">รหัสสินค้า:</span>
+                                <span class="font-bold"> รหัสสินค้า:</span>
                                 {{ sticker.sticker_code }}
-                            </p>
-                            <p
-                                class="mb-2"
-                                v-if="
-                                    getStickerResourceTypeText(
-                                        sticker.stickerresourcetype
-                                    )
-                                "
-                            >
-                                ประเภท:
-                                {{
-                                    getStickerResourceTypeText(
-                                        sticker.stickerresourcetype
-                                    )
-                                }}
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">ประเทศ:</span>
