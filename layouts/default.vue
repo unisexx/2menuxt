@@ -18,10 +18,15 @@
                     class="fixed top-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
                     @click="toggleAside"
                 >
-                    <span v-if="isCollapsed" class="material-icons text-2xl">
+                    <span
+                        v-if="isCollapsed"
+                        class="material-symbols-outlined text-2xl"
+                    >
                         menu
                     </span>
-                    <span v-else class="material-icons text-2xl"> close </span>
+                    <span v-else class="material-symbols-outlined text-2xl">
+                        close
+                    </span>
                 </button>
 
                 <!-- Aside Menu -->
@@ -40,17 +45,27 @@
                                 :to="menu.to"
                                 :class="[
                                     {
-                                        'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer': true,
-                                        'bg-blue-100 text-blue-600 font-semibold':
-                                            isActive(menu.to),
+                                        'menu-item flex items-center py-2 px-4 rounded-lg transition-all duration-300': true,
+                                        'bg-blue-700 text-white shadow-md':
+                                            isActive(
+                                                menu.to
+                                            ) /* Active Menu Style */,
+                                        'hover:bg-blue-100 hover:text-blue-700':
+                                            !isActive(
+                                                menu.to
+                                            ) /* Hover Style */,
                                     },
                                 ]"
                                 @click="closeAside"
                             >
-                                <span v-if="menu.icon" class="material-icons">{{
-                                    menu.icon
+                                <span
+                                    v-if="menu.icon"
+                                    class="material-symbols-outlined text-lg"
+                                    >{{ menu.icon }}</span
+                                >
+                                <span class="ml-2 font-medium">{{
+                                    menu.label
                                 }}</span>
-                                <span class="ml-2">{{ menu.label }}</span>
                             </NuxtLink>
 
                             <hr v-else-if="menu.separator" />
@@ -76,17 +91,27 @@
                                 :to="menu.to"
                                 :class="[
                                     {
-                                        'hover:bg-gray-500 hover:bg-opacity-10 hover:text-blue-600 flex items-center text-gray-700 py-1.5 px-4 rounded space-x-2 cursor-pointer': true,
-                                        'bg-blue-100 text-blue-600 font-semibold':
-                                            isActive(menu.to),
+                                        'menu-item flex items-center py-2 px-4 rounded-lg transition-all duration-300': true,
+                                        'bg-blue-700 text-white shadow-md':
+                                            isActive(
+                                                menu.to
+                                            ) /* Active Menu Style */,
+                                        'hover:bg-blue-100 hover:text-blue-700':
+                                            !isActive(
+                                                menu.to
+                                            ) /* Hover Style */,
                                     },
                                 ]"
                                 @click="closeAside"
                             >
-                                <span v-if="menu.icon" class="material-icons">{{
-                                    menu.icon
+                                <span
+                                    v-if="menu.icon"
+                                    class="material-symbols-outlined text-lg"
+                                    >{{ menu.icon }}</span
+                                >
+                                <span class="ml-2 font-medium">{{
+                                    menu.label
                                 }}</span>
-                                <span class="ml-2">{{ menu.label }}</span>
                             </NuxtLink>
 
                             <hr v-else-if="menu.separator" />
@@ -124,13 +149,15 @@
                     {
                         to: "/stickers",
                         label: "สติกเกอร์ไลน์",
-                        icon: "sticky_note_2", // ไอคอนสำหรับสติกเกอร์
+                        icon: "rocket_launch", // ไอคอนสำหรับสติกเกอร์
                     },
+                    { separator: true },
                     {
                         to: "/themes",
                         label: "ธีมไลน์",
                         icon: "palette", // ไอคอนสำหรับธีม
                     },
+                    { separator: true },
                     {
                         to: "/emojis",
                         label: "อิโมจิไลน์",
@@ -186,5 +213,25 @@
 </script>
 
 <style>
-    @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+    /* @import url("https://fonts.googleapis.com/icon?family=Material+Icons"); */
+
+    /* เพิ่มฟอนต์ Material Symbols Outlined */
+    @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap");
+
+    /* สไตล์สำหรับ Material Symbols Outlined */
+    .material-symbols-outlined {
+        font-family: "Material Symbols Outlined";
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px; /* ขนาดของไอคอน */
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        vertical-align: middle;
+    }
 </style>
