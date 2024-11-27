@@ -1,7 +1,10 @@
 export default defineNuxtConfig({
   ssr: true,
 
-  css: ['@/assets/css/tailwind.css'],
+  css: [
+    '@/assets/css/tailwind.css',
+    '@/assets/css/freakflags/freakflags.css' // path ที่ถูกต้อง
+  ],
 
   postcss: {
     plugins: {
