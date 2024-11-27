@@ -24,7 +24,7 @@
                 </span>
             </div>
             <div class="p-4 text-center">
-                <h3 class="text-sm font-semibold text-gray-800 mb-2">
+                <h3 class="text-sm font-semibold text-gray-600 mb-2">
                     <span
                         v-if="theme.country !== 'th'"
                         class="fflag ff-sm mb-1"
