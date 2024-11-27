@@ -97,30 +97,14 @@
                                 }}</span>
                                 <span>THB</span>
                             </p>
-                            <NuxtLink
-                                :to="`https://line.me/ti/p/~ratasak1234`"
-                                target="_blank"
-                                class="text-lg inline-block bg-blue-700 text-white text-center px-6 py-3 rounded-full hover:bg-blue-600 w-full hidden md:block"
-                            >
-                                <span
-                                    class="material-symbols-outlined text-xl mb-1"
-                                    >arrow_forward</span
-                                >
-                                สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234
-                            </NuxtLink>
+                            <!-- ปุ่มสั่งซื้อ -->
+                            <BuyButton additionalClass="hidden md:block" />
                         </div>
                     </div>
 
                     <div class="mt-2">
-                        <NuxtLink
-                            :to="`https://line.me/ti/p/~ratasak1234`"
-                            target="_blank"
-                            class="text-lg inline-block bg-blue-700 text-white text-center px-6 py-3 rounded-full hover:bg-blue-600 w-full block md:hidden"
-                        >
-                            <span class="material-symbols-outlined text-xl mb-1"
-                                >arrow_forward</span
-                            >สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234
-                        </NuxtLink>
+                        <!-- ปุ่มสั่งซื้อ -->
+                        <BuyButton additionalClass="block md:hidden" />
                     </div>
 
                     <hr class="my-4 border-t border-gray-200" />
@@ -168,6 +152,7 @@
 
 <script setup>
     import { useRoute } from "#app";
+    import BuyButton from "~/components/BuyButton.vue";
 
     const route = useRoute();
     const id = route.params.id;

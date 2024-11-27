@@ -1,5 +1,11 @@
 <template>
     <div class="flex flex-col min-h-screen">
+        <!-- Gradient Blob -->
+        <div
+            class="absolute top-[-280px] right-0 -z-10 w-96 h-96 bg-gradient-to-tr from-blue-400 via-purple-400 to-pink-400 opacity-50 rounded-full"
+            style="filter: blur(50px)"
+        ></div>
+
         <!-- Navbar -->
         <nav class="bg-white border-b fixed top-0 left-0 w-full z-50 shadow-sm">
             <div class="mx-auto px-4 flex items-center justify-between py-4">
@@ -54,40 +60,12 @@
                     }"
                     class="border-r h-screen fixed top-[4rem] transition-transform duration-300 w-64 z-40 bg-white"
                 >
-                    <!-- เมนูรายการ -->
-                    <ul class="p-4">
-                        <li v-for="menu in menus" :key="menu.to">
-                            <NuxtLink
-                                v-if="menu.to"
-                                :to="menu.to"
-                                :class="[
-                                    {
-                                        'menu-item flex items-center py-2 px-4 rounded-lg transition-all duration-300': true,
-                                        'bg-blue-700 text-white shadow-md':
-                                            isActive(
-                                                menu.to
-                                            ) /* Active Menu Style */,
-                                        'hover:bg-blue-100 hover:text-blue-700':
-                                            !isActive(
-                                                menu.to
-                                            ) /* Hover Style */,
-                                    },
-                                ]"
-                                @click="closeAside"
-                            >
-                                <span
-                                    v-if="menu.icon"
-                                    class="material-symbols-outlined text-lg"
-                                    >{{ menu.icon }}</span
-                                >
-                                <span class="ml-2 font-medium">{{
-                                    menu.label
-                                }}</span>
-                            </NuxtLink>
-
-                            <hr v-else-if="menu.separator" />
-                        </li>
-                    </ul>
+                    <!-- MenuList -->
+                    <MenuList
+                        :menus="menus"
+                        :isActive="isActive"
+                        @closeAside="closeAside"
+                    />
                 </aside>
                 <!-- Main Content -->
                 <main class="flex-1 p-3 transition-all duration-300">
@@ -101,39 +79,8 @@
                 <aside
                     class="border-r h-screen w-64 bg-white fixed top-[4rem] left-0 z-40"
                 >
-                    <ul class="p-4">
-                        <li v-for="menu in menus" :key="menu.to">
-                            <NuxtLink
-                                v-if="menu.to"
-                                :to="menu.to"
-                                :class="[
-                                    {
-                                        'menu-item flex items-center py-2 px-4 rounded-lg transition-all duration-300': true,
-                                        'bg-blue-700 text-white shadow-md':
-                                            isActive(
-                                                menu.to
-                                            ) /* Active Menu Style */,
-                                        'hover:bg-blue-100 hover:text-blue-700':
-                                            !isActive(
-                                                menu.to
-                                            ) /* Hover Style */,
-                                    },
-                                ]"
-                                @click="closeAside"
-                            >
-                                <span
-                                    v-if="menu.icon"
-                                    class="material-symbols-outlined text-lg"
-                                    >{{ menu.icon }}</span
-                                >
-                                <span class="ml-2 font-medium">{{
-                                    menu.label
-                                }}</span>
-                            </NuxtLink>
-
-                            <hr v-else-if="menu.separator" />
-                        </li>
-                    </ul>
+                    <!-- MenuList -->
+                    <MenuList :menus="menus" :isActive="isActive" />
                 </aside>
                 <!-- Main Content -->
                 <main class="flex-1 p-3 ml-64">
@@ -155,6 +102,7 @@
 </template>
 
 <script>
+    import MenuList from "~/components/MenuList.vue";
     export default {
         name: "Layout",
         data() {
