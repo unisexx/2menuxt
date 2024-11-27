@@ -64,7 +64,7 @@
                     <MenuList
                         :menus="menus"
                         :isActive="isActive"
-                        @closeAside="closeAside"
+                        :closeAside="closeAside"
                     />
                 </aside>
                 <!-- Main Content -->
@@ -114,19 +114,19 @@
                     {
                         to: "/stickers",
                         label: "สติกเกอร์ไลน์",
-                        icon: "rocket_launch", // ไอคอนสำหรับสติกเกอร์
+                        icon: "rocket_launch",
                     },
                     { separator: true },
                     {
                         to: "/themes",
                         label: "ธีมไลน์",
-                        icon: "palette", // ไอคอนสำหรับธีม
+                        icon: "palette",
                     },
                     { separator: true },
                     {
                         to: "/emojis",
                         label: "อิโมจิไลน์",
-                        icon: "emoji_emotions", // ไอคอนสำหรับอิโมจิ
+                        icon: "emoji_emotions",
                     },
                 ],
                 screenIsLarge: false, // ตั้งค่าเริ่มต้นสำหรับ SSR
@@ -148,8 +148,10 @@
                 this.isCollapsed = !this.isCollapsed;
             },
             closeAside() {
-                // ปิดเมนู Mobile Layout
                 this.isCollapsed = true;
+            },
+            handleMenuClick() {
+                this.closeAside(); // ปิด Aside เมนู
             },
             setDefaultAsideState() {
                 if (process.client) {
@@ -162,15 +164,13 @@
                 const currentPath = this.$route.path.split("/")[1] || ""; // Path หลักจาก URL
                 const menuPath = link.split("/")[1] || ""; // Path หลักจากเมนู
 
-                // สร้างกฎสำหรับตรวจสอบ Active
                 const activeRules = {
-                    "": [""], // สำหรับหน้าแรก
+                    "": [""],
                     stickers: ["sticker", "stickers"],
                     themes: ["theme", "themes"],
                     emojis: ["emoji", "emojis"],
                 };
 
-                // ตรวจสอบว่า currentPath อยู่ในกฎของ menuPath หรือไม่
                 return activeRules[menuPath]?.includes(currentPath) || false;
             },
         },
@@ -178,17 +178,13 @@
 </script>
 
 <style>
-    /* @import url("https://fonts.googleapis.com/icon?family=Material+Icons"); */
-
-    /* เพิ่มฟอนต์ Material Symbols Outlined */
     @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap");
 
-    /* สไตล์สำหรับ Material Symbols Outlined */
     .material-symbols-outlined {
         font-family: "Material Symbols Outlined";
         font-weight: normal;
         font-style: normal;
-        font-size: 24px; /* ขนาดของไอคอน */
+        font-size: 24px;
         line-height: 1;
         letter-spacing: normal;
         text-transform: none;

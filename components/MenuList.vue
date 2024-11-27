@@ -13,13 +13,14 @@
                         ),
                     },
                 ]"
-                @click="closeAside"
+                @click="() => closeAside()"
             >
                 <span
                     v-if="menu.icon"
                     class="material-symbols-outlined text-lg"
-                    >{{ menu.icon }}</span
                 >
+                    {{ menu.icon }}
+                </span>
                 <span class="ml-2 font-medium">{{ menu.label }}</span>
             </NuxtLink>
             <hr v-else-if="menu.separator" />
