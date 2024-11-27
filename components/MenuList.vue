@@ -17,7 +17,7 @@
             >
                 <span
                     v-if="menu.icon"
-                    class="material-symbols-outlined text-lg"
+                    class="material-symbols-outlined text-lg bg-gradient-to-br from-indigo-400 to-blue-400 bg-clip-text text-transparent"
                 >
                     {{ menu.icon }}
                 </span>
