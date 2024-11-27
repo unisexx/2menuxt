@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "nuxt": "^3.14.1592",
+    "photoswipe": "^5.4.4",
     "vue": "latest",
     "vue-router": "latest"
   },

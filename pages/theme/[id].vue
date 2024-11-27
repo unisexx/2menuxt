@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto">
-        <div v-if="theme">
+        <div v-if="theme && theme.theme_code">
             <div class="flex flex-wrap">
                 <div class="w-full lg:w-9/12 xl:w-8/12 mx-auto">
                     <!-- Breadcrumb -->
@@ -12,27 +12,24 @@
                                 <NuxtLink
                                     to="/"
                                     class="text-gray-500 hover:text-blue-600"
+                                    >หน้าแรก</NuxtLink
                                 >
-                                    หน้าแรก
-                                </NuxtLink>
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item flex items-center">
                                 <NuxtLink
                                     :to="getCategoryLink()"
                                     class="text-gray-500 hover:text-blue-600"
+                                    >{{ getCategoryText() }}</NuxtLink
                                 >
-                                    {{ getCategoryText() }}
-                                </NuxtLink>
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item flex items-center">
                                 <NuxtLink
                                     :to="getCountryLink()"
                                     class="text-gray-500 hover:text-blue-600"
+                                    >{{ getCountryText() }}</NuxtLink
                                 >
-                                    {{ getCountryText() }}
-                                </NuxtLink>
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
@@ -48,14 +45,13 @@
                         </ol>
                     </nav>
 
-                    <!-- ตัวอย่างธีม -->
                     <div class="flex items-start">
                         <!-- รูปภาพหลัก -->
                         <div class="relative mr-3">
                             <img
                                 :src="theme.img_url"
                                 :alt="theme.title"
-                                class="w-32 sm:w-48 lg:w-56 xl:w-64 h-auto rounded-lg"
+                                class="w-32 sm:w-48 lg:w-56 xl:w-64 h-auto rounded"
                                 loading="lazy"
                             />
                             <span
@@ -110,18 +106,18 @@
 
                     <hr class="my-4 border-t border-gray-200" />
 
-                    <!-- Section: ตัวอย่างธีม -->
+                    <!-- ตัวอย่างธีม -->
                     <div class="mt-8">
-                        <h2 class="text-2xl font-semibold mb-4">ตัวอย่างธีม</h2>
-                        <div class="grid grid-cols-2 gap-4">
+                        <h2 class="text-2xl font-semibold mb-4">
+                            ตัวอย่างธีม แตะเพื่อดูขนาดเต็ม
+                        </h2>
+                        <div id="gallery" class="grid grid-cols-2 gap-4">
                             <div
-                                v-for="x in [2, 3, 4, 5]"
+                                v-for="(x, index) in [2, 3, 4, 5]"
                                 :key="x"
                                 class="text-center overflow-hidden"
                             >
                                 <a
-                                    class="venobox"
-                                    data-gall="gallery"
                                     :href="
                                         generateThemeUrlDetail(
                                             theme.theme_code,
@@ -129,9 +125,12 @@
                                             theme.section
                                         )
                                     "
+                                    data-pswp-width="720"
+                                    data-pswp-height="1232"
+                                    :data-pswp-index="index"
                                 >
                                     <img
-                                        class="w-full h-auto rounded"
+                                        class="w-full h-auto rounded cursor-pointer"
                                         :src="
                                             generateThemeUrlDetail(
                                                 theme.theme_code,
@@ -147,7 +146,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div
                     class="w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200"
                 >
@@ -157,17 +155,20 @@
         </div>
 
         <p v-else-if="pending">Loading...</p>
-        <p v-else>Error loading data</p>
+        <p v-else class="text-red-500">ไม่พบข้อมูลธีม หรือ API มีปัญหา</p>
     </div>
 </template>
 
 <script setup>
     import { useRoute } from "#app";
-    import BuyButton from "~/components/BuyButton.vue";
+    import PhotoSwipeLightbox from "photoswipe/lightbox";
+    import "photoswipe/style.css";
 
+    // ดึงค่า route ID
     const route = useRoute();
     const id = route.params.id;
 
+    // ดึงข้อมูลธีมจาก API
     const {
         data: theme,
         error,
@@ -180,11 +181,13 @@
         return res.json();
     });
 
+    // ฟังก์ชันสร้าง URL ของหมวดหมู่
     const getCategoryLink = () => {
         if (!theme.value) return "#";
         return `/themes?category=${theme.value.category}`;
     };
 
+    // ฟังก์ชันแสดงหมวดหมู่ของธีม
     const getCategoryText = () => {
         if (!theme.value) return "";
         if (theme.value.category === "official") return "ธีมทางการ";
@@ -192,11 +195,13 @@
         return "หมวดหมู่ไม่ทราบ";
     };
 
+    // ฟังก์ชันสร้าง URL ของประเทศ
     const getCountryLink = () => {
         if (!theme.value) return "#";
         return `/themes?country=${theme.value.country}`;
     };
 
+    // ฟังก์ชันแสดงชื่อประเทศ
     const getCountryText = () => {
         if (!theme.value) return "";
         const countryMap = {
@@ -208,8 +213,10 @@
         return countryMap[theme.value.country] || "ประเทศไม่ทราบ";
     };
 
+    // ฟังก์ชันสร้าง URL ของรูปภาพตัวอย่าง
     const generateThemeUrlDetail = (theme_code, imgOrder, section = 1) => {
         const baseUrl = "https://shop.line-scdn.net/themeshop/v1/products/";
+        if (!theme_code) return "#";
         return `${baseUrl}${theme_code.slice(0, 2)}/${theme_code.slice(
             2,
             4
@@ -219,63 +226,18 @@
         )}/${theme_code}/${section}/ANDROID/th/preview_00${imgOrder}_720x1232.png`;
     };
 
-    if (error.value) {
-        console.error("Error fetching data:", error.value);
-    }
-
-    //===== SEO =====/
-    const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-seo/${id}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch SEO API");
-        return res.json();
-    });
-
-    if (seo.value) {
-        useHead({
-            title: seo.value.title,
-            meta: [
-                { name: "description", content: seo.value.description },
-                { name: "keywords", content: seo.value.keywords },
-                { property: "og:title", content: seo.value.title },
-                { property: "og:description", content: seo.value.description },
-                { property: "og:image", content: seo.value.image },
-                {
-                    property: "og:url",
-                    content: `https://line2me.in.th/theme/${id}`,
-                },
-                { property: "og:type", content: "product" },
-            ],
-            link: [
-                {
-                    rel: "canonical",
-                    href: process.client ? window.location.href : "",
-                },
-            ],
-            script: [
-                {
-                    type: "application/ld+json",
-                    children: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        name: seo.value.title,
-                        description: seo.value.description,
-                        image: seo.value.image,
-                        brand: {
-                            "@type": "Brand",
-                            name: "LINE Themes",
-                        },
-                        offers: {
-                            "@type": "Offer",
-                            url: `https://line2me.in.th/theme/${id}`,
-                            price: theme.value?.price || 0, // ราคาของธีม
-                            priceCurrency: "THB", // สกุลเงิน
-                            availability: "https://schema.org/InStock", // สถานะสินค้า
-                        },
-                    }),
-                },
-            ],
+    // ตั้งค่า PhotoSwipe Lightbox
+    const initLightbox = () => {
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: "#gallery",
+            children: "a",
+            pswpModule: () => import("photoswipe"),
         });
-    }
+        lightbox.init();
+    };
+
+    // เรียกใช้ Lightbox เมื่อ component mount
+    onMounted(() => {
+        initLightbox();
+    });
 </script>
