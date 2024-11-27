@@ -3,14 +3,23 @@
         <div
             class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center lg:pt-20"
         >
+            <div
+                class="absolute top-[-100px] left-0 -z-10 w-[300px] h-[300px] bg-gradient-to-tr from-red-400 to-yellow-300 opacity-50 rounded-full"
+                style="filter: blur(60px)"
+            ></div>
+            <div
+                class="absolute top-[-50px] right-0 -z-10 w-[200px] h-[200px] bg-gradient-to-bl from-blue-400 to-green-300 opacity-40 rounded-full"
+                style="filter: blur(50px)"
+            ></div>
+
             <p
                 class="mx-auto -mt-4 max-w-2xl text-lg tracking-tight text-slate-700 sm:mt-6"
             >
-                Welcome to
+                ยินดีต้อนรับสู่
             </p>
 
             <h1
-                class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl"
+                class="mx-auto max-w-4xl font-display text-5xl tracking-tight text-slate-900 sm:text-7xl font-bold"
             >
                 <span class="inline-block">
                     <span class="relative whitespace-nowrap text-green-600">
@@ -35,7 +44,7 @@
             >
                 <span class="inline-block"
                     >ขายสติกเกอร์ไลน์ลิขสิทธิ์แท้ 100% จากร้านที่ได้รับอนุญาต
-                    (Verified Resellers) พร้อมประสบการณ์กว่า 12 ปี
+                    (Verified Resellers) พร้อมประสบการณ์กว่า 10 ปี
                 </span>
             </p>
         </div>

@@ -1,15 +1,5 @@
 <template>
     <div class="flex flex-col min-h-screen">
-        <!-- Gradient Blob -->
-        <!-- <div
-            class="absolute top-[-100px] left-0 -z-10 w-[300px] h-[300px] bg-gradient-to-tr from-red-400 to-yellow-300 opacity-50 rounded-full"
-            style="filter: blur(60px)"
-        ></div>
-        <div
-            class="absolute top-[-50px] right-0 -z-10 w-[200px] h-[200px] bg-gradient-to-bl from-blue-400 to-green-300 opacity-40 rounded-full"
-            style="filter: blur(50px)"
-        ></div> -->
-
         <!-- Navbar -->
         <nav class="bg-white border-b fixed top-0 left-0 w-full z-50 shadow-sm">
             <div class="mx-auto px-4 flex items-center justify-between py-4">
