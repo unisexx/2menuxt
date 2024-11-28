@@ -47,6 +47,15 @@
                     (Verified Resellers) พร้อมประสบการณ์กว่า 10 ปี
                 </span>
             </p>
+
+            <!-- ปุ่มแอดไลน์ -->
+            <a
+                href="https://line.me/ti/p/~ratasak1234"
+                target="_blank"
+                class="mt-8 inline-block bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg text-sm transition duration-300 ease-in-out"
+            >
+                แอดไลน์ไอดี ratasak1234
+            </a>
         </div>
 
         <!-- โปรโมทสติกเกอร์ -->
