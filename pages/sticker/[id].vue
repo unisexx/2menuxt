@@ -169,7 +169,7 @@
                             <img
                                 :src="`https://sdl-stickershop.line.naver.jp/products/0/0/${sticker.version}/${sticker.sticker_code}/LINEStorePC/preview.png`"
                                 :alt="`สติ๊กเกอร์ไลน์ ${sticker.title_th}`"
-                                class="w-auto object-contain"
+                                class="w-full object-contain"
                             />
                         </div>
 
