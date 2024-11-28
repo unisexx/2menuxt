@@ -166,7 +166,11 @@
                             v-if="!sticker.stamp || sticker.stamp.length === 0"
                             class="text-center text-gray-500"
                         >
-                            ไม่มีตัวอย่างสติกเกอร์ในชุด
+                            <img
+                                :src="`https://sdl-stickershop.line.naver.jp/products/0/0/${sticker.version}/${sticker.sticker_code}/LINEStorePC/preview.png`"
+                                :alt="`สติ๊กเกอร์ไลน์ ${sticker.title_th}`"
+                                class="w-auto object-contain"
+                            />
                         </div>
 
                         <!-- หากมีข้อมูล -->
