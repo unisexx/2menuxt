@@ -207,17 +207,21 @@
                     <hr class="mt-5 mb-5" />
 
                     <!-- สติกเกอร์ตามผู้สร้าง -->
-                    <div v-if="authorStickerData.length > 0">
+                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                    <div
+                        v-if="authorStickerData && authorStickerData.length > 0"
+                    >
                         <h2 class="text-xl font-semibold mb-4">
-                            สติกเกอร์ไลน์อื่นๆของผู้สร้าง
+                            สติกเกอร์อื่นๆที่น่าสนใจ
                         </h2>
                         <StickerAuthorCard :stickers="authorStickerData" />
                     </div>
-                    <
-                    <p v-if="authorStickerPending">Loading...</p>
-                    <p v-if="authorStickerError">
-                        Error loading author-sticker data
-                    </p>
+
+                    <!-- แสดงสถานะการโหลด -->
+                    <p v-if="pending">กำลังโหลด...</p>
+
+                    <!-- แสดงข้อผิดพลาด -->
+                    <p v-if="error">เกิดข้อผิดพลาด: {{ error.message }}</p>
                 </div>
                 <div
                     class="w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200"
@@ -341,47 +345,21 @@
         console.error("Error fetching data:", error.value);
     }
 
-    // นำเข้า Composition API
-    import { ref, watch } from "vue";
+    import { useAsyncData } from "nuxt/app";
 
-    // กำหนดตัวแปรที่ใช้เก็บสถานะข้อมูล
-    const authorStickerData = ref([]);
-    const authorStickerPending = ref(true);
-    const authorStickerError = ref(null);
-
-    // เฝ้าดูค่าของ sticker และดึงข้อมูล
-    watch(
-        () => sticker.value, // ติดตามการเปลี่ยนแปลง
-        async (newSticker) => {
-            // หากไม่มีข้อมูลผู้สร้าง ให้หยุดการดึงข้อมูล
-            if (!newSticker?.author_th) {
-                authorStickerPending.value = false;
-                return;
-            }
-
-            try {
-                // เรียก API เพื่อดึงข้อมูลสติกเกอร์
-                const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
-                const queryParams = new URLSearchParams({
-                    sticker_code: newSticker.sticker_code || "",
-                    author_th: newSticker.author_th || "",
-                    category: newSticker.category || "",
-                    country: newSticker.country || "",
-                }).toString();
-
-                const res = await fetch(`${apiUrl}?${queryParams}`);
-                if (!res.ok)
-                    throw new Error("ไม่สามารถดึงข้อมูลผู้สร้างสติกเกอร์ได้");
-
-                authorStickerData.value = await res.json();
-            } catch (err) {
-                authorStickerError.value = err; // เก็บ Error ในตัวแปร
-                console.error("Error fetching author sticker data:", err);
-            } finally {
-                authorStickerPending.value = false; // ปิดสถานะการโหลด
-            }
-        },
-        { immediate: true }
+    const {
+        data: authorStickerData,
+        pending: authorStickerPending,
+        error: authorStickerError,
+    } = useAsyncData("authorSticker", () =>
+        $fetch(`https://api.line2me.in.th/api/sticker-by-author`, {
+            params: {
+                sticker_code: sticker.value?.sticker_code || "",
+                author_th: sticker.value?.author_th || "",
+                category: sticker.value?.category || "",
+                country: sticker.value?.country || "",
+            },
+        })
     );
 
     //===== SEO =====/
