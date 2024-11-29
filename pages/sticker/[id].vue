@@ -242,7 +242,6 @@
 
 <script setup>
     import { useRoute } from "#app";
-    import BuyButton from "~/components/BuyButton.vue";
 
     const route = useRoute();
     const id = route.params.id;
@@ -349,22 +348,26 @@
         console.error("Error fetching data:", error.value);
     }
 
-    import { useAsyncData } from "nuxt/app";
-
+    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
     const {
         data: authorStickerData,
         pending: authorStickerPending,
         error: authorStickerError,
-    } = useAsyncData("authorSticker", () =>
-        $fetch(`https://api.line2me.in.th/api/sticker-by-author`, {
-            params: {
-                sticker_code: sticker.value?.sticker_code || "",
-                author_th: sticker.value?.author_th || "",
-                category: sticker.value?.category || "",
-                country: sticker.value?.country || "",
-            },
-        })
-    );
+    } = useAsyncData("authorSticker", () => {
+        const apiUrl = `http://dev-line2me.test/api/sticker-by-author`;
+        const params = {
+            sticker_code: sticker.value?.sticker_code || "",
+            author_th: sticker.value?.author_th || "",
+            category: sticker.value?.category || "",
+            country: sticker.value?.country || "",
+        };
+
+        // Console log เพื่อดู URL และพารามิเตอร์
+        console.log("API URL:", apiUrl);
+        console.log("API Parameters:", params);
+
+        return $fetch(apiUrl, { params });
+    });
 
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {

@@ -144,6 +144,27 @@
                                 </a>
                             </div>
                         </div>
+
+                        <hr class="mt-5 mb-5" />
+
+                        <!-- สติกเกอร์ตามผู้สร้าง -->
+                        <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                        <div
+                            v-if="authorThemeData && authorThemeData.length > 0"
+                        >
+                            <h2 class="text-xl font-semibold mb-4">
+                                สติกเกอร์อื่นๆที่น่าสนใจ
+                            </h2>
+                            <ThemeAuthorCard :themes="authorThemeData" />
+                        </div>
+
+                        <!-- แสดงสถานะการโหลด -->
+                        <p v-if="authorThemePending">กำลังโหลด...</p>
+
+                        <!-- แสดงข้อผิดพลาด -->
+                        <p v-if="authorThemeError">
+                            เกิดข้อผิดพลาด: {{ authorThemeError.message }}
+                        </p>
                     </div>
                 </div>
                 <div
@@ -226,7 +247,7 @@
         )}/${theme_code}/${section}/ANDROID/th/preview_00${imgOrder}_720x1232.png`;
     };
 
-    // ตั้งค่า PhotoSwipe Lightbox
+    //===== PhotoSwipe Lightbox =====/
     const initLightbox = () => {
         const lightbox = new PhotoSwipeLightbox({
             gallery: "#gallery",
@@ -240,4 +261,76 @@
     onMounted(() => {
         initLightbox();
     });
+
+    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorThemeData,
+        pending: authorThemePending,
+        error: authorThemeError,
+    } = useAsyncData("authorTheme", () =>
+        $fetch(`https://api.line2me.in.th/api/theme-by-author`, {
+            params: {
+                id: theme.value?.id || "",
+                author: theme.value?.author || "",
+                category: theme.value?.category || "",
+                country: theme.value?.country || "",
+            },
+        })
+    );
+
+    //===== SEO =====/
+    const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/theme-seo/${id}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch SEO API");
+        return res.json();
+    });
+
+    if (seo.value) {
+        useHead({
+            title: seo.value.title,
+            meta: [
+                { name: "description", content: seo.value.description },
+                { name: "keywords", content: seo.value.keywords },
+                { property: "og:title", content: seo.value.title },
+                { property: "og:description", content: seo.value.description },
+                { property: "og:image", content: seo.value.image },
+                {
+                    property: "og:url",
+                    content: `https://line2me.in.th/theme/${id}`,
+                },
+                { property: "og:type", content: "product" },
+            ],
+            link: [
+                {
+                    rel: "canonical",
+                    href: process.client ? window.location.href : "",
+                },
+            ],
+            script: [
+                {
+                    type: "application/ld+json",
+                    children: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        name: seo.value.title,
+                        description: seo.value.description,
+                        image: seo.value.image,
+                        brand: {
+                            "@type": "Brand",
+                            name: "LINE Themes",
+                        },
+                        offers: {
+                            "@type": "Offer",
+                            url: `https://line2me.in.th/theme/${id}`,
+                            price: theme.value?.price || 0, // ราคาของธีม
+                            priceCurrency: "THB", // สกุลเงิน
+                            availability: "https://schema.org/InStock", // สถานะสินค้า
+                        },
+                    }),
+                },
+            ],
+        });
+    }
 </script>
