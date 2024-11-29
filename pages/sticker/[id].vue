@@ -354,7 +354,7 @@
         pending: authorStickerPending,
         error: authorStickerError,
     } = useAsyncData("authorSticker", () => {
-        const apiUrl = `http://dev-line2me.test/api/sticker-by-author`;
+        const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
         const params = {
             sticker_code: sticker.value?.sticker_code || "",
             author_th: sticker.value?.author_th || "",
