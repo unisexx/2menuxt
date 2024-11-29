@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="stickers.length > 0"
-        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4 mt-6"
+        class="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-2 md:gap-4 mt-6"
     >
         <a
             v-for="sticker in stickers"

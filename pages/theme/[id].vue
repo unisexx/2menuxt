@@ -153,7 +153,7 @@
                             v-if="authorThemeData && authorThemeData.length > 0"
                         >
                             <h2 class="text-xl font-semibold mb-4">
-                                สติกเกอร์อื่นๆที่น่าสนใจ
+                                ธีมอื่นๆที่น่าสนใจ
                             </h2>
                             <ThemeAuthorCard :themes="authorThemeData" />
                         </div>
