@@ -147,7 +147,7 @@
 
                         <hr class="mt-5 mb-5" />
 
-                        <!-- สติกเกอร์ตามผู้สร้าง -->
+                        <!-- ธีมตามผู้สร้าง -->
                         <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                         <div
                             v-if="authorThemeData && authorThemeData.length > 0"
@@ -262,7 +262,7 @@
         initLightbox();
     });
 
-    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
+    //===== ธีมอื่นๆตามผู้สร้าง =====/
     const {
         data: authorThemeData,
         pending: authorThemePending,

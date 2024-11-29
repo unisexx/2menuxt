@@ -135,6 +135,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="mt-5 mb-5" />
+
+                    <!-- อิโมจิตามผู้สร้าง -->
+                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                    <div v-if="authorEmojiData && authorEmojiData.length > 0">
+                        <h2 class="text-xl font-semibold mb-4">
+                            อิโมจิอื่นๆที่น่าสนใจ
+                        </h2>
+                        <EmojiAuthorCard :emojis="authorEmojiData" />
+                    </div>
+
+                    <!-- แสดงสถานะการโหลด -->
+                    <p v-if="authorEmojiPending">กำลังโหลด...</p>
+
+                    <!-- แสดงข้อผิดพลาด -->
+                    <p v-if="authorEmojiError">
+                        เกิดข้อผิดพลาด: {{ authorEmojiError.message }}
+                    </p>
                 </div>
 
                 <div
@@ -213,6 +232,22 @@
     if (error.value) {
         console.error("Error fetching data:", error.value);
     }
+
+    //===== ธีมอื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorEmojiData,
+        pending: authorEmojiPending,
+        error: authorEmojiError,
+    } = useAsyncData("authorEmoji", () =>
+        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
+            params: {
+                id: emoji.value?.id || "",
+                creator_name: emoji.value?.creator_name || "",
+                category: emoji.value?.category || "",
+                country: emoji.value?.country || "",
+            },
+        })
+    );
 
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
