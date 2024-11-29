@@ -141,10 +141,7 @@
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div v-if="authorEmojiData && authorEmojiData.length > 0">
-                        <h2 class="text-xl font-semibold mb-4">
-                            อิโมจิอื่นๆที่น่าสนใจ
-                        </h2>
-                        <EmojiAuthorCard :emojis="authorEmojiData" />
+                        <EmojiCardAuthor :emojis="authorEmojiData" />
                     </div>
 
                     <!-- แสดงสถานะการโหลด -->
@@ -233,7 +230,7 @@
         console.error("Error fetching data:", error.value);
     }
 
-    //===== ธีมอื่นๆตามผู้สร้าง =====/
+    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
     const {
         data: authorEmojiData,
         pending: authorEmojiPending,
