@@ -47,13 +47,10 @@
                     class="fixed top-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
                     @click="toggleAside"
                 >
-                    <span
-                        v-if="isCollapsed"
-                        class="material-symbols-outlined text-2xl"
-                    >
+                    <span v-if="isCollapsed" class="material-symbols-outlined">
                         menu
                     </span>
-                    <span v-else class="material-symbols-outlined text-2xl">
+                    <span v-else class="material-symbols-outlined">
                         close
                     </span>
                 </button>
