@@ -369,6 +369,33 @@
         return $fetch(apiUrl, { params });
     });
 
+    //===== LOG Product View =====/
+    import { watchEffect } from "vue";
+
+    const sendRecordProductView = async (type, id) => {
+        try {
+            const response = await $fetch(
+                "https://api.line2me.in.th/api/record-product-view",
+                {
+                    method: "POST",
+                    body: {
+                        type: type,
+                        id: id,
+                    },
+                }
+            );
+            console.log("Successfully sent record-product-view:", response);
+        } catch (error) {
+            console.error("Error sending record-product-view:", error);
+        }
+    };
+
+    watchEffect(() => {
+        if (sticker.value) {
+            sendRecordProductView("sticker", sticker.value.id);
+        }
+    });
+
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
         const res = await fetch(
