@@ -21,7 +21,7 @@
                 />
                 <span
                     v-if="emoji.is_new"
-                    class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1 rounded custom-font-size"
+                    class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1 rounded isnew-font-size"
                 >
                     NEW
                 </span>
@@ -66,7 +66,7 @@
 
 <style scoped>
     /* คุณสามารถเพิ่มสไตล์เฉพาะสำหรับ component นี้ได้ */
-    .custom-font-size {
+    .isnew-font-size {
         font-size: 8px; /* Default สำหรับมือถือ */
     }
 </style>

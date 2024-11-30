@@ -155,15 +155,51 @@
                             <h2 class="text-xl font-semibold mb-4">
                                 ธีมอื่นๆที่น่าสนใจ
                             </h2>
-                            <ThemeCard :themes="authorThemeData" />
+                            <ThemeCard
+                                :themes="authorThemeData"
+                                customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                            />
                         </div>
-
-                        <!-- แสดงสถานะการโหลด -->
                         <p v-if="authorThemePending">กำลังโหลด...</p>
-
-                        <!-- แสดงข้อผิดพลาด -->
                         <p v-if="authorThemeError">
                             เกิดข้อผิดพลาด: {{ authorThemeError.message }}
+                        </p>
+
+                        <!-- สติกเกอร์ตามผู้สร้าง -->
+                        <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                        <div
+                            v-if="
+                                authorStickerData &&
+                                authorStickerData.length > 0
+                            "
+                        >
+                            <h2 class="text-xl font-semibold mb-4">
+                                สติกเกอร์อื่นๆที่น่าสนใจ
+                            </h2>
+                            <StickerCard
+                                :stickers="authorStickerData"
+                                customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                            />
+                        </div>
+                        <p v-if="pending">กำลังโหลด...</p>
+                        <p v-if="error">เกิดข้อผิดพลาด: {{ error.message }}</p>
+
+                        <!-- อิโมจิตามผู้สร้าง -->
+                        <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                        <div
+                            v-if="authorEmojiData && authorEmojiData.length > 0"
+                        >
+                            <h2 class="text-xl font-semibold mb-4">
+                                อิโมจิอื่นๆที่น่าสนใจ
+                            </h2>
+                            <EmojiCard
+                                :emojis="authorEmojiData"
+                                customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                            />
+                        </div>
+                        <p v-if="authorEmojiPending">กำลังโหลด...</p>
+                        <p v-if="authorEmojiError">
+                            เกิดข้อผิดพลาด: {{ authorEmojiError.message }}
                         </p>
                     </div>
                 </div>
@@ -272,6 +308,38 @@
             params: {
                 id: theme.value?.id || "",
                 author: theme.value?.author || "",
+                category: theme.value?.category || "",
+                country: theme.value?.country || "",
+            },
+        })
+    );
+
+    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorStickerData,
+        pending: authorStickerPending,
+        error: authorStickerError,
+    } = useAsyncData("authorSticker", () => {
+        const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
+        const params = {
+            sticker_code: theme.value?.id || "",
+            author_th: theme.value?.author || "",
+            category: theme.value?.category || "",
+            country: theme.value?.country || "",
+        };
+        return $fetch(apiUrl, { params });
+    });
+
+    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorEmojiData,
+        pending: authorEmojiPending,
+        error: authorEmojiError,
+    } = useAsyncData("authorEmoji", () =>
+        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
+            params: {
+                id: theme.value?.id || "",
+                creator_name: theme.value?.author || "",
                 category: theme.value?.category || "",
                 country: theme.value?.country || "",
             },

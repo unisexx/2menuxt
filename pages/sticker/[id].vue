@@ -218,14 +218,45 @@
                         <h2 class="text-xl font-semibold mb-4">
                             สติกเกอร์อื่นๆที่น่าสนใจ
                         </h2>
-                        <StickerCard :stickers="authorStickerData" />
+                        <StickerCard
+                            :stickers="authorStickerData"
+                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                        />
                     </div>
-
-                    <!-- แสดงสถานะการโหลด -->
                     <p v-if="pending">กำลังโหลด...</p>
-
-                    <!-- แสดงข้อผิดพลาด -->
                     <p v-if="error">เกิดข้อผิดพลาด: {{ error.message }}</p>
+
+                    <!-- ธีมตามผู้สร้าง -->
+                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                    <div v-if="authorThemeData && authorThemeData.length > 0">
+                        <h2 class="text-xl font-semibold mb-4">
+                            ธีมอื่นๆที่น่าสนใจ
+                        </h2>
+                        <ThemeCard
+                            :themes="authorThemeData"
+                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                        />
+                    </div>
+                    <p v-if="authorThemePending">กำลังโหลด...</p>
+                    <p v-if="authorThemeError">
+                        เกิดข้อผิดพลาด: {{ authorThemeError.message }}
+                    </p>
+
+                    <!-- อิโมจิตามผู้สร้าง -->
+                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                    <div v-if="authorEmojiData && authorEmojiData.length > 0">
+                        <h2 class="text-xl font-semibold mb-4">
+                            อิโมจิอื่นๆที่น่าสนใจ
+                        </h2>
+                        <EmojiCard
+                            :emojis="authorEmojiData"
+                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                        />
+                    </div>
+                    <p v-if="authorEmojiPending">กำลังโหลด...</p>
+                    <p v-if="authorEmojiError">
+                        เกิดข้อผิดพลาด: {{ authorEmojiError.message }}
+                    </p>
                 </div>
                 <div
                     class="w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200"
@@ -361,13 +392,40 @@
             category: sticker.value?.category || "",
             country: sticker.value?.country || "",
         };
-
-        // Console log เพื่อดู URL และพารามิเตอร์
-        // console.log("API URL:", apiUrl);
-        // console.log("API Parameters:", params);
-
         return $fetch(apiUrl, { params });
     });
+
+    //===== ธีมอื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorThemeData,
+        pending: authorThemePending,
+        error: authorThemeError,
+    } = useAsyncData("authorTheme", () =>
+        $fetch(`https://api.line2me.in.th/api/theme-by-author`, {
+            params: {
+                id: sticker.value?.id || "",
+                author: sticker.value?.author_th || "",
+                category: sticker.value?.category || "",
+                country: sticker.value?.country || "",
+            },
+        })
+    );
+
+    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
+    const {
+        data: authorEmojiData,
+        pending: authorEmojiPending,
+        error: authorEmojiError,
+    } = useAsyncData("authorEmoji", () =>
+        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
+            params: {
+                id: sticker.value?.id || "",
+                creator_name: sticker.value?.author_th || "",
+                category: sticker.value?.category || "",
+                country: sticker.value?.country || "",
+            },
+        })
+    );
 
     //===== LOG Product View =====/
     // ฟังก์ชันส่งข้อมูลไปยัง API
