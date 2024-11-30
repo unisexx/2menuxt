@@ -49,13 +49,13 @@
             </p>
 
             <!-- ปุ่มแอดไลน์ -->
-            <a
+            <NuxtLink
                 href="https://line.me/ti/p/~ratasak1234"
                 target="_blank"
                 class="mt-8 inline-block bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full text-md transition duration-300 ease-in-out"
             >
                 แอดไลน์ไอดี ratasak1234
-            </a>
+            </NuxtLink>
         </div>
 
         <!-- โปรโมทสติกเกอร์ -->

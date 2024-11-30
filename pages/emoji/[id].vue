@@ -36,12 +36,12 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                <a
+                                <NuxtLink
                                     class="cursor-default"
                                     rel="nofollow"
                                     :href="`https://line.me/S/emoji/?id=${emoji.emoji_code}`"
                                     target="_blank"
-                                    >{{ emoji.title }}</a
+                                    >{{ emoji.title }}</NuxtLink
                                 >
                             </li>
                         </ol>
@@ -141,7 +141,7 @@
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div v-if="authorEmojiData && authorEmojiData.length > 0">
-                        <EmojiCardAuthor :emojis="authorEmojiData" />
+                        <EmojiCard :emojis="authorEmojiData" />
                     </div>
 
                     <!-- แสดงสถานะการโหลด -->
@@ -247,29 +247,32 @@
     );
 
     //===== LOG Product View =====/
-    import { watchEffect } from "vue";
-
+    // ฟังก์ชันส่งข้อมูลไปยัง API
     const sendRecordProductView = async (type, id) => {
         try {
-            const response = await $fetch(
-                "https://api.line2me.in.th/api/record-product-view",
-                {
-                    method: "POST",
-                    body: {
-                        type: type,
-                        id: id,
-                    },
-                }
-            );
-            console.log("Successfully sent record-product-view:", response);
+            const clientIp = await $fetch("/api/get-client-ip")
+                .then((res) => res.ip)
+                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
+
+            await $fetch("https://api.line2me.in.th/api/record-product-view", {
+                method: "POST",
+                body: {
+                    type,
+                    id,
+                    ip_address: clientIp, // IP address from client
+                },
+            });
+
+            console.log("Record Product View Successfully Sent");
         } catch (error) {
             console.error("Error sending record-product-view:", error);
         }
     };
 
-    watchEffect(() => {
-        if (emoji.value) {
-            sendRecordProductView("emoji", emoji.value.id);
+    // Trigger sendRecordProductView after everything is loaded
+    onMounted(() => {
+        if (!pending.value && !error.value) {
+            sendRecordProductView("emoji", id);
         }
     });
 

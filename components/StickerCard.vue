@@ -1,12 +1,14 @@
 <template>
     <div
-        v-if="stickers.length > 0"
-        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+        :class="[
+            defaultClass,
+            customClass, // ใช้ customClass ที่รับมาจาก props
+        ]"
     >
-        <a
+        <NuxtLink
             v-for="sticker in stickers"
             :key="sticker.id"
-            :href="'/sticker/' + (sticker.sticker_code || 'unknown')"
+            :to="'/sticker/' + sticker.sticker_code"
             class="overflow-hidden block"
         >
             <div class="relative">
@@ -17,38 +19,21 @@
                     loading="lazy"
                 />
                 <span
-                    v-if="sticker.is_new === true"
-                    class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1 rounded custom-font-size"
+                    v-if="sticker.is_new"
+                    class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1 rounded"
                 >
                     NEW
                 </span>
             </div>
             <div class="p-4 text-center">
                 <h3 class="text-sm font-semibold text-gray-600 mb-2">
-                    <span
-                        v-if="sticker.country && sticker.country !== 'th'"
-                        class="fflag ff-sm mb-1"
-                        :class="'fflag-' + sticker.country.toUpperCase()"
-                        :title="sticker.country"
-                    ></span>
                     {{ sticker.title_th }}
                 </h3>
                 <p class="text-sm font-bold text-green-600">
                     {{ sticker.price }} THB
                 </p>
             </div>
-        </a>
-    </div>
-    <div v-else>
-        <div
-            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
-        >
-            <div
-                v-for="n in 8"
-                :key="n"
-                class="animate-pulse bg-gray-300 h-40 w-full rounded"
-            ></div>
-        </div>
+        </NuxtLink>
     </div>
 </template>
 
@@ -58,20 +43,16 @@
             stickers: {
                 type: Array,
                 required: true,
-                default: () => [],
+            },
+            customClass: {
+                type: String,
+                default: "", // Default คือไม่มีการเพิ่ม class
+            },
+        },
+        computed: {
+            defaultClass() {
+                return "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6";
             },
         },
     };
 </script>
-
-<style scoped>
-    .custom-font-size {
-        font-size: 8px; /* Default สำหรับมือถือ */
-    }
-
-    @media (max-width: 640px) {
-        .custom-font-size {
-            font-size: 10px;
-        }
-    }
-</style>

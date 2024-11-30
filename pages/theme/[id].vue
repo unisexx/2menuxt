@@ -33,14 +33,14 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                <a
+                                <NuxtLink
                                     class="cursor-default"
                                     rel="nofollow"
                                     :href="`https://line.me/S/shop/theme/detail?id=${theme.theme_code}`"
                                     target="_blank"
                                 >
                                     {{ theme.title }}
-                                </a>
+                                </NuxtLink>
                             </li>
                         </ol>
                     </nav>
@@ -117,7 +117,7 @@
                                 :key="x"
                                 class="text-center overflow-hidden"
                             >
-                                <a
+                                <NuxtLink
                                     :href="
                                         generateThemeUrlDetail(
                                             theme.theme_code,
@@ -141,7 +141,7 @@
                                         :alt="`ธีมไลน์ ${theme.title}`"
                                         loading="lazy"
                                     />
-                                </a>
+                                </NuxtLink>
                             </div>
                         </div>
 
@@ -155,7 +155,7 @@
                             <h2 class="text-xl font-semibold mb-4">
                                 ธีมอื่นๆที่น่าสนใจ
                             </h2>
-                            <ThemeAuthorCard :themes="authorThemeData" />
+                            <ThemeCard :themes="authorThemeData" />
                         </div>
 
                         <!-- แสดงสถานะการโหลด -->
@@ -279,29 +279,32 @@
     );
 
     //===== LOG Product View =====/
-    import { watchEffect } from "vue";
-
+    // ฟังก์ชันส่งข้อมูลไปยัง API
     const sendRecordProductView = async (type, id) => {
         try {
-            const response = await $fetch(
-                "https://api.line2me.in.th/api/record-product-view",
-                {
-                    method: "POST",
-                    body: {
-                        type: type,
-                        id: id,
-                    },
-                }
-            );
-            console.log("Successfully sent record-product-view:", response);
+            const clientIp = await $fetch("/api/get-client-ip")
+                .then((res) => res.ip)
+                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
+
+            await $fetch("https://api.line2me.in.th/api/record-product-view", {
+                method: "POST",
+                body: {
+                    type,
+                    id,
+                    ip_address: clientIp, // IP address from client
+                },
+            });
+
+            console.log("Record Product View Successfully Sent");
         } catch (error) {
             console.error("Error sending record-product-view:", error);
         }
     };
 
-    watchEffect(() => {
-        if (theme.value) {
-            sendRecordProductView("theme", theme.value.id);
+    // Trigger sendRecordProductView after everything is loaded
+    onMounted(() => {
+        if (!pending.value && !error.value) {
+            sendRecordProductView("theme", id);
         }
     });
 

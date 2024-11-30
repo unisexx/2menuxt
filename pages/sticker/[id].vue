@@ -36,14 +36,14 @@
                                 <span class="mx-2">/</span>
                             </li>
                             <li class="breadcrumb-item active text-gray-700">
-                                <a
+                                <NuxtLink
                                     class="cursor-default"
                                     rel="nofollow"
                                     :href="`https://line.me/S/sticker/${sticker.sticker_code}`"
                                     target="_blank"
                                 >
                                     {{ sticker.title_th }}
-                                </a>
+                                </NuxtLink>
                             </li>
                         </ol>
                     </nav>
@@ -218,7 +218,7 @@
                         <h2 class="text-xl font-semibold mb-4">
                             สติกเกอร์อื่นๆที่น่าสนใจ
                         </h2>
-                        <StickerAuthorCard :stickers="authorStickerData" />
+                        <StickerCard :stickers="authorStickerData" />
                     </div>
 
                     <!-- แสดงสถานะการโหลด -->
@@ -363,36 +363,39 @@
         };
 
         // Console log เพื่อดู URL และพารามิเตอร์
-        console.log("API URL:", apiUrl);
-        console.log("API Parameters:", params);
+        // console.log("API URL:", apiUrl);
+        // console.log("API Parameters:", params);
 
         return $fetch(apiUrl, { params });
     });
 
     //===== LOG Product View =====/
-    import { watchEffect } from "vue";
-
+    // ฟังก์ชันส่งข้อมูลไปยัง API
     const sendRecordProductView = async (type, id) => {
         try {
-            const response = await $fetch(
-                "https://api.line2me.in.th/api/record-product-view",
-                {
-                    method: "POST",
-                    body: {
-                        type: type,
-                        id: id,
-                    },
-                }
-            );
-            console.log("Successfully sent record-product-view:", response);
+            const clientIp = await $fetch("/api/get-client-ip")
+                .then((res) => res.ip)
+                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
+
+            await $fetch("https://api.line2me.in.th/api/record-product-view", {
+                method: "POST",
+                body: {
+                    type,
+                    id,
+                    ip_address: clientIp, // IP address from client
+                },
+            });
+
+            console.log("Record Product View Successfully Sent");
         } catch (error) {
             console.error("Error sending record-product-view:", error);
         }
     };
 
-    watchEffect(() => {
-        if (sticker.value) {
-            sendRecordProductView("sticker", sticker.value.id);
+    // Trigger sendRecordProductView after everything is loaded
+    onMounted(() => {
+        if (!pending.value && !error.value) {
+            sendRecordProductView("sticker", id);
         }
     });
 

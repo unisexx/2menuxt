@@ -7,16 +7,13 @@
                     to="/"
                     class="text-3xl font-bold tracking-wide relative"
                 >
-                    <!-- ข้อความ LINE -->
                     <span
                         class="text-green-500"
                         style="font-family: 'Arial', sans-serif"
                     >
                         LINE
                     </span>
-                    <!-- ข้อความ 2me -->
                     <span class="text-gray-800">2me</span>
-                    <!-- ข้อความเสริม -->
                     <span
                         class="absolute text-sm text-gray-500 italic top-6 left-1"
                     >
@@ -28,53 +25,39 @@
 
         <!-- Main Layout -->
         <div class="flex flex-1 mt-[4rem] relative">
-            <!-- Layout for Mobile or Desktop -->
-            <div v-if="screenIsLarge" class="hidden lg:flex">
-                <!-- Desktop Layout -->
-                <aside
-                    class="border-r h-screen w-64 bg-white fixed top-[4rem] left-0 z-40"
-                >
-                    <MenuList :menus="menus" :isActive="isActive" />
-                </aside>
-                <main class="flex-1 p-3 ml-64">
-                    <NuxtPage />
-                </main>
-            </div>
+            <!-- Aside Menu -->
+            <aside
+                :class="[
+                    'border-r h-screen fixed top-[4rem] z-40 bg-white transition-transform duration-300',
+                    screenIsLarge ? 'w-64 translate-x-0' : 'w-64',
+                    isCollapsed && !screenIsLarge
+                        ? '-translate-x-full'
+                        : 'translate-x-0',
+                ]"
+            >
+                <MenuList
+                    :menus="menus"
+                    :isActive="isActive"
+                    :closeAside="closeAside"
+                />
+            </aside>
 
-            <div v-else class="lg:hidden">
-                <!-- Mobile Layout -->
-                <button
-                    class="fixed top-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
-                    @click="toggleAside"
-                >
-                    <span v-if="isCollapsed" class="material-symbols-outlined">
-                        menu
-                    </span>
-                    <span v-else class="material-symbols-outlined">
-                        close
-                    </span>
-                </button>
+            <!-- Main Content -->
+            <main :class="['flex-1 p-3', screenIsLarge ? 'ml-64' : 'ml-0']">
+                <NuxtPage />
+            </main>
 
-                <!-- Aside Menu -->
-                <aside
-                    :class="{
-                        '-translate-x-full': isCollapsed,
-                        'translate-x-0': !isCollapsed,
-                    }"
-                    class="border-r h-screen fixed top-[4rem] transition-transform duration-300 w-64 z-40 bg-white"
-                >
-                    <MenuList
-                        :menus="menus"
-                        :isActive="isActive"
-                        :closeAside="closeAside"
-                    />
-                </aside>
-
-                <!-- Main Content -->
-                <main class="flex-1 p-3 transition-all duration-300">
-                    <NuxtPage />
-                </main>
-            </div>
+            <!-- Mobile Menu Toggle Button -->
+            <button
+                v-if="!screenIsLarge"
+                class="fixed top-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
+                @click="toggleAside"
+            >
+                <span v-if="isCollapsed" class="material-symbols-outlined">
+                    menu
+                </span>
+                <span v-else class="material-symbols-outlined"> close </span>
+            </button>
         </div>
 
         <!-- Footer -->

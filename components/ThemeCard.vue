@@ -1,11 +1,14 @@
 <template>
     <div
-        class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+        :class="[
+            defaultClass, // ค่า default
+            customClass, // ค่า override จาก props
+        ]"
     >
-        <a
+        <NuxtLink
             v-for="theme in themes"
             :key="theme.id"
-            :href="'/theme/' + theme.id"
+            :to="'/theme/' + theme.id"
             class="overflow-hidden block"
         >
             <div class="relative">
@@ -37,7 +40,7 @@
                     {{ theme.price }} THB
                 </p>
             </div>
-        </a>
+        </NuxtLink>
     </div>
 </template>
 
@@ -47,6 +50,15 @@
             themes: {
                 type: Array,
                 required: true,
+            },
+            customClass: {
+                type: String,
+                default: "", // ไม่ override class ถ้าไม่ได้ส่งเข้ามา
+            },
+        },
+        computed: {
+            defaultClass() {
+                return "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6";
             },
         },
     };
