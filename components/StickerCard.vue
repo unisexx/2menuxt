@@ -27,6 +27,12 @@
             </div>
             <div class="p-4 text-center">
                 <h3 class="text-sm font-semibold text-gray-600 mb-2">
+                    <span
+                        v-if="sticker.country !== 'th'"
+                        class="fflag ff-sm mb-1"
+                        :class="'fflag-' + sticker.country.toUpperCase()"
+                        :title="sticker.country"
+                    ></span>
                     {{ sticker.title_th }}
                 </h3>
                 <p class="text-sm font-bold text-green-600">
