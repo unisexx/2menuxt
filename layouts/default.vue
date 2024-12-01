@@ -28,7 +28,7 @@
                         @keyup.enter="redirectToSearch"
                         type="text"
                         placeholder="ค้นหาสติกเกอร์..."
-                        class="border rounded-md px-3 py-1 focus:outline-none focus:ring focus:ring-green-500 w-full sm:w-auto max-w-xs"
+                        class="border rounded-md ms-2 px-3 py-1 focus:outline-none focus:ring focus:ring-green-500 w-full sm:w-auto max-w-xs"
                     />
                     <button
                         @click="redirectToSearch"
