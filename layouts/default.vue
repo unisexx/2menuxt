@@ -20,6 +20,23 @@
                         สติกเกอร์ไลน์ส่งไว
                     </span>
                 </NuxtLink>
+
+                <!-- Search Input -->
+                <div class="flex items-center space-x-2 flex-1 sm:flex-none">
+                    <input
+                        v-model="searchQuery"
+                        @keyup.enter="redirectToSearch"
+                        type="text"
+                        placeholder="ค้นหาสติกเกอร์..."
+                        class="border rounded-md px-3 py-1 focus:outline-none focus:ring focus:ring-green-500 w-full sm:w-auto max-w-xs"
+                    />
+                    <button
+                        @click="redirectToSearch"
+                        class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                    >
+                        ค้นหา
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -50,7 +67,7 @@
             <!-- Mobile Menu Toggle Button -->
             <button
                 v-if="!screenIsLarge"
-                class="fixed top-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
+                class="fixed bottom-3 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50"
                 @click="toggleAside"
             >
                 <span v-if="isCollapsed" class="material-symbols-outlined">
@@ -77,6 +94,7 @@
         data() {
             return {
                 isCollapsed: true,
+                searchQuery: "", // คำค้นหาสติกเกอร์
                 menus: [
                     { to: "/", label: "หน้าแรก", icon: "home" },
                     { separator: true },
@@ -94,6 +112,8 @@
                         icon: "emoji_emotions",
                     },
                 ],
+                stickers: [], // รายการสติกเกอร์ทั้งหมด
+                filteredStickers: [], // รายการสติกเกอร์ที่ค้นหาแล้ว
                 screenIsLarge: false,
             };
         },
@@ -101,6 +121,14 @@
             if (process.client) {
                 this.setDefaultAsideState();
                 window.addEventListener("resize", this.setDefaultAsideState);
+
+                // โหลดข้อมูลสติกเกอร์ทั้งหมด (ตัวอย่าง)
+                this.stickers = [
+                    { name: "Anpanman", category: "Funny" },
+                    { name: "Cute Bear", category: "Cute" },
+                    { name: "Happy Cat", category: "Animal" },
+                ];
+                this.filteredStickers = this.stickers; // ตั้งค่าเริ่มต้น
             }
         },
         beforeDestroy() {
@@ -132,6 +160,15 @@
                     emojis: ["emoji", "emojis"],
                 };
                 return activeRules[menuPath]?.includes(currentPath) || false;
+            },
+            redirectToSearch() {
+                // ตรวจสอบว่ามีคำค้นหา
+                if (this.searchQuery.trim()) {
+                    this.$router.push({
+                        path: "/search",
+                        query: { q: this.searchQuery.trim() }, // ส่งคำค้นหาใน query string
+                    });
+                }
             },
         },
     };
