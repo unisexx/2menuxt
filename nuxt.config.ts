@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   css: [
     '@/assets/css/tailwind.css',
     '@/assets/css/freakflags/freakflags.css',
-    "@/assets/css/global.css"
+    "@/assets/css/global.css",
+    '@/assets/css/nprogress.css' 
   ],
 
   postcss: {
@@ -13,6 +14,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
+  plugins: [
+    '~/plugins/nprogress.ts'
+  ],
 
   app: {
       buildAssetsDir: '/line2me_nuxt/', // กำหนดชื่อโฟลเดอร์ใหม่ที่ต้องการ
