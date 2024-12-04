@@ -48,6 +48,7 @@
                                         src="https://i.imgur.com/KC7umM0.png"
                                         class="rounded-lg shadow-md"
                                         alt="สกรีนช็อต 2021-12-28 171810"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
@@ -64,6 +65,7 @@
                                         src="https://i.imgur.com/pvxxwjB.png"
                                         class="rounded-lg shadow-md"
                                         alt="สกรีนช็อต 2021-12-28 171938"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
@@ -87,6 +89,7 @@
                                             src="https://i.imgur.com/N4e9WxF.png"
                                             class="rounded-lg shadow-md"
                                             alt="สกรีนช็อต LINE"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div class="text-center">
@@ -97,6 +100,7 @@
                                             src="https://i.imgur.com/v5qkwuK.png"
                                             class="rounded-lg shadow-md"
                                             alt="สกรีนช็อต Facebook"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div class="text-center">
@@ -107,6 +111,7 @@
                                             src="https://i.imgur.com/cjjEvi0.png"
                                             class="rounded-lg shadow-md"
                                             alt="สกรีนช็อต X"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div class="text-center">
@@ -117,6 +122,7 @@
                                             src="https://i.imgur.com/MwElpdz.png"
                                             class="rounded-lg shadow-md"
                                             alt="สกรีนช็อต Instagram"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div class="text-center">
@@ -127,6 +133,7 @@
                                             src="https://i.imgur.com/OlJMwJC.png"
                                             class="rounded-lg shadow-md"
                                             alt="สกรีนช็อต Pinterest"
+                                            loading="lazy"
                                         />
                                     </div>
                                 </div>
