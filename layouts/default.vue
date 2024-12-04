@@ -111,6 +111,12 @@
                         label: "อิโมจิไลน์",
                         icon: "emoji_emotions",
                     },
+                    { separator: true },
+                    {
+                        to: "/promote",
+                        label: "โปรโมทสติกเกอร์ไลน์",
+                        icon: "star",
+                    },
                 ],
                 stickers: [], // รายการสติกเกอร์ทั้งหมด
                 filteredStickers: [], // รายการสติกเกอร์ที่ค้นหาแล้ว

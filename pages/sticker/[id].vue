@@ -210,6 +210,16 @@
 
                     <hr class="mt-5 mb-5" />
 
+                    <!-- โปรโมทสติกเกอร์ -->
+                    <div v-if="promoteStickerData">
+                        <h2 class="text-xl font-semibold mb-4">
+                            สติกเกอร์ไลน์แนะนำ
+                        </h2>
+                        <StickerCard :stickers="promoteStickerData" />
+                    </div>
+                    <p v-else-if="promoteStickerPending">Loading...</p>
+                    <p v-else>Error loading promote-sticker data</p>
+
                     <!-- สติกเกอร์ตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div
@@ -378,6 +388,19 @@
     if (error.value) {
         console.error("Error fetching data:", error.value);
     }
+
+    //===== สติกเกอร์โปรโมท API =====/
+    const {
+        data: promoteStickerData,
+        error: promoteStickerError,
+        pending: promoteStickerPending,
+    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/promote-sticker`
+        );
+        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
+        return res.json();
+    });
 
     //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
     const {

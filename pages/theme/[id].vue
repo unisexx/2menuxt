@@ -147,6 +147,16 @@
 
                         <hr class="mt-5 mb-5" />
 
+                        <!-- โปรโมทสติกเกอร์ -->
+                        <div v-if="promoteStickerData">
+                            <h2 class="text-xl font-semibold mb-4">
+                                สติกเกอร์ไลน์แนะนำ
+                            </h2>
+                            <StickerCard :stickers="promoteStickerData" />
+                        </div>
+                        <p v-else-if="promoteStickerPending">Loading...</p>
+                        <p v-else>Error loading promote-sticker data</p>
+
                         <!-- ธีมตามผู้สร้าง -->
                         <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                         <div
@@ -296,6 +306,19 @@
     // เรียกใช้ Lightbox เมื่อ component mount
     onMounted(() => {
         initLightbox();
+    });
+
+    //===== สติกเกอร์โปรโมท API =====/
+    const {
+        data: promoteStickerData,
+        error: promoteStickerError,
+        pending: promoteStickerPending,
+    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/promote-sticker`
+        );
+        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
+        return res.json();
     });
 
     //===== ธีมอื่นๆตามผู้สร้าง =====/
