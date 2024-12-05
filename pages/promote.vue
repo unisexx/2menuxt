@@ -220,7 +220,7 @@
                                     href="https://line.me/ti/p/~ratasak1234"
                                     rel="noopener noreferrer"
                                     target="_blank"
-                                    class="text-lg inline-block bg-blue-700 text-white text-center px-6 py-3 rounded-full hover:bg-blue-600 w-full transition duration-300 ease-in-out hidden md:block"
+                                    class="text-lg inline-block bg-blue-700 text-white text-center px-6 py-3 rounded-full hover:bg-blue-600 w-full transition duration-300 ease-in-out"
                                     ><span
                                         class="material-symbols-outlined text-xl mb-1"
                                         >arrow_forward</span
