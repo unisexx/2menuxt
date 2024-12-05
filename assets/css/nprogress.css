@@ -1,14 +1,14 @@
 /* nprogress.css */
 #nprogress .bar {
-    background: #1DB954 !important; /* สีเขียวเหมือนเว็บไลน์ */
-    height: 3px !important; /* ความหนา */
-  }
-  
-  #nprogress .peg {
-    box-shadow: 0 0 10px #1DB954, 0 0 5px #1DB954 !important; /* เงา */
-  }
-  
-  #nprogress .spinner {
-    display: none !important; /* ซ่อน Spinner */
-  }
+  background: #1DB954 !important; /* สีเขียวเหมือนเว็บไลน์ */
+  height: 3px !important; /* ความหนา */
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #1DB954, 0 0 5px #1DB954 !important; /* เงา */
+}
+
+#nprogress .spinner {
+  display: none !important; /* ซ่อน Spinner */
+}
   

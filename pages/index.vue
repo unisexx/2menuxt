@@ -95,6 +95,44 @@
         </div>
         <p v-else-if="emojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
+
+        <!-- สติกเกอร์ทางการไทย -->
+        <div v-if="officialThaiStickerData">
+            <h2 class="text-xl font-semibold mb-4">สติกเกอร์ไลน์ทางการไทย</h2>
+            <StickerCard :stickers="officialThaiStickerData" />
+        </div>
+        <p v-else-if="officialThaiStickerPending">Loading...</p>
+        <p v-else>Error loading sticker data</p>
+
+        <!-- สติกเกอร์ทางการต่างประเทศ -->
+        <div v-if="officialOverseaStickerData">
+            <h2 class="text-xl font-semibold mb-4">
+                สติกเกอร์ไลน์ทางการต่างประเทศ
+            </h2>
+            <StickerCard :stickers="officialOverseaStickerData" />
+        </div>
+        <p v-else-if="officialOverseaStickerPending">Loading...</p>
+        <p v-else>Error loading sticker data</p>
+
+        <!-- สติกเกอร์ครีเอเตอร์ไทย -->
+        <div v-if="creatorThaiStickerData">
+            <h2 class="text-xl font-semibold mb-4">
+                สติกเกอร์ไลน์ครีเอเตอร์ไทย
+            </h2>
+            <StickerCard :stickers="creatorThaiStickerData" />
+        </div>
+        <p v-else-if="creatorThaiStickerPending">Loading...</p>
+        <p v-else>Error loading sticker data</p>
+
+        <!-- สติกเกอร์ครีเอเตอร์ไทยต่างประเทศ -->
+        <div v-if="creatorOverseaStickerData">
+            <h2 class="text-xl font-semibold mb-4">
+                สติกเกอร์ไลน์ครีเอเตอร์ต่างประเทศ
+            </h2>
+            <StickerCard :stickers="creatorOverseaStickerData" />
+        </div>
+        <p v-else-if="creatorOverseaStickerPending">Loading...</p>
+        <p v-else>Error loading sticker data</p>
     </div>
 </template>
 
@@ -181,20 +219,59 @@
         return res.json();
     });
 
-    // ตรวจสอบข้อผิดพลาด
-    if (stickerError.value) {
-        console.error("Error fetching sticker data:", stickerError.value);
-    }
-    if (themeError.value) {
-        console.error("Error fetching theme data:", themeError.value);
-    }
-    if (emojiError.value) {
-        console.error("Error fetching emoji data:", emojiError.value);
-    }
-    if (promoteStickerError.value) {
-        console.error(
-            "Error fetching promote-sticker data:",
-            promoteStickerError.value
+    // สติกเกอร์ทางการไทย API
+    const {
+        data: officialThaiStickerData,
+        error: officialThaiStickerError,
+        pending: officialThaiStickerPending,
+    } = await useAsyncData(`fetchOfficialThaiSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-official-thai`
         );
-    }
+        if (!res.ok)
+            throw new Error("Failed to fetch sticker-official-thai API");
+        return res.json();
+    });
+
+    // สติกเกอร์ทางการต่างประเทศ API
+    const {
+        data: officialOverseaStickerData,
+        error: officialOverseaStickerError,
+        pending: officialOverseaStickerPending,
+    } = await useAsyncData(`fetchOfficialOverseaSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-official-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch sticker-official-oversea API");
+        return res.json();
+    });
+
+    // สติกเกอร์ครีเอเตอร์ไทย API
+    const {
+        data: creatorThaiStickerData,
+        error: creatorThaiStickerError,
+        pending: creatorThaiStickerPending,
+    } = await useAsyncData(`fetchCreatorThaiSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-creator-thai`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch sticker-creator-thai API");
+        return res.json();
+    });
+
+    // สติกเกอร์ครีเอเตอร์ต่างประเทศ API
+    const {
+        data: creatorOverseaStickerData,
+        error: creatorOverseaStickerError,
+        pending: creatorOverseaStickerPending,
+    } = await useAsyncData(`fetchCreatorOverseaSticker-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/sticker-creator-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch sticker-creator-oversea API");
+        return res.json();
+    });
 </script>
