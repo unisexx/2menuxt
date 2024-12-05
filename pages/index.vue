@@ -133,6 +133,76 @@
         </div>
         <p v-else-if="creatorOverseaStickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
+
+        <!-- ธีมทางการไทย -->
+        <div v-if="officialThaiThemeData">
+            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ทางการไทย</h2>
+            <ThemeCard :themes="officialThaiThemeData" />
+        </div>
+        <p v-else-if="officialThaiThemePending">Loading...</p>
+        <p v-else>Error loading theme data</p>
+
+        <!-- ธีมทางการต่างประเทศ -->
+        <div v-if="officialOverseaThemeData">
+            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ทางการต่างประเทศ</h2>
+            <ThemeCard :themes="officialOverseaThemeData" />
+        </div>
+        <p v-else-if="officialOverseaThemePending">Loading...</p>
+        <p v-else>Error loading theme data</p>
+
+        <!-- ธีมครีเอเตอร์ไทย -->
+        <div v-if="creatorThaiThemeData">
+            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ครีเอเตอร์ไทย</h2>
+            <ThemeCard :themes="creatorThaiThemeData" />
+        </div>
+        <p v-else-if="creatorThaiThemePending">Loading...</p>
+        <p v-else>Error loading theme data</p>
+
+        <!-- ธีมครีเอเตอร์ต่างประเทศ -->
+        <div v-if="creatorOverseaThemeData">
+            <h2 class="text-xl font-semibold mb-4">
+                ธีมไลน์ครีเอเตอร์ต่างประเทศ
+            </h2>
+            <ThemeCard :themes="creatorOverseaThemeData" />
+        </div>
+        <p v-else-if="creatorOverseaThemePending">Loading...</p>
+        <p v-else>Error loading theme data</p>
+
+        <!-- อิโมจิทางการไทย -->
+        <div v-if="officialThaiEmojiData">
+            <h2 class="text-xl font-semibold mb-4">อิโมจิไลน์ทางการไทย</h2>
+            <EmojiCard :emojis="officialThaiEmojiData" />
+        </div>
+        <p v-else-if="officialThaiEmojiPending">Loading...</p>
+        <p v-else>Error loading emoji data</p>
+
+        <!-- อิโมจิทางการต่างประเทศ -->
+        <div v-if="officialOverseaEmojiData">
+            <h2 class="text-xl font-semibold mb-4">
+                อิโมจิไลน์ทางการต่างประเทศ
+            </h2>
+            <EmojiCard :emojis="officialOverseaEmojiData" />
+        </div>
+        <p v-else-if="officialOverseaEmojiPending">Loading...</p>
+        <p v-else>Error loading emoji data</p>
+
+        <!-- อิโมจิครีเอเตอร์ไทย -->
+        <div v-if="creatorThaiEmojiData">
+            <h2 class="text-xl font-semibold mb-4">อิโมจิไลน์ครีเอเตอร์ไทย</h2>
+            <EmojiCard :emojis="creatorThaiEmojiData" />
+        </div>
+        <p v-else-if="creatorThaiEmojiPending">Loading...</p>
+        <p v-else>Error loading emoji data</p>
+
+        <!-- อิโมจิครีเอเตอร์ต่างประเทศ -->
+        <div v-if="creatorOverseaEmojiData">
+            <h2 class="text-xl font-semibold mb-4">
+                อิโมจิไลน์ครีเอเตอร์ต่างประเทศ
+            </h2>
+            <EmojiCard :emojis="creatorOverseaEmojiData" />
+        </div>
+        <p v-else-if="creatorOverseaEmojiPending">Loading...</p>
+        <p v-else>Error loading emoji data</p>
     </div>
 </template>
 
@@ -272,6 +342,114 @@
         );
         if (!res.ok)
             throw new Error("Failed to fetch sticker-creator-oversea API");
+        return res.json();
+    });
+
+    // ธีมทางการไทย API
+    const {
+        data: officialThaiThemeData,
+        error: officialThaiThemeError,
+        pending: officialThaiThemePending,
+    } = await useAsyncData(`fetchOfficialThaiTheme-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/theme-official-thai`
+        );
+        if (!res.ok) throw new Error("Failed to fetch theme-official-thai API");
+        return res.json();
+    });
+
+    // ธีมทางการต่างประเทศ API
+    const {
+        data: officialOverseaThemeData,
+        error: officialOverseaThemeError,
+        pending: officialOverseaThemePending,
+    } = await useAsyncData(`fetchOfficialOverseaTheme-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/theme-official-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch theme-official-oversea API");
+        return res.json();
+    });
+
+    // ธีมครีเอเตอร์ไทย API
+    const {
+        data: creatorThaiThemeData,
+        error: creatorThaiThemeError,
+        pending: creatorThaiThemePending,
+    } = await useAsyncData(`fetchCreatorThaiTheme-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/theme-creator-thai`
+        );
+        if (!res.ok) throw new Error("Failed to fetch theme-creator-thai API");
+        return res.json();
+    });
+
+    // ธีมครีเอเตอร์ต่างประเทศ API
+    const {
+        data: creatorOverseaThemeData,
+        error: creatorOverseaThemeError,
+        pending: creatorOverseaThemePending,
+    } = await useAsyncData(`fetchCreatorOverseaTheme-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/theme-creator-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch theme-creator-oversea API");
+        return res.json();
+    });
+
+    // อิโมจิทางการไทย API
+    const {
+        data: officialThaiEmojiData,
+        error: officialThaiEmojiError,
+        pending: officialThaiEmojiPending,
+    } = await useAsyncData(`fetchOfficialThaiEmoji-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/emoji-official-thai`
+        );
+        if (!res.ok) throw new Error("Failed to fetch emoji-official-thai API");
+        return res.json();
+    });
+
+    // อิโมจิการต่างประเทศ API
+    const {
+        data: officialOverseaEmojiData,
+        error: officialOverseaEmojiError,
+        pending: officialOverseaEmojiPending,
+    } = await useAsyncData(`fetchOfficialOverseaEmoji-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/emoji-official-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch emoji-official-oversea API");
+        return res.json();
+    });
+
+    // อิโมจิครีเอเตอร์ไทย API
+    const {
+        data: creatorThaiEmojiData,
+        error: creatorThaiEmojiError,
+        pending: creatorThaiEmojiPending,
+    } = await useAsyncData(`fetchCreatorThaiEmoji-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/emoji-creator-thai`
+        );
+        if (!res.ok) throw new Error("Failed to fetch emoji-creator-thai API");
+        return res.json();
+    });
+
+    // อิโมจิครีเอเตอร์ต่างประเทศ API
+    const {
+        data: creatorOverseaEmojiData,
+        error: creatorOverseaEmojiError,
+        pending: creatorOverseaEmojiPending,
+    } = await useAsyncData(`fetchCreatorOverseaEmoji-${id}`, async () => {
+        const res = await fetch(
+            `https://api.line2me.in.th/api/emoji-creator-oversea`
+        );
+        if (!res.ok)
+            throw new Error("Failed to fetch emoji-creator-oversea API");
         return res.json();
     });
 </script>
