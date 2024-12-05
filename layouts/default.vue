@@ -81,7 +81,7 @@
         <button
             v-if="showScrollTop"
             @click="scrollToTop"
-            class="fixed bottom-16 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50 transition duration-300"
+            class="fixed bottom-16 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-40 transition duration-300"
         >
             <span class="material-symbols-outlined"> arrow_upward </span>
         </button>

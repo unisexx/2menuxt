@@ -66,7 +66,7 @@
             <hr />
 
             <!-- Pagination -->
-            <div class="flex justify-between items-center mt-6">
+            <div class="relative z-50 flex justify-between items-center mt-6">
                 <button
                     @click="changePage(emojiData.current_page - 1)"
                     :disabled="!emojiData.prev_page_url"
