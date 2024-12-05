@@ -77,6 +77,17 @@
             </button>
         </div>
 
+        <!-- Scroll to Top Button -->
+        <button
+            v-if="showScrollTop"
+            @click="scrollToTop"
+            class="fixed bottom-16 right-4 bg-blue-700 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none flex items-center justify-center z-50 transition duration-300"
+        >
+            <span class="material-symbols-outlined text-xl">
+                arrow_upward
+            </span>
+        </button>
+
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto text-center">
@@ -118,28 +129,21 @@
                         icon: "star",
                     },
                 ],
-                stickers: [], // รายการสติกเกอร์ทั้งหมด
-                filteredStickers: [], // รายการสติกเกอร์ที่ค้นหาแล้ว
                 screenIsLarge: false,
+                showScrollTop: false, // แสดงปุ่ม Scroll to Top
             };
         },
         mounted() {
             if (process.client) {
                 this.setDefaultAsideState();
                 window.addEventListener("resize", this.setDefaultAsideState);
-
-                // โหลดข้อมูลสติกเกอร์ทั้งหมด (ตัวอย่าง)
-                this.stickers = [
-                    { name: "Anpanman", category: "Funny" },
-                    { name: "Cute Bear", category: "Cute" },
-                    { name: "Happy Cat", category: "Animal" },
-                ];
-                this.filteredStickers = this.stickers; // ตั้งค่าเริ่มต้น
+                window.addEventListener("scroll", this.handleScroll);
             }
         },
         beforeDestroy() {
             if (process.client) {
                 window.removeEventListener("resize", this.setDefaultAsideState);
+                window.removeEventListener("scroll", this.handleScroll);
             }
         },
         methods: {
@@ -168,13 +172,21 @@
                 return activeRules[menuPath]?.includes(currentPath) || false;
             },
             redirectToSearch() {
-                // ตรวจสอบว่ามีคำค้นหา
                 if (this.searchQuery.trim()) {
                     this.$router.push({
                         path: "/search",
-                        query: { q: this.searchQuery.trim() }, // ส่งคำค้นหาใน query string
+                        query: { q: this.searchQuery.trim() },
                     });
                 }
+            },
+            handleScroll() {
+                this.showScrollTop = window.scrollY > 300; // แสดงปุ่มเมื่อ Scroll ลงมามากกว่า 300px
+            },
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth", // เลื่อนหน้าเว็บอย่างนุ่มนวล
+                });
             },
         },
     };
