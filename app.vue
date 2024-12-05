@@ -8,7 +8,7 @@
     useHead({
         script: [
             {
-                src: "https://www.googletagmanager.com/gtag/js?id=G-L2WFRL1B38",
+                src: "https://www.googletagmanager.com/gtag/js?id=G-WGHGZDRCTE",
                 async: true,
             },
         ],
@@ -16,7 +16,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-L2WFRL1B38');
+    gtag('config', 'G-WGHGZDRCTE');
   `,
     });
 </script>
