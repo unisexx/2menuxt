@@ -61,7 +61,7 @@
         <!-- โปรโมทสติกเกอร์ -->
         <div v-if="promoteStickerData">
             <h2 class="text-xl font-semibold mb-4">สติกเกอร์ไลน์แนะนำ</h2>
-            <StickerCard :stickers="promoteStickerData" />
+            <StickerCard :stickers="promoteStickerData" :showPromote="true" />
         </div>
         <p v-else-if="promoteStickerPending">Loading...</p>
         <p v-else>Error loading promote-sticker data</p>
