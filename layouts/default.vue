@@ -96,8 +96,6 @@
 </template>
 
 <script>
-    import MenuList from "~/components/MenuList.vue";
-
     export default {
         name: "Layout",
         data() {
@@ -136,6 +134,22 @@
                 this.setDefaultAsideState();
                 window.addEventListener("resize", this.setDefaultAsideState);
                 window.addEventListener("scroll", this.handleScroll);
+
+                // Google Analytics gtag.js
+                const script = document.createElement("script");
+                script.async = true;
+                script.src =
+                    "https://www.googletagmanager.com/gtag/js?id=G-K10KSG51EV";
+                document.head.appendChild(script);
+
+                script.onload = () => {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag("js", new Date());
+                    gtag("config", "G-K10KSG51EV");
+                };
             }
         },
         beforeDestroy() {
