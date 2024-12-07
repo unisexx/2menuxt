@@ -40,7 +40,7 @@
         <NuxtLink
             v-if="showPromote"
             href="/promote"
-            class="overflow-hidden block relative bg-red-500 rounded-lg shadow-lg"
+            class="overflow-hidden block relative bg-teal-500 rounded-lg shadow-lg"
         >
             <svg
                 class="absolute bottom-0 left-0 mb-8"
