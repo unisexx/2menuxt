@@ -2,7 +2,10 @@
     <div class="container mx-auto">
         <div v-if="sticker">
             <div class="flex flex-wrap">
-                <div class="w-full lg:w-9/12 xl:w-8/12 mx-auto">
+                <div
+                    v-if="sticker.status === 1"
+                    class="w-full lg:w-9/12 xl:w-8/12 mx-auto"
+                >
                     <!-- Breadcrumb -->
                     <nav class="mb-4 bg-gray-100 rounded-lg p-4">
                         <ol
@@ -271,6 +274,14 @@
                         เกิดข้อผิดพลาด: {{ authorEmojiError.message }}
                     </p>
                 </div>
+
+                <!-- status = 0 ไม่มีขายแล้ว -->
+                <NotAvailable
+                    v-if="sticker.status === 0"
+                    :imgUrl="sticker.img_url"
+                    :title="sticker.title_th"
+                />
+
                 <div
                     class="w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200"
                 >
