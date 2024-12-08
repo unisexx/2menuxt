@@ -48,7 +48,6 @@
                 </span>
             </p>
 
-            <!-- ปุ่มแอดไลน์ -->
             <NuxtLink
                 href="https://line.me/ti/p/~ratasak1234"
                 target="_blank"
@@ -74,14 +73,9 @@
                 color="text-red-500"
             />
             <StickerCard :stickers="stickerData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="stickers?page=1&country=&category=official&order=new"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="stickers?page=1&country=&category=official&order=new"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="stickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -94,14 +88,9 @@
                 color="text-red-500"
             />
             <ThemeCard :themes="themeData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="themes?page=1&country=&category=official&order=new"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="themes?page=1&country=&category=official&order=new"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="themePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -114,14 +103,9 @@
                 color="text-red-500"
             />
             <EmojiCard :emojis="emojiData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="emojis?page=1&country=&category=official&order=new"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="emojis?page=1&country=&category=official&order=new"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="emojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -134,14 +118,9 @@
                 color="text-sky-400"
             />
             <StickerCard :stickers="officialThaiStickerData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="stickers?page=1&country=th&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="stickers?page=1&country=th&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialThaiStickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -154,14 +133,9 @@
                 color="text-sky-400"
             />
             <StickerCard :stickers="officialOverseaStickerData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="stickers?page=1&country=jp&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="stickers?page=1&country=jp&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialOverseaStickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -174,14 +148,9 @@
                 color="text-sky-400"
             />
             <StickerCard :stickers="creatorThaiStickerData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="stickers?page=1&country=th&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="stickers?page=1&country=th&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorThaiStickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -194,14 +163,9 @@
                 color="text-sky-400"
             />
             <StickerCard :stickers="creatorOverseaStickerData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="stickers?page=1&country=jp&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="stickers?page=1&country=jp&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorOverseaStickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -211,14 +175,9 @@
         <div v-if="officialThaiThemeData">
             <HeadingWithLine text="ธีมไลน์ทางการไทย" color="text-rose-400" />
             <ThemeCard :themes="officialThaiThemeData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="themes?page=1&country=th&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="themes?page=1&country=th&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialThaiThemePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -231,14 +190,9 @@
                 color="text-rose-400"
             />
             <ThemeCard :themes="officialOverseaThemeData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="themes?page=1&country=jp&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="themes?page=1&country=jp&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialOverseaThemePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -251,14 +205,9 @@
                 color="text-rose-400"
             />
             <ThemeCard :themes="creatorThaiThemeData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="themes?page=1&country=th&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="themes?page=1&country=th&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorThaiThemePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -271,14 +220,9 @@
                 color="text-rose-400"
             />
             <ThemeCard :themes="creatorOverseaThemeData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="themes?page=1&country=jp&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="themes?page=1&country=jp&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorOverseaThemePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -288,14 +232,9 @@
         <div v-if="officialThaiEmojiData">
             <HeadingWithLine text="อิโมจิไลน์ทางการไทย" color="text-teal-500" />
             <EmojiCard :emojis="officialThaiEmojiData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="emojis?page=1&country=th&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="emojis?page=1&country=th&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialThaiEmojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -308,14 +247,9 @@
                 color="text-teal-500"
             />
             <EmojiCard :emojis="officialOverseaEmojiData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="emojis?page=1&country=jp&category=official&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="emojis?page=1&country=jp&category=official&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="officialOverseaEmojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -328,14 +262,9 @@
                 color="text-teal-500"
             />
             <EmojiCard :emojis="creatorThaiEmojiData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="emojis?page=1&country=th&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="emojis?page=1&country=th&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorThaiEmojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -348,14 +277,9 @@
                 color="text-teal-500"
             />
             <EmojiCard :emojis="creatorOverseaEmojiData" />
-            <div class="text-center">
-                <NuxtLink
-                    href="emojis?page=1&country=jp&category=creator&order=popular"
-                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
-                >
-                    ดูเพิ่มเติม
-                </NuxtLink>
-            </div>
+            <SeeMoreButton
+                href="emojis?page=1&country=jp&category=creator&order=popular"
+            ></SeeMoreButton>
         </div>
         <p v-else-if="creatorOverseaEmojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
