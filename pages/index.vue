@@ -60,7 +60,7 @@
 
         <!-- โปรโมทสติกเกอร์ -->
         <div v-if="promoteStickerData">
-            <h2 class="text-xl font-semibold mb-4">สติกเกอร์ไลน์แนะนำ</h2>
+            <HeadingWithLine text="สติกเกอร์ไลน์แนะนำ" color="text-green-500" />
             <StickerCard :stickers="promoteStickerData" :showPromote="true" />
         </div>
         <p v-else-if="promoteStickerPending">Loading...</p>
@@ -69,10 +69,19 @@
 
         <!-- สติกเกอร์ -->
         <div v-if="stickerData">
-            <h2 class="text-xl font-semibold mb-4">
-                สติกเกอร์ไลน์อัพเดทประจำสัปดาห์
-            </h2>
+            <HeadingWithLine
+                text="สติกเกอร์ไลน์อัพเดทประจำสัปดาห์"
+                color="text-red-500"
+            />
             <StickerCard :stickers="stickerData" />
+            <div class="text-center">
+                <NuxtLink
+                    href="stickers?page=1&country=&category=official&order=new"
+                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
+                >
+                    ดูเพิ่มเติม
+                </NuxtLink>
+            </div>
         </div>
         <p v-else-if="stickerPending">Loading...</p>
         <p v-else>Error loading sticker data</p>
@@ -80,10 +89,19 @@
 
         <!-- ธีม -->
         <div v-if="themeData">
-            <h2 class="text-xl font-semibold mb-4">
-                ธีมไลน์อัพเดทประจำสัปดาห์
-            </h2>
+            <HeadingWithLine
+                text="ธีมไลน์อัพเดทประจำสัปดาห์"
+                color="text-red-500"
+            />
             <ThemeCard :themes="themeData" />
+            <div class="text-center">
+                <NuxtLink
+                    href="themes?page=1&country=&category=official&order=new"
+                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
+                >
+                    ดูเพิ่มเติม
+                </NuxtLink>
+            </div>
         </div>
         <p v-else-if="themePending">Loading...</p>
         <p v-else>Error loading theme data</p>
@@ -91,10 +109,19 @@
 
         <!-- อีโมจิ -->
         <div v-if="emojiData">
-            <h2 class="text-xl font-semibold mb-4">
-                อีโมจิไลน์อัพเดทประจำสัปดาห์
-            </h2>
+            <HeadingWithLine
+                text="อีโมจิไลน์อัพเดทประจำสัปดาห์"
+                color="text-red-500"
+            />
             <EmojiCard :emojis="emojiData" />
+            <div class="text-center">
+                <NuxtLink
+                    href="emojis?page=1&country=&category=official&order=new"
+                    class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-full border border-red-500 hover:bg-red-500 hover:border-red-600 transition duration-300"
+                >
+                    ดูเพิ่มเติม
+                </NuxtLink>
+            </div>
         </div>
         <p v-else-if="emojiPending">Loading...</p>
         <p v-else>Error loading emoji data</p>
@@ -102,7 +129,10 @@
 
         <!-- สติกเกอร์ทางการไทย -->
         <div v-if="officialThaiStickerData">
-            <h2 class="text-xl font-semibold mb-4">สติกเกอร์ไลน์ทางการไทย</h2>
+            <HeadingWithLine
+                text="สติกเกอร์ไลน์ทางการไทย"
+                color="text-sky-400"
+            />
             <StickerCard :stickers="officialThaiStickerData" />
             <div class="text-center">
                 <NuxtLink
@@ -119,9 +149,10 @@
 
         <!-- สติกเกอร์ทางการต่างประเทศ -->
         <div v-if="officialOverseaStickerData">
-            <h2 class="text-xl font-semibold mb-4">
-                สติกเกอร์ไลน์ทางการต่างประเทศ
-            </h2>
+            <HeadingWithLine
+                text="สติกเกอร์ไลน์ทางการต่างประเทศ"
+                color="text-sky-400"
+            />
             <StickerCard :stickers="officialOverseaStickerData" />
             <div class="text-center">
                 <NuxtLink
@@ -138,9 +169,10 @@
 
         <!-- สติกเกอร์ครีเอเตอร์ไทย -->
         <div v-if="creatorThaiStickerData">
-            <h2 class="text-xl font-semibold mb-4">
-                สติกเกอร์ไลน์ครีเอเตอร์ไทย
-            </h2>
+            <HeadingWithLine
+                text="สติกเกอร์ไลน์ครีเอเตอร์ไทย"
+                color="text-sky-400"
+            />
             <StickerCard :stickers="creatorThaiStickerData" />
             <div class="text-center">
                 <NuxtLink
@@ -157,9 +189,10 @@
 
         <!-- สติกเกอร์ครีเอเตอร์ไทยต่างประเทศ -->
         <div v-if="creatorOverseaStickerData">
-            <h2 class="text-xl font-semibold mb-4">
-                สติกเกอร์ไลน์ครีเอเตอร์ต่างประเทศ
-            </h2>
+            <HeadingWithLine
+                text="สติกเกอร์ไลน์ครีเอเตอร์ต่างประเทศ"
+                color="text-sky-400"
+            />
             <StickerCard :stickers="creatorOverseaStickerData" />
             <div class="text-center">
                 <NuxtLink
@@ -176,7 +209,7 @@
 
         <!-- ธีมทางการไทย -->
         <div v-if="officialThaiThemeData">
-            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ทางการไทย</h2>
+            <HeadingWithLine text="ธีมไลน์ทางการไทย" color="text-rose-400" />
             <ThemeCard :themes="officialThaiThemeData" />
             <div class="text-center">
                 <NuxtLink
@@ -193,7 +226,10 @@
 
         <!-- ธีมทางการต่างประเทศ -->
         <div v-if="officialOverseaThemeData">
-            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ทางการต่างประเทศ</h2>
+            <HeadingWithLine
+                text="ธีมไลน์ทางการต่างประเทศ"
+                color="text-rose-400"
+            />
             <ThemeCard :themes="officialOverseaThemeData" />
             <div class="text-center">
                 <NuxtLink
@@ -210,7 +246,10 @@
 
         <!-- ธีมครีเอเตอร์ไทย -->
         <div v-if="creatorThaiThemeData">
-            <h2 class="text-xl font-semibold mb-4">ธีมไลน์ครีเอเตอร์ไทย</h2>
+            <HeadingWithLine
+                text="ธีมไลน์ครีเอเตอร์ไทย"
+                color="text-rose-400"
+            />
             <ThemeCard :themes="creatorThaiThemeData" />
             <div class="text-center">
                 <NuxtLink
@@ -227,9 +266,10 @@
 
         <!-- ธีมครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaThemeData">
-            <h2 class="text-xl font-semibold mb-4">
-                ธีมไลน์ครีเอเตอร์ต่างประเทศ
-            </h2>
+            <HeadingWithLine
+                text="ธีมไลน์ครีเอเตอร์ต่างประเทศ"
+                color="text-rose-400"
+            />
             <ThemeCard :themes="creatorOverseaThemeData" />
             <div class="text-center">
                 <NuxtLink
@@ -246,7 +286,7 @@
 
         <!-- อิโมจิทางการไทย -->
         <div v-if="officialThaiEmojiData">
-            <h2 class="text-xl font-semibold mb-4">อิโมจิไลน์ทางการไทย</h2>
+            <HeadingWithLine text="อิโมจิไลน์ทางการไทย" color="text-teal-500" />
             <EmojiCard :emojis="officialThaiEmojiData" />
             <div class="text-center">
                 <NuxtLink
@@ -263,9 +303,10 @@
 
         <!-- อิโมจิทางการต่างประเทศ -->
         <div v-if="officialOverseaEmojiData">
-            <h2 class="text-xl font-semibold mb-4">
-                อิโมจิไลน์ทางการต่างประเทศ
-            </h2>
+            <HeadingWithLine
+                text="อิโมจิไลน์ทางการต่างประเทศ"
+                color="text-teal-500"
+            />
             <EmojiCard :emojis="officialOverseaEmojiData" />
             <div class="text-center">
                 <NuxtLink
@@ -282,7 +323,10 @@
 
         <!-- อิโมจิครีเอเตอร์ไทย -->
         <div v-if="creatorThaiEmojiData">
-            <h2 class="text-xl font-semibold mb-4">อิโมจิไลน์ครีเอเตอร์ไทย</h2>
+            <HeadingWithLine
+                text="อิโมจิไลน์ครีเอเตอร์ไทย"
+                color="text-teal-500"
+            />
             <EmojiCard :emojis="creatorThaiEmojiData" />
             <div class="text-center">
                 <NuxtLink
@@ -299,9 +343,10 @@
 
         <!-- อิโมจิครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaEmojiData">
-            <h2 class="text-xl font-semibold mb-4">
-                อิโมจิไลน์ครีเอเตอร์ต่างประเทศ
-            </h2>
+            <HeadingWithLine
+                text="อิโมจิไลน์ครีเอเตอร์ต่างประเทศ"
+                color="text-teal-500"
+            />
             <EmojiCard :emojis="creatorOverseaEmojiData" />
             <div class="text-center">
                 <NuxtLink

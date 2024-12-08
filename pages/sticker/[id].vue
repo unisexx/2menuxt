@@ -215,9 +215,10 @@
 
                     <!-- โปรโมทสติกเกอร์ -->
                     <div v-if="promoteStickerData">
-                        <h2 class="text-xl font-semibold mb-4">
-                            สติกเกอร์ไลน์แนะนำ
-                        </h2>
+                        <HeadingWithLine
+                            text="สติกเกอร์ไลน์แนะนำ"
+                            color="text-green-500"
+                        />
                         <StickerCard
                             :stickers="promoteStickerData"
                             :showPromote="true"
@@ -231,9 +232,10 @@
                     <div
                         v-if="authorStickerData && authorStickerData.length > 0"
                     >
-                        <h2 class="text-xl font-semibold mb-4">
-                            สติกเกอร์อื่นๆที่น่าสนใจ
-                        </h2>
+                        <HeadingWithLine
+                            text="สติกเกอร์อื่นๆที่น่าสนใจ"
+                            color="text-sky-400"
+                        />
                         <StickerCard
                             :stickers="authorStickerData"
                             customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
@@ -245,9 +247,10 @@
                     <!-- ธีมตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div v-if="authorThemeData && authorThemeData.length > 0">
-                        <h2 class="text-xl font-semibold mb-4">
-                            ธีมอื่นๆที่น่าสนใจ
-                        </h2>
+                        <HeadingWithLine
+                            text="ธีมอื่นๆที่น่าสนใจ"
+                            color="text-rose-400"
+                        />
                         <ThemeCard
                             :themes="authorThemeData"
                             customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
@@ -261,9 +264,10 @@
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div v-if="authorEmojiData && authorEmojiData.length > 0">
-                        <h2 class="text-xl font-semibold mb-4">
-                            อิโมจิอื่นๆที่น่าสนใจ
-                        </h2>
+                        <HeadingWithLine
+                            text="อิโมจิอื่นๆที่น่าสนใจ"
+                            color="text-teal-500"
+                        />
                         <EmojiCard
                             :emojis="authorEmojiData"
                             customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
