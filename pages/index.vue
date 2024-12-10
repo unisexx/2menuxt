@@ -58,16 +58,15 @@
         </div>
 
         <!-- โปรโมทสติกเกอร์ -->
-        <div v-if="promoteStickerData">
+        <div v-if="promoteStickerData && promoteStickerData.length">
             <HeadingWithLine text="สติกเกอร์ไลน์แนะนำ" color="text-green-500" />
             <StickerCard :stickers="promoteStickerData" :showPromote="true" />
+            <hr class="m-5" />
         </div>
         <p v-else-if="promoteStickerPending">Loading...</p>
-        <p v-else>Error loading promote-sticker data</p>
-        <hr class="m-5" />
 
         <!-- สติกเกอร์ -->
-        <div v-if="stickerData">
+        <div v-if="stickerData && stickerData.length">
             <HeadingWithLine
                 text="สติกเกอร์ไลน์อัพเดทประจำสัปดาห์"
                 color="text-red-500"
@@ -76,13 +75,12 @@
             <SeeMoreButton
                 href="stickers?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="stickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
-        <hr class="m-5" />
 
         <!-- ธีม -->
-        <div v-if="themeData">
+        <div v-if="themeData && themeData.length">
             <HeadingWithLine
                 text="ธีมไลน์อัพเดทประจำสัปดาห์"
                 color="text-red-500"
@@ -91,13 +89,12 @@
             <SeeMoreButton
                 href="themes?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="themePending">Loading...</p>
-        <p v-else>Error loading theme data</p>
-        <hr class="m-5" />
 
         <!-- อีโมจิ -->
-        <div v-if="emojiData">
+        <div v-if="emojiData && emojiData.length">
             <HeadingWithLine
                 text="อีโมจิไลน์อัพเดทประจำสัปดาห์"
                 color="text-red-500"
@@ -106,10 +103,9 @@
             <SeeMoreButton
                 href="emojis?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="emojiPending">Loading...</p>
-        <p v-else>Error loading emoji data</p>
-        <hr class="m-5" />
 
         <!-- สติกเกอร์ทางการไทย -->
         <div v-if="officialThaiStickerData">
@@ -121,10 +117,9 @@
             <SeeMoreButton
                 href="stickers?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialThaiStickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
-        <hr class="m-5" />
 
         <!-- สติกเกอร์ทางการต่างประเทศ -->
         <div v-if="officialOverseaStickerData">
@@ -136,10 +131,9 @@
             <SeeMoreButton
                 href="stickers?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialOverseaStickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
-        <hr class="m-5" />
 
         <!-- สติกเกอร์ครีเอเตอร์ไทย -->
         <div v-if="creatorThaiStickerData">
@@ -151,10 +145,9 @@
             <SeeMoreButton
                 href="stickers?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorThaiStickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
-        <hr class="m-5" />
 
         <!-- สติกเกอร์ครีเอเตอร์ไทยต่างประเทศ -->
         <div v-if="creatorOverseaStickerData">
@@ -166,10 +159,9 @@
             <SeeMoreButton
                 href="stickers?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorOverseaStickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
-        <hr class="m-5" />
 
         <!-- ธีมทางการไทย -->
         <div v-if="officialThaiThemeData">
@@ -178,10 +170,9 @@
             <SeeMoreButton
                 href="themes?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialThaiThemePending">Loading...</p>
-        <p v-else>Error loading theme data</p>
-        <hr class="m-5" />
 
         <!-- ธีมทางการต่างประเทศ -->
         <div v-if="officialOverseaThemeData">
@@ -193,10 +184,9 @@
             <SeeMoreButton
                 href="themes?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialOverseaThemePending">Loading...</p>
-        <p v-else>Error loading theme data</p>
-        <hr class="m-5" />
 
         <!-- ธีมครีเอเตอร์ไทย -->
         <div v-if="creatorThaiThemeData">
@@ -208,10 +198,9 @@
             <SeeMoreButton
                 href="themes?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorThaiThemePending">Loading...</p>
-        <p v-else>Error loading theme data</p>
-        <hr class="m-5" />
 
         <!-- ธีมครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaThemeData">
@@ -223,10 +212,9 @@
             <SeeMoreButton
                 href="themes?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorOverseaThemePending">Loading...</p>
-        <p v-else>Error loading theme data</p>
-        <hr class="m-5" />
 
         <!-- อิโมจิทางการไทย -->
         <div v-if="officialThaiEmojiData">
@@ -235,10 +223,9 @@
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialThaiEmojiPending">Loading...</p>
-        <p v-else>Error loading emoji data</p>
-        <hr class="m-5" />
 
         <!-- อิโมจิทางการต่างประเทศ -->
         <div v-if="officialOverseaEmojiData">
@@ -250,10 +237,9 @@
             <SeeMoreButton
                 href="emojis?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="officialOverseaEmojiPending">Loading...</p>
-        <p v-else>Error loading emoji data</p>
-        <hr class="m-5" />
 
         <!-- อิโมจิครีเอเตอร์ไทย -->
         <div v-if="creatorThaiEmojiData">
@@ -265,10 +251,9 @@
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorThaiEmojiPending">Loading...</p>
-        <p v-else>Error loading emoji data</p>
-        <hr class="m-5" />
 
         <!-- อิโมจิครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaEmojiData">
@@ -280,10 +265,9 @@
             <SeeMoreButton
                 href="emojis?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
+            <hr class="m-5" />
         </div>
         <p v-else-if="creatorOverseaEmojiPending">Loading...</p>
-        <p v-else>Error loading emoji data</p>
-        <hr class="m-5" />
     </div>
 </template>
 
