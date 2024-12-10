@@ -61,7 +61,7 @@
         <div v-if="promoteStickerData && promoteStickerData.length">
             <HeadingWithLine text="สติกเกอร์แนะนำ" color="text-green-500" />
             <StickerCard :stickers="promoteStickerData" :showPromote="true" />
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="promoteStickerPending">Loading...</p>
 
@@ -75,7 +75,7 @@
             <SeeMoreButton
                 href="stickers?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="stickerPending">Loading...</p>
 
@@ -86,7 +86,7 @@
             <SeeMoreButton
                 href="themes?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="themePending">Loading...</p>
 
@@ -100,7 +100,7 @@
             <SeeMoreButton
                 href="emojis?page=1&country=&category=official&order=new"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="emojiPending">Loading...</p>
 
@@ -111,7 +111,7 @@
             <SeeMoreButton
                 href="stickers?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialThaiStickerPending">Loading...</p>
 
@@ -125,7 +125,7 @@
             <SeeMoreButton
                 href="stickers?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialOverseaStickerPending">Loading...</p>
 
@@ -139,7 +139,7 @@
             <SeeMoreButton
                 href="stickers?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorThaiStickerPending">Loading...</p>
 
@@ -153,7 +153,7 @@
             <SeeMoreButton
                 href="stickers?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorOverseaStickerPending">Loading...</p>
 
@@ -164,7 +164,7 @@
             <SeeMoreButton
                 href="themes?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialThaiThemePending">Loading...</p>
 
@@ -175,7 +175,7 @@
             <SeeMoreButton
                 href="themes?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialOverseaThemePending">Loading...</p>
 
@@ -186,7 +186,7 @@
             <SeeMoreButton
                 href="themes?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorThaiThemePending">Loading...</p>
 
@@ -200,7 +200,7 @@
             <SeeMoreButton
                 href="themes?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorOverseaThemePending">Loading...</p>
 
@@ -211,7 +211,7 @@
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialThaiEmojiPending">Loading...</p>
 
@@ -225,7 +225,7 @@
             <SeeMoreButton
                 href="emojis?page=1&country=jp&category=official&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="officialOverseaEmojiPending">Loading...</p>
 
@@ -236,7 +236,7 @@
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorThaiEmojiPending">Loading...</p>
 
@@ -250,7 +250,7 @@
             <SeeMoreButton
                 href="emojis?page=1&country=jp&category=creator&order=popular"
             ></SeeMoreButton>
-            <hr class="m-5" />
+            <hr class="my-10" />
         </div>
         <p v-else-if="creatorOverseaEmojiPending">Loading...</p>
     </div>

@@ -160,9 +160,9 @@
                                 :stickers="promoteStickerData"
                                 :showPromote="true"
                             />
+                            <hr class="my-10" />
                         </div>
                         <p v-else-if="promoteStickerPending">Loading...</p>
-                        <p v-else>Error loading promote-sticker data</p>
 
                         <!-- ธีมตามผู้สร้าง -->
                         <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -177,14 +177,11 @@
                                 :themes="authorThemeData"
                                 customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
                             />
+                            <hr class="my-10" />
                         </div>
                         <p v-if="authorThemePending">กำลังโหลด...</p>
-                        <p v-if="authorThemeError">
-                            เกิดข้อผิดพลาด: {{ authorThemeError.message }}
-                        </p>
 
                         <!-- สติกเกอร์ตามผู้สร้าง -->
-                        <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                         <div
                             v-if="
                                 authorStickerData &&
@@ -199,9 +196,9 @@
                                 :stickers="authorStickerData"
                                 customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
                             />
+                            <hr class="my-10" />
                         </div>
                         <p v-if="pending">กำลังโหลด...</p>
-                        <p v-if="error">เกิดข้อผิดพลาด: {{ error.message }}</p>
 
                         <!-- อิโมจิตามผู้สร้าง -->
                         <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -216,11 +213,9 @@
                                 :emojis="authorEmojiData"
                                 customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
                             />
+                            <hr class="my-10" />
                         </div>
                         <p v-if="authorEmojiPending">กำลังโหลด...</p>
-                        <p v-if="authorEmojiError">
-                            เกิดข้อผิดพลาด: {{ authorEmojiError.message }}
-                        </p>
                     </div>
                 </div>
 
