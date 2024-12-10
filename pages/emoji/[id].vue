@@ -142,7 +142,11 @@
                     <hr class="mt-5 mb-5" />
 
                     <!-- โปรโมทสติกเกอร์ -->
-                    <div v-if="promoteStickerData">
+                    <div
+                        v-if="
+                            promoteStickerData && promoteStickerData.length > 0
+                        "
+                    >
                         <HeadingWithLine
                             text="สติกเกอร์แนะนำ"
                             color="text-green-500"
