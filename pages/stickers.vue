@@ -13,7 +13,7 @@
                     @change="applyFilters"
                     class="border rounded px-3 py-2"
                 >
-                    <option value="">ทั้งหมด</option>
+                    <!-- <option value="">ทั้งหมด</option> -->
                     <option value="official">สติกเกอร์ทางการ</option>
                     <option value="creator">สติกเกอร์ครีเอเตอร์</option>
                 </select>
@@ -51,8 +51,8 @@
                     @change="applyFilters"
                     class="border rounded px-3 py-2"
                 >
-                    <option value="popular">ฮิต</option>
                     <option value="new">ล่าสุด</option>
+                    <option value="popular">ฮิต</option>
                 </select>
             </div>
         </div>
