@@ -106,15 +106,19 @@
                     { to: "/", label: "หน้าแรก", icon: "home" },
                     { separator: true },
                     {
-                        to: "/stickers",
+                        to: "/stickers?category=official",
                         label: "สติกเกอร์ไลน์",
                         icon: "rocket_launch",
                     },
                     { separator: true },
-                    { to: "/themes", label: "ธีมไลน์", icon: "palette" },
+                    {
+                        to: "/themes?category=official",
+                        label: "ธีมไลน์",
+                        icon: "palette",
+                    },
                     { separator: true },
                     {
-                        to: "/emojis",
+                        to: "/emojis?category=official",
                         label: "อิโมจิไลน์",
                         icon: "emoji_emotions",
                     },
