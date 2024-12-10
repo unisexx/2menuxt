@@ -598,7 +598,7 @@
         height: 20px;
         /* background: rgba(255, 255, 255, 0.2); */
         /* background-color: rgba(218, 112, 214, 0.2); */
-        background-color: rgba(0, 195, 0, 0.2);
+        /* background-color: rgba(0, 195, 0, 0.2); */
 
         animation: animate 25s linear infinite;
         bottom: -150px;
@@ -609,6 +609,7 @@
         width: 80px;
         height: 80px;
         animation-delay: 0s;
+        background-color: rgba(255, 182, 193, 0.5);
     }
 
     .circles li:nth-child(2) {
@@ -617,6 +618,7 @@
         height: 20px;
         animation-delay: 2s;
         animation-duration: 12s;
+        background-color: rgba(173, 216, 230, 0.5);
     }
 
     .circles li:nth-child(3) {
@@ -624,6 +626,7 @@
         width: 20px;
         height: 20px;
         animation-delay: 4s;
+        background-color: rgba(152, 251, 152, 0.5);
     }
 
     .circles li:nth-child(4) {
@@ -632,6 +635,7 @@
         height: 60px;
         animation-delay: 0s;
         animation-duration: 18s;
+        background-color: rgba(255, 223, 128, 0.5);
     }
 
     .circles li:nth-child(5) {
@@ -639,6 +643,7 @@
         width: 20px;
         height: 20px;
         animation-delay: 0s;
+        background-color: rgba(216, 191, 216, 0.5);
     }
 
     .circles li:nth-child(6) {
@@ -646,6 +651,7 @@
         width: 110px;
         height: 110px;
         animation-delay: 3s;
+        background-color: rgba(255, 204, 153, 0.5);
     }
 
     .circles li:nth-child(7) {
@@ -653,6 +659,7 @@
         width: 150px;
         height: 150px;
         animation-delay: 7s;
+        background-color: rgba(211, 211, 211, 0.5);
     }
 
     .circles li:nth-child(8) {
@@ -661,6 +668,7 @@
         height: 25px;
         animation-delay: 15s;
         animation-duration: 45s;
+        background-color: rgba(250, 128, 114, 0.5);
     }
 
     .circles li:nth-child(9) {
@@ -669,6 +677,7 @@
         height: 15px;
         animation-delay: 2s;
         animation-duration: 35s;
+        background-color: rgba(189, 252, 201, 0.5);
     }
 
     .circles li:nth-child(10) {
@@ -677,6 +686,7 @@
         height: 150px;
         animation-delay: 0s;
         animation-duration: 11s;
+        background-color: rgba(255, 239, 213, 0.5);
     }
 
     @keyframes animate {
