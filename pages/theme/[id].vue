@@ -153,7 +153,7 @@
                         <!-- โปรโมทสติกเกอร์ -->
                         <div v-if="promoteStickerData">
                             <HeadingWithLine
-                                text="สติกเกอร์ไลน์แนะนำ"
+                                text="สติกเกอร์แนะนำ"
                                 color="text-green-500"
                             />
                             <StickerCard

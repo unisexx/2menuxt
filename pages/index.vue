@@ -59,7 +59,7 @@
 
         <!-- โปรโมทสติกเกอร์ -->
         <div v-if="promoteStickerData && promoteStickerData.length">
-            <HeadingWithLine text="สติกเกอร์ไลน์แนะนำ" color="text-green-500" />
+            <HeadingWithLine text="สติกเกอร์แนะนำ" color="text-green-500" />
             <StickerCard :stickers="promoteStickerData" :showPromote="true" />
             <hr class="m-5" />
         </div>
@@ -68,7 +68,7 @@
         <!-- สติกเกอร์ -->
         <div v-if="stickerData && stickerData.length">
             <HeadingWithLine
-                text="สติกเกอร์ไลน์ใหม่ประจำสัปดาห์"
+                text="สติกเกอร์ใหม่ประจำสัปดาห์"
                 color="text-red-500"
             />
             <StickerCard :stickers="stickerData" />
@@ -81,10 +81,7 @@
 
         <!-- ธีม -->
         <div v-if="themeData && themeData.length">
-            <HeadingWithLine
-                text="ธีมไลน์ใหม่ประจำสัปดาห์"
-                color="text-red-500"
-            />
+            <HeadingWithLine text="ธีมใหม่ประจำสัปดาห์" color="text-red-500" />
             <ThemeCard :themes="themeData" />
             <SeeMoreButton
                 href="themes?page=1&country=&category=official&order=new"
@@ -96,7 +93,7 @@
         <!-- อีโมจิ -->
         <div v-if="emojiData && emojiData.length">
             <HeadingWithLine
-                text="อีโมจิไลน์ใหม่ประจำสัปดาห์"
+                text="อีโมจิใหม่ประจำสัปดาห์"
                 color="text-red-500"
             />
             <EmojiCard :emojis="emojiData" />
@@ -109,10 +106,7 @@
 
         <!-- สติกเกอร์ทางการไทย -->
         <div v-if="officialThaiStickerData">
-            <HeadingWithLine
-                text="สติกเกอร์ไลน์ทางการไทย"
-                color="text-sky-400"
-            />
+            <HeadingWithLine text="สติกเกอร์ทางการไทย" color="text-sky-400" />
             <StickerCard :stickers="officialThaiStickerData" />
             <SeeMoreButton
                 href="stickers?page=1&country=th&category=official&order=popular"
@@ -124,7 +118,7 @@
         <!-- สติกเกอร์ทางการต่างประเทศ -->
         <div v-if="officialOverseaStickerData">
             <HeadingWithLine
-                text="สติกเกอร์ไลน์ทางการต่างประเทศ"
+                text="สติกเกอร์ทางการต่างประเทศ"
                 color="text-sky-400"
             />
             <StickerCard :stickers="officialOverseaStickerData" />
@@ -138,7 +132,7 @@
         <!-- สติกเกอร์ครีเอเตอร์ไทย -->
         <div v-if="creatorThaiStickerData">
             <HeadingWithLine
-                text="สติกเกอร์ไลน์ครีเอเตอร์ไทย"
+                text="สติกเกอร์ครีเอเตอร์ไทย"
                 color="text-sky-400"
             />
             <StickerCard :stickers="creatorThaiStickerData" />
@@ -152,7 +146,7 @@
         <!-- สติกเกอร์ครีเอเตอร์ไทยต่างประเทศ -->
         <div v-if="creatorOverseaStickerData">
             <HeadingWithLine
-                text="สติกเกอร์ไลน์ครีเอเตอร์ต่างประเทศ"
+                text="สติกเกอร์ครีเอเตอร์ต่างประเทศ"
                 color="text-sky-400"
             />
             <StickerCard :stickers="creatorOverseaStickerData" />
@@ -165,7 +159,7 @@
 
         <!-- ธีมทางการไทย -->
         <div v-if="officialThaiThemeData">
-            <HeadingWithLine text="ธีมไลน์ทางการไทย" color="text-rose-400" />
+            <HeadingWithLine text="ธีมทางการไทย" color="text-rose-400" />
             <ThemeCard :themes="officialThaiThemeData" />
             <SeeMoreButton
                 href="themes?page=1&country=th&category=official&order=popular"
@@ -176,10 +170,7 @@
 
         <!-- ธีมทางการต่างประเทศ -->
         <div v-if="officialOverseaThemeData">
-            <HeadingWithLine
-                text="ธีมไลน์ทางการต่างประเทศ"
-                color="text-rose-400"
-            />
+            <HeadingWithLine text="ธีมทางการต่างประเทศ" color="text-rose-400" />
             <ThemeCard :themes="officialOverseaThemeData" />
             <SeeMoreButton
                 href="themes?page=1&country=jp&category=official&order=popular"
@@ -190,10 +181,7 @@
 
         <!-- ธีมครีเอเตอร์ไทย -->
         <div v-if="creatorThaiThemeData">
-            <HeadingWithLine
-                text="ธีมไลน์ครีเอเตอร์ไทย"
-                color="text-rose-400"
-            />
+            <HeadingWithLine text="ธีมครีเอเตอร์ไทย" color="text-rose-400" />
             <ThemeCard :themes="creatorThaiThemeData" />
             <SeeMoreButton
                 href="themes?page=1&country=th&category=creator&order=popular"
@@ -205,7 +193,7 @@
         <!-- ธีมครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaThemeData">
             <HeadingWithLine
-                text="ธีมไลน์ครีเอเตอร์ต่างประเทศ"
+                text="ธีมครีเอเตอร์ต่างประเทศ"
                 color="text-rose-400"
             />
             <ThemeCard :themes="creatorOverseaThemeData" />
@@ -218,7 +206,7 @@
 
         <!-- อิโมจิทางการไทย -->
         <div v-if="officialThaiEmojiData">
-            <HeadingWithLine text="อิโมจิไลน์ทางการไทย" color="text-teal-500" />
+            <HeadingWithLine text="อิโมจิทางการไทย" color="text-teal-500" />
             <EmojiCard :emojis="officialThaiEmojiData" />
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=official&order=popular"
@@ -230,7 +218,7 @@
         <!-- อิโมจิทางการต่างประเทศ -->
         <div v-if="officialOverseaEmojiData">
             <HeadingWithLine
-                text="อิโมจิไลน์ทางการต่างประเทศ"
+                text="อิโมจิทางการต่างประเทศ"
                 color="text-teal-500"
             />
             <EmojiCard :emojis="officialOverseaEmojiData" />
@@ -243,10 +231,7 @@
 
         <!-- อิโมจิครีเอเตอร์ไทย -->
         <div v-if="creatorThaiEmojiData">
-            <HeadingWithLine
-                text="อิโมจิไลน์ครีเอเตอร์ไทย"
-                color="text-teal-500"
-            />
+            <HeadingWithLine text="อิโมจิครีเอเตอร์ไทย" color="text-teal-500" />
             <EmojiCard :emojis="creatorThaiEmojiData" />
             <SeeMoreButton
                 href="emojis?page=1&country=th&category=creator&order=popular"
@@ -258,7 +243,7 @@
         <!-- อิโมจิครีเอเตอร์ต่างประเทศ -->
         <div v-if="creatorOverseaEmojiData">
             <HeadingWithLine
-                text="อิโมจิไลน์ครีเอเตอร์ต่างประเทศ"
+                text="อิโมจิครีเอเตอร์ต่างประเทศ"
                 color="text-teal-500"
             />
             <EmojiCard :emojis="creatorOverseaEmojiData" />
