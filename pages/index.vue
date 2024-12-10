@@ -68,7 +68,7 @@
         <!-- สติกเกอร์ -->
         <div v-if="stickerData && stickerData.length">
             <HeadingWithLine
-                text="สติกเกอร์ไลน์อัพเดทประจำสัปดาห์"
+                text="สติกเกอร์ไลน์ใหม่ประจำสัปดาห์"
                 color="text-red-500"
             />
             <StickerCard :stickers="stickerData" />
@@ -82,7 +82,7 @@
         <!-- ธีม -->
         <div v-if="themeData && themeData.length">
             <HeadingWithLine
-                text="ธีมไลน์อัพเดทประจำสัปดาห์"
+                text="ธีมไลน์ใหม่ประจำสัปดาห์"
                 color="text-red-500"
             />
             <ThemeCard :themes="themeData" />
@@ -96,7 +96,7 @@
         <!-- อีโมจิ -->
         <div v-if="emojiData && emojiData.length">
             <HeadingWithLine
-                text="อีโมจิไลน์อัพเดทประจำสัปดาห์"
+                text="อีโมจิไลน์ใหม่ประจำสัปดาห์"
                 color="text-red-500"
             />
             <EmojiCard :emojis="emojiData" />
