@@ -248,21 +248,6 @@
                     </div>
                     <p v-if="pending">กำลังโหลด...</p>
 
-                    <!-- ธีมตามผู้สร้าง -->
-                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
-                    <div v-if="authorThemeData && authorThemeData.length > 0">
-                        <HeadingWithLine
-                            text="ธีมอื่นๆที่น่าสนใจ"
-                            color="text-rose-400"
-                        />
-                        <ThemeCard
-                            :themes="authorThemeData"
-                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
-                        />
-                        <hr class="my-10" />
-                    </div>
-                    <p v-if="authorThemePending">กำลังโหลด...</p>
-
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
                     <div v-if="authorEmojiData && authorEmojiData.length > 0">
@@ -277,6 +262,21 @@
                         <hr class="my-10" />
                     </div>
                     <p v-if="authorEmojiPending">กำลังโหลด...</p>
+
+                    <!-- ธีมตามผู้สร้าง -->
+                    <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
+                    <div v-if="authorThemeData && authorThemeData.length > 0">
+                        <HeadingWithLine
+                            text="ธีมอื่นๆที่น่าสนใจ"
+                            color="text-rose-400"
+                        />
+                        <ThemeCard
+                            :themes="authorThemeData"
+                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
+                        />
+                        <hr class="my-10" />
+                    </div>
+                    <p v-if="authorThemePending">กำลังโหลด...</p>
                 </div>
 
                 <!-- status = 0 ไม่มีขายแล้ว -->

@@ -22,16 +22,16 @@
             <StickerCard :stickers="results.stickers" />
         </div>
 
-        <!-- Themes -->
-        <div v-if="results.themes.length > 0">
-            <h2 class="text-lg font-semibold mb-2">ธีม</h2>
-            <ThemeCard :themes="results.themes" />
-        </div>
-
         <!-- Emojis -->
         <div v-if="results.emojis.length > 0">
             <h2 class="text-lg font-semibold mb-2">อิโมจิ</h2>
             <EmojiCard :emojis="results.emojis" />
+        </div>
+
+        <!-- Themes -->
+        <div v-if="results.themes.length > 0">
+            <h2 class="text-lg font-semibold mb-2">ธีม</h2>
+            <ThemeCard :themes="results.themes" />
         </div>
 
         <!-- No Results -->
