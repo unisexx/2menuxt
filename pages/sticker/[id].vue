@@ -240,10 +240,7 @@
                             text="สติกเกอร์อื่นๆที่น่าสนใจ"
                             color="text-sky-400"
                         />
-                        <StickerCard
-                            :stickers="authorStickerData"
-                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
-                        />
+                        <StickerCard :stickers="authorStickerData" />
                         <hr class="my-10" />
                     </div>
                     <p v-if="pending">กำลังโหลด...</p>
@@ -255,10 +252,7 @@
                             text="อิโมจิอื่นๆที่น่าสนใจ"
                             color="text-teal-500"
                         />
-                        <EmojiCard
-                            :emojis="authorEmojiData"
-                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
-                        />
+                        <EmojiCard :emojis="authorEmojiData" />
                         <hr class="my-10" />
                     </div>
                     <p v-if="authorEmojiPending">กำลังโหลด...</p>
@@ -270,10 +264,7 @@
                             text="ธีมอื่นๆที่น่าสนใจ"
                             color="text-rose-400"
                         />
-                        <ThemeCard
-                            :themes="authorThemeData"
-                            customClass="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-2 md:gap-4 mt-6"
-                        />
+                        <ThemeCard :themes="authorThemeData" />
                         <hr class="my-10" />
                     </div>
                     <p v-if="authorThemePending">กำลังโหลด...</p>
