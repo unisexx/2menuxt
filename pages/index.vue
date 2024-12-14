@@ -94,17 +94,6 @@
         </div>
         <p v-else-if="stickerPending">Loading...</p>
 
-        <!-- ธีม -->
-        <div v-if="themeData && themeData.length">
-            <HeadingWithLine text="ธีมใหม่ประจำสัปดาห์" color="text-red-500" />
-            <ThemeCard :themes="themeData" />
-            <SeeMoreButton
-                href="themes?page=1&country=&category=official&order=new"
-            ></SeeMoreButton>
-            <hr class="my-10" />
-        </div>
-        <p v-else-if="themePending">Loading...</p>
-
         <!-- อีโมจิ -->
         <div v-if="emojiData && emojiData.length">
             <HeadingWithLine
@@ -118,6 +107,17 @@
             <hr class="my-10" />
         </div>
         <p v-else-if="emojiPending">Loading...</p>
+
+        <!-- ธีม -->
+        <div v-if="themeData && themeData.length">
+            <HeadingWithLine text="ธีมใหม่ประจำสัปดาห์" color="text-red-500" />
+            <ThemeCard :themes="themeData" />
+            <SeeMoreButton
+                href="themes?page=1&country=&category=official&order=new"
+            ></SeeMoreButton>
+            <hr class="my-10" />
+        </div>
+        <p v-else-if="themePending">Loading...</p>
 
         <!-- สติกเกอร์ทางการไทย -->
         <div v-if="officialThaiStickerData">
@@ -172,53 +172,6 @@
         </div>
         <p v-else-if="creatorOverseaStickerPending">Loading...</p>
 
-        <!-- ธีมทางการไทย -->
-        <div v-if="officialThaiThemeData">
-            <HeadingWithLine text="ธีมทางการไทย" color="text-rose-400" />
-            <ThemeCard :themes="officialThaiThemeData" />
-            <SeeMoreButton
-                href="themes?page=1&country=th&category=official&order=popular"
-            ></SeeMoreButton>
-            <hr class="my-10" />
-        </div>
-        <p v-else-if="officialThaiThemePending">Loading...</p>
-
-        <!-- ธีมทางการต่างประเทศ -->
-        <div v-if="officialOverseaThemeData">
-            <HeadingWithLine text="ธีมทางการต่างประเทศ" color="text-rose-400" />
-            <ThemeCard :themes="officialOverseaThemeData" />
-            <SeeMoreButton
-                href="themes?page=1&country=jp&category=official&order=popular"
-            ></SeeMoreButton>
-            <hr class="my-10" />
-        </div>
-        <p v-else-if="officialOverseaThemePending">Loading...</p>
-
-        <!-- ธีมครีเอเตอร์ไทย -->
-        <div v-if="creatorThaiThemeData">
-            <HeadingWithLine text="ธีมครีเอเตอร์ไทย" color="text-rose-400" />
-            <ThemeCard :themes="creatorThaiThemeData" />
-            <SeeMoreButton
-                href="themes?page=1&country=th&category=creator&order=popular"
-            ></SeeMoreButton>
-            <hr class="my-10" />
-        </div>
-        <p v-else-if="creatorThaiThemePending">Loading...</p>
-
-        <!-- ธีมครีเอเตอร์ต่างประเทศ -->
-        <div v-if="creatorOverseaThemeData">
-            <HeadingWithLine
-                text="ธีมครีเอเตอร์ต่างประเทศ"
-                color="text-rose-400"
-            />
-            <ThemeCard :themes="creatorOverseaThemeData" />
-            <SeeMoreButton
-                href="themes?page=1&country=jp&category=creator&order=popular"
-            ></SeeMoreButton>
-            <hr class="my-10" />
-        </div>
-        <p v-else-if="creatorOverseaThemePending">Loading...</p>
-
         <!-- อิโมจิทางการไทย -->
         <div v-if="officialThaiEmojiData">
             <HeadingWithLine text="อิโมจิทางการไทย" color="text-teal-500" />
@@ -268,6 +221,53 @@
             <hr class="my-10" />
         </div>
         <p v-else-if="creatorOverseaEmojiPending">Loading...</p>
+
+        <!-- ธีมทางการไทย -->
+        <div v-if="officialThaiThemeData">
+            <HeadingWithLine text="ธีมทางการไทย" color="text-rose-400" />
+            <ThemeCard :themes="officialThaiThemeData" />
+            <SeeMoreButton
+                href="themes?page=1&country=th&category=official&order=popular"
+            ></SeeMoreButton>
+            <hr class="my-10" />
+        </div>
+        <p v-else-if="officialThaiThemePending">Loading...</p>
+
+        <!-- ธีมทางการต่างประเทศ -->
+        <div v-if="officialOverseaThemeData">
+            <HeadingWithLine text="ธีมทางการต่างประเทศ" color="text-rose-400" />
+            <ThemeCard :themes="officialOverseaThemeData" />
+            <SeeMoreButton
+                href="themes?page=1&country=jp&category=official&order=popular"
+            ></SeeMoreButton>
+            <hr class="my-10" />
+        </div>
+        <p v-else-if="officialOverseaThemePending">Loading...</p>
+
+        <!-- ธีมครีเอเตอร์ไทย -->
+        <div v-if="creatorThaiThemeData">
+            <HeadingWithLine text="ธีมครีเอเตอร์ไทย" color="text-rose-400" />
+            <ThemeCard :themes="creatorThaiThemeData" />
+            <SeeMoreButton
+                href="themes?page=1&country=th&category=creator&order=popular"
+            ></SeeMoreButton>
+            <hr class="my-10" />
+        </div>
+        <p v-else-if="creatorThaiThemePending">Loading...</p>
+
+        <!-- ธีมครีเอเตอร์ต่างประเทศ -->
+        <div v-if="creatorOverseaThemeData">
+            <HeadingWithLine
+                text="ธีมครีเอเตอร์ต่างประเทศ"
+                color="text-rose-400"
+            />
+            <ThemeCard :themes="creatorOverseaThemeData" />
+            <SeeMoreButton
+                href="themes?page=1&country=jp&category=creator&order=popular"
+            ></SeeMoreButton>
+            <hr class="my-10" />
+        </div>
+        <p v-else-if="creatorOverseaThemePending">Loading...</p>
     </div>
 </template>
 

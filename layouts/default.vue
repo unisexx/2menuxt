@@ -112,15 +112,15 @@
                     },
                     { separator: true },
                     {
-                        to: "/themes?category=official",
-                        label: "ธีมไลน์",
-                        icon: "palette",
-                    },
-                    { separator: true },
-                    {
                         to: "/emojis?category=official",
                         label: "อิโมจิไลน์",
                         icon: "emoji_emotions",
+                    },
+                    { separator: true },
+                    {
+                        to: "/themes?category=official",
+                        label: "ธีมไลน์",
+                        icon: "palette",
                     },
                     { separator: true },
                     {
