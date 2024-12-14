@@ -1,51 +1,78 @@
 <template>
-    <div>
-        <h1 class="text-xl font-bold mb-4">ผลการค้นหา: "{{ searchQuery }}"</h1>
+    <div class="mx-auto">
+        <div class="flex flex-wrap lg:flex-nowrap">
+            <!-- Left Column -->
+            <div class="w-full lg:w-9/12 xl:w-8/12 p-4">
+                <h1 class="text-xl font-bold mb-4">
+                    ผลการค้นหา: "{{ searchQuery }}"
+                </h1>
 
-        <!-- Loading State with Centered Animation -->
-        <div
-            v-if="isLoading"
-            class="flex justify-center items-center flex-col py-20"
-        >
-            <div class="spinner"></div>
-            <p class="text-gray-500 mt-4">กำลังค้นหา...</p>
-        </div>
+                <!-- Loading State with Centered Animation -->
+                <div
+                    v-if="isLoading"
+                    class="flex justify-center items-center flex-col py-20"
+                >
+                    <div class="spinner"></div>
+                    <p class="text-gray-500 mt-4">กำลังค้นหา...</p>
+                </div>
 
-        <!-- Error Message -->
-        <div v-if="errorMessage" class="text-center text-red-500 py-5">
-            {{ errorMessage }}
-        </div>
+                <!-- Error Message -->
+                <div v-if="errorMessage" class="text-center text-red-500 py-5">
+                    {{ errorMessage }}
+                </div>
 
-        <!-- Stickers -->
-        <div v-if="results.stickers.length > 0">
-            <h2 class="text-lg font-semibold mb-2">สติกเกอร์</h2>
-            <StickerCard :stickers="results.stickers" />
-        </div>
+                <!-- Stickers -->
+                <div v-if="results.stickers.length > 0">
+                    <h2 class="text-lg font-semibold mb-2">สติกเกอร์</h2>
+                    <StickerCard :stickers="results.stickers" />
+                </div>
 
-        <!-- Emojis -->
-        <div v-if="results.emojis.length > 0">
-            <h2 class="text-lg font-semibold mb-2">อิโมจิ</h2>
-            <EmojiCard :emojis="results.emojis" />
-        </div>
+                <!-- Emojis -->
+                <div v-if="results.emojis.length > 0">
+                    <h2 class="text-lg font-semibold mb-2">อิโมจิ</h2>
+                    <EmojiCard :emojis="results.emojis" />
+                </div>
 
-        <!-- Themes -->
-        <div v-if="results.themes.length > 0">
-            <h2 class="text-lg font-semibold mb-2">ธีม</h2>
-            <ThemeCard :themes="results.themes" />
-        </div>
+                <!-- Themes -->
+                <div v-if="results.themes.length > 0">
+                    <h2 class="text-lg font-semibold mb-2">ธีม</h2>
+                    <ThemeCard :themes="results.themes" />
+                </div>
 
-        <!-- No Results -->
-        <div
-            v-if="
-                !isLoading &&
-                !errorMessage &&
-                !results.stickers.length &&
-                !results.themes.length &&
-                !results.emojis.length
-            "
-            class="text-center text-gray-500 py-5"
-        >
-            ไม่พบผลลัพธ์สำหรับ "{{ searchQuery }}"
+                <!-- No Results -->
+                <div
+                    v-if="
+                        !isLoading &&
+                        !errorMessage &&
+                        !results.stickers.length &&
+                        !results.themes.length &&
+                        !results.emojis.length
+                    "
+                    class="text-center text-gray-500 py-5"
+                >
+                    ไม่พบผลลัพธ์สำหรับ "{{ searchQuery }}"
+                </div>
+            </div>
+            <!-- Right Column -->
+            <div
+                class="hidden lg:block w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200 pl-4"
+            >
+                <!-- <div class="sticky top-4">
+                    <p class="text-gray-700 font-medium mb-4">
+                        Additional Content
+                    </p>
+                    <ul>
+                        <li v-for="promo in promotions" :key="promo.id">
+                            <a
+                                :href="promo.link"
+                                class="text-blue-500 hover:underline"
+                            >
+                                {{ promo.title }}
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
         </div>
     </div>
 </template>
