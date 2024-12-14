@@ -79,7 +79,7 @@
                         <button
                             @click="changePage(themeData.current_page + 1)"
                             :disabled="!themeData.next_page_url"
-                            class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                            class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition z-50"
                         >
                             ถัดไป
                         </button>

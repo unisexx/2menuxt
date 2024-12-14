@@ -75,7 +75,7 @@
                         <button
                             @click="changePage(emojiData.current_page - 1)"
                             :disabled="!emojiData.prev_page_url"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                            class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
                         >
                             ก่อนหน้า
                         </button>
@@ -85,7 +85,7 @@
                         <button
                             @click="changePage(emojiData.current_page + 1)"
                             :disabled="!emojiData.next_page_url"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                            class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition z-50"
                         >
                             ถัดไป
                         </button>
