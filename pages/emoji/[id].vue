@@ -121,6 +121,7 @@
                             <div
                                 v-for="x in 150"
                                 :key="x"
+                                ref="emojiContainerRefs"
                                 class="text-center overflow-hidden"
                             >
                                 <img
@@ -132,7 +133,7 @@
                                         )
                                     "
                                     :alt="`อิโมจิไลน์ ${emoji.title}`"
-                                    @error="hideImage($event)"
+                                    @error="hideImage(x)"
                                     loading="lazy"
                                 />
                             </div>
@@ -283,8 +284,12 @@
         )}.png`;
     };
 
-    const hideImage = (event) => {
-        event.target.classList.add("hidden");
+    const emojiContainerRefs = ref([]);
+    const hideImage = (index) => {
+        const container = emojiContainerRefs.value[index - 1]; // หา `<div>` ที่ตรงกับ index
+        if (container) {
+            container.style.display = "none"; // ซ่อน `<div>` ที่ครอบอยู่
+        }
     };
 
     if (error.value) {
