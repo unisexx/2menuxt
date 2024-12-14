@@ -60,7 +60,7 @@
             </aside>
 
             <!-- Main Content -->
-            <main :class="['flex-1 p-3', screenIsLarge ? 'ml-64' : 'ml-0']">
+            <main :class="['flex-1', screenIsLarge ? 'ml-64' : 'ml-0']">
                 <NuxtPage />
             </main>
 

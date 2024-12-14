@@ -1,10 +1,10 @@
 <template>
-    <div class="container mx-auto">
+    <div class="mx-auto">
         <div v-if="sticker">
             <div class="flex flex-wrap">
                 <div
                     v-if="sticker.status === 1"
-                    class="w-full lg:w-9/12 xl:w-8/12 mx-auto"
+                    class="w-full lg:w-9/12 xl:w-8/12 mx-auto p-4"
                 >
                     <!-- Breadcrumb -->
                     <nav class="mb-4 bg-gray-100 rounded-lg p-4">

@@ -1,93 +1,115 @@
 <template>
-    <div>
-        <!-- ฟิลเตอร์ -->
-        <div class="flex flex-wrap gap-4 mb-4">
-            <!-- เลือกประเภท -->
-            <div>
-                <label for="category" class="block mb-2 font-medium"
-                    >เลือกประเภท:</label
-                >
-                <select
-                    id="category"
-                    v-model="selectedCategory"
-                    @change="applyFilters"
-                    class="border rounded px-3 py-2"
-                >
-                    <!-- <option value="">ทั้งหมด</option> -->
-                    <option value="official">สติกเกอร์ทางการ</option>
-                    <option value="creator">สติกเกอร์ครีเอเตอร์</option>
-                </select>
+    <div class="mx-auto">
+        <div class="flex flex-wrap lg:flex-nowrap">
+            <!-- Left Column -->
+            <div class="w-full lg:w-9/12 xl:w-8/12 p-4">
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4 mb-4">
+                    <!-- Select Category -->
+                    <div>
+                        <label for="category" class="block mb-2 font-medium">
+                            เลือกประเภท:
+                        </label>
+                        <select
+                            id="category"
+                            v-model="selectedCategory"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option value="official">สติกเกอร์ทางการ</option>
+                            <option value="creator">สติกเกอร์ครีเอเตอร์</option>
+                        </select>
+                    </div>
+                    <!-- Select Country -->
+                    <div>
+                        <label for="country" class="block mb-2 font-medium">
+                            เลือกประเทศ:
+                        </label>
+                        <select
+                            id="country"
+                            v-model="selectedCountry"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option
+                                v-for="(label, key) in filteredCountries"
+                                :key="key"
+                                :value="key"
+                            >
+                                {{ label }}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- Select Order -->
+                    <div>
+                        <label for="order" class="block mb-2 font-medium">
+                            เรียงลำดับ:
+                        </label>
+                        <select
+                            id="order"
+                            v-model="selectedOrder"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option value="new">ล่าสุด</option>
+                            <option value="popular">ฮิต</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Stickers Section -->
+                <div v-if="stickerData && stickerData.data">
+                    <h2 class="text-xl font-semibold mb-4">
+                        {{ headerTitle }}
+                    </h2>
+                    <StickerCard :stickers="stickerData.data" />
+                    <hr />
+                    <!-- Pagination -->
+                    <div class="flex justify-between items-center mt-6">
+                        <button
+                            @click="changePage(stickerData.current_page - 1)"
+                            :disabled="!stickerData.prev_page_url"
+                            class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                        >
+                            ก่อนหน้า
+                        </button>
+                        <span class="text-gray-700 font-semibold">
+                            หน้าปัจจุบัน: {{ stickerData.current_page }}
+                        </span>
+                        <button
+                            @click="changePage(stickerData.current_page + 1)"
+                            :disabled="!stickerData.next_page_url"
+                            class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                        >
+                            ถัดไป
+                        </button>
+                    </div>
+                </div>
+                <p v-else-if="stickerPending">Loading...</p>
+                <p v-else>Error loading sticker data</p>
             </div>
 
-            <!-- เลือกประเทศ -->
-            <div>
-                <label for="country" class="block mb-2 font-medium"
-                    >เลือกประเทศ:</label
-                >
-                <select
-                    id="country"
-                    v-model="selectedCountry"
-                    @change="applyFilters"
-                    class="border rounded px-3 py-2"
-                >
-                    <option
-                        v-for="(label, key) in filteredCountries"
-                        :key="key"
-                        :value="key"
-                    >
-                        {{ label }}
-                    </option>
-                </select>
-            </div>
-
-            <!-- เลือกการเรียงลำดับ -->
-            <div>
-                <label for="order" class="block mb-2 font-medium"
-                    >เรียงลำดับ:</label
-                >
-                <select
-                    id="order"
-                    v-model="selectedOrder"
-                    @change="applyFilters"
-                    class="border rounded px-3 py-2"
-                >
-                    <option value="new">ล่าสุด</option>
-                    <option value="popular">ฮิต</option>
-                </select>
+            <!-- Right Column -->
+            <div
+                class="hidden lg:block w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200 pl-4"
+            >
+                <!-- <div class="sticky top-4">
+                    <p class="text-gray-700 font-medium mb-4">
+                        Additional Content
+                    </p>
+                    <ul>
+                        <li v-for="promo in promotions" :key="promo.id">
+                            <a
+                                :href="promo.link"
+                                class="text-blue-500 hover:underline"
+                            >
+                                {{ promo.title }}
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
             </div>
         </div>
-
-        <!-- สติกเกอร์ -->
-        <div v-if="stickerData && stickerData.data">
-            <h2 class="text-xl font-semibold mb-4">
-                {{ headerTitle }}
-            </h2>
-            <StickerCard :stickers="stickerData.data" />
-            <hr />
-
-            <!-- Pagination -->
-            <div class="relative z-50 flex justify-between items-center mt-6">
-                <button
-                    @click="changePage(stickerData.current_page - 1)"
-                    :disabled="!stickerData.prev_page_url"
-                    class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
-                >
-                    ก่อนหน้า
-                </button>
-                <span class="text-gray-700 font-semibold"
-                    >หน้าปัจจุบัน: {{ stickerData.current_page }}</span
-                >
-                <button
-                    @click="changePage(stickerData.current_page + 1)"
-                    :disabled="!stickerData.next_page_url"
-                    class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
-                >
-                    ถัดไป
-                </button>
-            </div>
-        </div>
-        <p v-else-if="stickerPending">Loading...</p>
-        <p v-else>Error loading sticker data</p>
     </div>
 </template>
 

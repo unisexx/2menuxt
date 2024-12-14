@@ -102,7 +102,7 @@
         },
         computed: {
             defaultClass() {
-                return "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 md:gap-4 mt-6";
+                return "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2 md:gap-4 mt-6";
             },
         },
     };

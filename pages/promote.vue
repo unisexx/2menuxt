@@ -1,8 +1,8 @@
 <template>
-    <div class="container mx-auto">
+    <div class="mx-auto">
         <div>
             <div class="flex flex-wrap">
-                <div class="w-full lg:w-9/12 xl:w-8/12 mx-auto">
+                <div class="w-full lg:w-9/12 xl:w-8/12 mx-auto p-4">
                     <!-- Breadcrumb -->
                     <nav class="mb-4 bg-gray-100 rounded-lg p-4">
                         <ol
