@@ -2,9 +2,13 @@
     <div>
         <h1 class="text-xl font-bold mb-4">ผลการค้นหา: "{{ searchQuery }}"</h1>
 
-        <!-- Loading State -->
-        <div v-if="isLoading" class="text-center text-gray-500 py-5">
-            กำลังค้นหา...
+        <!-- Loading State with Centered Animation -->
+        <div
+            v-if="isLoading"
+            class="flex justify-center items-center flex-col py-20"
+        >
+            <div class="spinner"></div>
+            <p class="text-gray-500 mt-4">กำลังค้นหา...</p>
         </div>
 
         <!-- Error Message -->
@@ -99,3 +103,23 @@
         }
     );
 </script>
+
+<style scoped>
+    .spinner {
+        border: 4px solid transparent;
+        border-top: 4px solid #4a90e2; /* สีของขอบหมุน */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>

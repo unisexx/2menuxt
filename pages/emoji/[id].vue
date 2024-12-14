@@ -119,7 +119,7 @@
                         </h2>
                         <div class="grid grid-cols-8 gap-4">
                             <div
-                                v-for="x in 50"
+                                v-for="x in 150"
                                 :key="x"
                                 class="text-center overflow-hidden"
                             >
