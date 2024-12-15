@@ -252,7 +252,38 @@
 
             // 2. LOG Product View
             if (emoji.value) {
-                sendRecordProductView("emoji", id);
+                try {
+                    const clientIp = await fetch("/api/get-client-ip")
+                        .then((res) => res.json())
+                        .then((data) => {
+                            // ตรวจสอบและแยกเอา IP ตัวแรกจาก string ที่ได้
+                            const firstIp = data.ip.split(",")[0].trim();
+                            return firstIp;
+                        })
+                        .catch(() => "Unknown"); // Default IP เป็น Unknown
+                    console.log(clientIp);
+
+                    // สร้าง query parameters สำหรับการส่งข้อมูลแบบ GET
+                    const queryParams = new URLSearchParams({
+                        type: "emoji",
+                        id: emoji.value.id,
+                        ip_address: clientIp,
+                    }).toString();
+
+                    // ส่งคำขอ GET พร้อม query parameters
+                    await fetch(
+                        `https://api.line2me.in.th/api/record-product-view?${queryParams}`,
+                        {
+                            method: "GET",
+                        }
+                    );
+
+                    console.log(
+                        "Record Product View Successfully Sent (GET, no-cors)"
+                    );
+                } catch (error) {
+                    console.error("Error sending record-product-view:", error);
+                }
             }
 
             // 3. โหลด API อื่น ๆ ตามลำดับ
@@ -366,28 +397,6 @@
         const container = emojiContainerRefs.value[index - 1]; // หา `<div>` ที่ตรงกับ index
         if (container) {
             container.style.display = "none"; // ซ่อน `<div>` ที่ครอบอยู่
-        }
-    };
-
-    //===== LOG Product View =====/
-    const sendRecordProductView = async (type, id) => {
-        try {
-            const clientIp = await $fetch("/api/get-client-ip")
-                .then((res) => res.ip)
-                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
-
-            await $fetch("https://api.line2me.in.th/api/record-product-view", {
-                method: "POST",
-                body: {
-                    type,
-                    id,
-                    ip_address: clientIp, // IP address from client
-                },
-            });
-
-            console.log("Record Product View Successfully Sent");
-        } catch (error) {
-            console.error("Error sending record-product-view:", error);
         }
     };
 

@@ -272,23 +272,32 @@
                 try {
                     const clientIp = await fetch("/api/get-client-ip")
                         .then((res) => res.json())
-                        .then((data) => data.ip)
+                        .then((data) => {
+                            // ตรวจสอบและแยกเอา IP ตัวแรกจาก string ที่ได้
+                            const firstIp = data.ip.split(",")[0].trim();
+                            return firstIp;
+                        })
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
+                    console.log(clientIp);
 
+                    // สร้าง query parameters สำหรับการส่งข้อมูลแบบ GET
+                    const queryParams = new URLSearchParams({
+                        type: "theme",
+                        id: theme.value.id,
+                        ip_address: clientIp,
+                    }).toString();
+
+                    // ส่งคำขอ GET พร้อม query parameters
                     await fetch(
-                        "https://api.line2me.in.th/api/record-product-view",
+                        `https://api.line2me.in.th/api/record-product-view?${queryParams}`,
                         {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                type: "theme",
-                                id: theme.value.id,
-                                ip_address: clientIp,
-                            }),
+                            method: "GET",
                         }
                     );
 
-                    console.log("Record Product View Successfully Sent");
+                    console.log(
+                        "Record Product View Successfully Sent (GET, no-cors)"
+                    );
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
                 }
