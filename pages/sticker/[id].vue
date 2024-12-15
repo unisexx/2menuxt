@@ -333,21 +333,23 @@
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
                     console.log(clientIp);
 
+                    // สร้าง query parameters สำหรับการส่งข้อมูลแบบ GET
+                    const queryParams = new URLSearchParams({
+                        type: "sticker",
+                        id: sticker.value.sticker_code,
+                        ip_address: clientIp,
+                    }).toString();
+
+                    // ส่งคำขอ GET พร้อม query parameters
                     await fetch(
-                        "https://api.line2me.in.th/api/record-product-view",
+                        `https://api.line2me.in.th/api/record-product-view?${queryParams}`,
                         {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                type: "sticker",
-                                id: sticker.value.sticker_code,
-                                ip_address: clientIp,
-                            }),
-                            mode: "no-cors", // เพิ่มโหมด no-cors
+                            method: "GET",
                         }
                     );
+
                     console.log(
-                        "Record Product View Successfully Sent (no-cors)"
+                        "Record Product View Successfully Sent (GET, no-cors)"
                     );
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
