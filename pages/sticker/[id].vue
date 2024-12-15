@@ -339,9 +339,12 @@
                                 id: sticker.value.sticker_code,
                                 ip_address: clientIp,
                             }),
+                            mode: "no-cors", // เพิ่มโหมด no-cors
                         }
                     );
-                    console.log("Record Product View Successfully Sent");
+                    console.log(
+                        "Record Product View Successfully Sent (no-cors)"
+                    );
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
                 }
