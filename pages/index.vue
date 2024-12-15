@@ -327,10 +327,186 @@
 </template>
 
 <script setup>
+    import { ref, onMounted } from "vue";
     import { useRoute } from "#app";
 
     const route = useRoute();
     const id = route.params.id;
+
+    // States
+    const promoteStickerData = ref(null);
+    const stickerData = ref(null);
+    const themeData = ref(null);
+    const emojiData = ref(null);
+    const officialThaiStickerData = ref(null);
+    const officialOverseaStickerData = ref(null);
+    const creatorThaiStickerData = ref(null);
+    const creatorOverseaStickerData = ref(null);
+    const officialThaiThemeData = ref(null);
+    const officialOverseaThemeData = ref(null);
+    const creatorThaiThemeData = ref(null);
+    const creatorOverseaThemeData = ref(null);
+    const officialThaiEmojiData = ref(null);
+    const officialOverseaEmojiData = ref(null);
+    const creatorThaiEmojiData = ref(null);
+    const creatorOverseaEmojiData = ref(null);
+
+    const promoteStickerPending = ref(true);
+    const stickerPending = ref(true);
+    const themePending = ref(true);
+    const emojiPending = ref(true);
+    const officialThaiStickerPending = ref(true);
+    const officialOverseaStickerPending = ref(true);
+    const creatorThaiStickerPending = ref(true);
+    const creatorOverseaStickerPending = ref(true);
+    const officialThaiThemePending = ref(true);
+    const officialOverseaThemePending = ref(true);
+    const creatorThaiThemePending = ref(true);
+    const creatorOverseaThemePending = ref(true);
+    const officialThaiEmojiPending = ref(true);
+    const officialOverseaEmojiPending = ref(true);
+    const creatorThaiEmojiPending = ref(true);
+    const creatorOverseaEmojiPending = ref(true);
+
+    // โหลด API จริง
+    onMounted(async () => {
+        try {
+            // สติกเกอร์โปรโมท
+            const promoteStickerRes = await fetch(
+                `https://api.line2me.in.th/api/promote-sticker`
+            );
+            if (promoteStickerRes.ok)
+                promoteStickerData.value = await promoteStickerRes.json();
+            promoteStickerPending.value = false;
+
+            // สติกเกอร์อัพเดท
+            const stickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-update`
+            );
+            if (stickerRes.ok) stickerData.value = await stickerRes.json();
+            stickerPending.value = false;
+
+            // ธีมอัพเดท
+            const themeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-update`
+            );
+            if (themeRes.ok) themeData.value = await themeRes.json();
+            themePending.value = false;
+
+            // อิโมจิอัพเดท
+            const emojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-update`
+            );
+            if (emojiRes.ok) emojiData.value = await emojiRes.json();
+            emojiPending.value = false;
+
+            // สติกเกอร์ทางการไทย
+            const officialThaiStickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-official-thai`
+            );
+            if (officialThaiStickerRes.ok)
+                officialThaiStickerData.value =
+                    await officialThaiStickerRes.json();
+            officialThaiStickerPending.value = false;
+
+            // สติกเกอร์ทางการต่างประเทศ
+            const officialOverseaStickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-official-oversea`
+            );
+            if (officialThaiStickerRes.ok)
+                officialOverseaStickerData.value =
+                    await officialOverseaStickerRes.json();
+            officialOverseaStickerPending.value = false;
+
+            // สติกเกอร์ครีเอเตอร์ไทย
+            const creatorThaiStickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-creator-thai`
+            );
+            if (creatorThaiStickerRes.ok)
+                creatorThaiStickerData.value =
+                    await creatorThaiStickerRes.json();
+            creatorThaiStickerPending.value = false;
+
+            // สติกเกอร์ครีเอเตอร์ต่างประเทศ
+            const creatorOverseaStickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-creator-oversea`
+            );
+            if (creatorOverseaStickerRes.ok)
+                creatorOverseaStickerData.value =
+                    await creatorOverseaStickerRes.json();
+            creatorOverseaStickerPending.value = false;
+
+            // อิโมจิทางการไทย
+            const officialThaiEmojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-official-thai`
+            );
+            if (officialThaiEmojiRes.ok)
+                officialThaiEmojiData.value = await officialThaiEmojiRes.json();
+            officialThaiEmojiPending.value = false;
+
+            // อิโมจิการต่างประเทศ
+            const officialOverseaEmojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-official-oversea`
+            );
+            if (officialOverseaEmojiRes.ok)
+                officialOverseaEmojiData.value =
+                    await officialOverseaEmojiRes.json();
+            officialOverseaEmojiPending.value = false;
+
+            // อิโมจิครีเอเตอร์ไทย API
+            const creatorThaiEmojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-creator-thai`
+            );
+            if (creatorThaiEmojiRes.ok)
+                creatorThaiEmojiData.value = await creatorThaiEmojiRes.json();
+            creatorThaiEmojiPending.value = false;
+
+            // อิโมจิครีเอเตอร์ต่างประเทศ API
+            const creatorOverseaEmojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-creator-oversea`
+            );
+            if (creatorOverseaEmojiRes.ok)
+                creatorOverseaEmojiData.value =
+                    await creatorOverseaEmojiRes.json();
+            creatorOverseaEmojiPending.value = false;
+
+            // ธีมทางการไทย
+            const officialThaiThemeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-official-thai`
+            );
+            if (officialThaiThemeRes.ok)
+                officialThaiThemeData.value = await officialThaiThemeRes.json();
+            officialThaiThemePending.value = false;
+
+            // ธีมทางการต่างประเทศ
+            const officialOverseaThemeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-official-oversea`
+            );
+            if (officialOverseaThemeRes.ok)
+                officialOverseaThemeData.value =
+                    await officialOverseaThemeRes.json();
+            officialOverseaThemePending.value = false;
+
+            // ธีมครีเอเตอร์ไทย
+            const creatorThaiThemeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-creator-thai`
+            );
+            if (creatorThaiThemeRes.ok)
+                creatorThaiThemeData.value = await creatorThaiThemeRes.json();
+            creatorThaiThemePending.value = false;
+
+            // ธีมครีเอเตอร์ต่างประเทศ
+            const creatorOverseaThemeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-creator-oversea`
+            );
+            if (creatorOverseaThemeRes.ok)
+                creatorOverseaThemeData.value =
+                    await creatorOverseaThemeRes.json();
+            creatorOverseaThemePending.value = false;
+        } catch (error) {
+            console.error("API fetch error:", error);
+        }
+    });
 
     // SEO
     useHead({
@@ -361,216 +537,6 @@
             },
             { property: "og:url", content: "https://example.com/" },
         ],
-    });
-
-    // สติกเกอร์ API
-    const {
-        data: stickerData,
-        error: stickerError,
-        pending: stickerPending,
-    } = await useAsyncData(`fetchSticker-${id}`, async () => {
-        const res = await fetch(`https://api.line2me.in.th/api/sticker-update`);
-        if (!res.ok) throw new Error("Failed to fetch sticker API");
-        return res.json();
-    });
-
-    // ธีม API
-    const {
-        data: themeData,
-        error: themeError,
-        pending: themePending,
-    } = await useAsyncData(`fetchTheme-${id}`, async () => {
-        const res = await fetch(`https://api.line2me.in.th/api/theme-update`);
-        if (!res.ok) throw new Error("Failed to fetch theme API");
-        return res.json();
-    });
-
-    // อีโมจิ API
-    const {
-        data: emojiData,
-        error: emojiError,
-        pending: emojiPending,
-    } = await useAsyncData(`fetchEmoji-${id}`, async () => {
-        const res = await fetch(`https://api.line2me.in.th/api/emoji-update`);
-        if (!res.ok) throw new Error("Failed to fetch emoji API");
-        return res.json();
-    });
-
-    // สติกเกอร์โปรโมท API
-    const {
-        data: promoteStickerData,
-        error: promoteStickerError,
-        pending: promoteStickerPending,
-    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/promote-sticker`
-        );
-        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
-        return res.json();
-    });
-
-    // สติกเกอร์ทางการไทย API
-    const {
-        data: officialThaiStickerData,
-        error: officialThaiStickerError,
-        pending: officialThaiStickerPending,
-    } = await useAsyncData(`fetchOfficialThaiSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/sticker-official-thai`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch sticker-official-thai API");
-        return res.json();
-    });
-
-    // สติกเกอร์ทางการต่างประเทศ API
-    const {
-        data: officialOverseaStickerData,
-        error: officialOverseaStickerError,
-        pending: officialOverseaStickerPending,
-    } = await useAsyncData(`fetchOfficialOverseaSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/sticker-official-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch sticker-official-oversea API");
-        return res.json();
-    });
-
-    // สติกเกอร์ครีเอเตอร์ไทย API
-    const {
-        data: creatorThaiStickerData,
-        error: creatorThaiStickerError,
-        pending: creatorThaiStickerPending,
-    } = await useAsyncData(`fetchCreatorThaiSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/sticker-creator-thai`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch sticker-creator-thai API");
-        return res.json();
-    });
-
-    // สติกเกอร์ครีเอเตอร์ต่างประเทศ API
-    const {
-        data: creatorOverseaStickerData,
-        error: creatorOverseaStickerError,
-        pending: creatorOverseaStickerPending,
-    } = await useAsyncData(`fetchCreatorOverseaSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/sticker-creator-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch sticker-creator-oversea API");
-        return res.json();
-    });
-
-    // ธีมทางการไทย API
-    const {
-        data: officialThaiThemeData,
-        error: officialThaiThemeError,
-        pending: officialThaiThemePending,
-    } = await useAsyncData(`fetchOfficialThaiTheme-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-official-thai`
-        );
-        if (!res.ok) throw new Error("Failed to fetch theme-official-thai API");
-        return res.json();
-    });
-
-    // ธีมทางการต่างประเทศ API
-    const {
-        data: officialOverseaThemeData,
-        error: officialOverseaThemeError,
-        pending: officialOverseaThemePending,
-    } = await useAsyncData(`fetchOfficialOverseaTheme-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-official-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch theme-official-oversea API");
-        return res.json();
-    });
-
-    // ธีมครีเอเตอร์ไทย API
-    const {
-        data: creatorThaiThemeData,
-        error: creatorThaiThemeError,
-        pending: creatorThaiThemePending,
-    } = await useAsyncData(`fetchCreatorThaiTheme-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-creator-thai`
-        );
-        if (!res.ok) throw new Error("Failed to fetch theme-creator-thai API");
-        return res.json();
-    });
-
-    // ธีมครีเอเตอร์ต่างประเทศ API
-    const {
-        data: creatorOverseaThemeData,
-        error: creatorOverseaThemeError,
-        pending: creatorOverseaThemePending,
-    } = await useAsyncData(`fetchCreatorOverseaTheme-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-creator-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch theme-creator-oversea API");
-        return res.json();
-    });
-
-    // อิโมจิทางการไทย API
-    const {
-        data: officialThaiEmojiData,
-        error: officialThaiEmojiError,
-        pending: officialThaiEmojiPending,
-    } = await useAsyncData(`fetchOfficialThaiEmoji-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/emoji-official-thai`
-        );
-        if (!res.ok) throw new Error("Failed to fetch emoji-official-thai API");
-        return res.json();
-    });
-
-    // อิโมจิการต่างประเทศ API
-    const {
-        data: officialOverseaEmojiData,
-        error: officialOverseaEmojiError,
-        pending: officialOverseaEmojiPending,
-    } = await useAsyncData(`fetchOfficialOverseaEmoji-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/emoji-official-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch emoji-official-oversea API");
-        return res.json();
-    });
-
-    // อิโมจิครีเอเตอร์ไทย API
-    const {
-        data: creatorThaiEmojiData,
-        error: creatorThaiEmojiError,
-        pending: creatorThaiEmojiPending,
-    } = await useAsyncData(`fetchCreatorThaiEmoji-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/emoji-creator-thai`
-        );
-        if (!res.ok) throw new Error("Failed to fetch emoji-creator-thai API");
-        return res.json();
-    });
-
-    // อิโมจิครีเอเตอร์ต่างประเทศ API
-    const {
-        data: creatorOverseaEmojiData,
-        error: creatorOverseaEmojiError,
-        pending: creatorOverseaEmojiPending,
-    } = await useAsyncData(`fetchCreatorOverseaEmoji-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/emoji-creator-oversea`
-        );
-        if (!res.ok)
-            throw new Error("Failed to fetch emoji-creator-oversea API");
-        return res.json();
     });
 </script>
 
