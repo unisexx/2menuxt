@@ -327,6 +327,7 @@
                         .then((res) => res.json())
                         .then((data) => data.ip)
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
+                    console.log(clientIp);
 
                     await fetch(
                         "https://api.line2me.in.th/api/record-product-view",
@@ -340,7 +341,6 @@
                             }),
                         }
                     );
-
                     console.log("Record Product View Successfully Sent");
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
