@@ -272,11 +272,7 @@
                 try {
                     const clientIp = await fetch("/api/get-client-ip")
                         .then((res) => res.json())
-                        .then((data) => {
-                            // ตรวจสอบและแยกเอา IP ตัวแรกจาก string ที่ได้
-                            const firstIp = data.ip.split(",")[0].trim();
-                            return firstIp;
-                        })
+                        .then((data) => data.ip) // รับค่า IP ตรง ๆ โดยไม่ต้องแยก
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
                     console.log(clientIp);
 

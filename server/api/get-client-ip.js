@@ -1,16 +1,34 @@
 export default defineEventHandler((event) => {
     // ดึง IP Address จาก Header หรือ Connection
     const ipAddress =
-        event.req.headers["x-forwarded-for"] ||
-        event.req.connection.remoteAddress;
+        event.req.headers["x-forwarded-for"] || // กรณีมี Proxy
+        event.req.connection.remoteAddress; // ดึงจาก Connection โดยตรง
 
-    // ตรวจสอบและปรับแต่งค่า IP Address (จัดการกรณี "::ffff:")
-    const clientIp = ipAddress.includes("::ffff:")
-        ? ipAddress.split("::ffff:")[1]
-        : ipAddress;
+    let clientIp = "Unknown";
 
-    // ส่งคืนค่า IP Address
+    if (ipAddress) {
+        // กรองเฉพาะ IP v4 (ใช้ Regex)
+        const ipv4Regex = /^(?:\d{1,3}\.){3}\d{1,3}$/;
+
+        // ตรวจสอบกรณี x-forwarded-for ที่มีหลาย IP
+        const ipList = ipAddress.split(",").map((ip) => ip.trim());
+
+        for (const ip of ipList) {
+            // จัดการกรณี "::ffff:" ซึ่งเป็น IPv4 ที่แปลงมาจาก IPv6
+            const cleanIp = ip.includes("::ffff:")
+                ? ip.split("::ffff:")[1]
+                : ip;
+
+            // ตรวจสอบว่าเป็น IPv4
+            if (ipv4Regex.test(cleanIp)) {
+                clientIp = cleanIp;
+                break;
+            }
+        }
+    }
+
+    // ส่งคืนค่า IP v4 หรือ "Unknown"
     return {
-        ip: clientIp || "Unknown", // คืนค่า IP หรือ "Unknown" หากไม่พบ
+        ip: clientIp,
     };
 });
