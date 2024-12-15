@@ -227,7 +227,7 @@
                             :stickers="promoteStickerData"
                             :showPromote="true"
                         />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-else-if="promoteStickerPending">Loading...</p>
 
@@ -241,7 +241,7 @@
                             color="text-sky-400"
                         />
                         <StickerCard :stickers="authorStickerData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-if="authorStickerPending">กำลังโหลด...</p>
 
@@ -253,7 +253,7 @@
                             color="text-teal-500"
                         />
                         <EmojiCard :emojis="authorEmojiData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-if="authorEmojiPending">กำลังโหลด...</p>
 
@@ -265,7 +265,7 @@
                             color="text-rose-400"
                         />
                         <ThemeCard :themes="authorThemeData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-if="authorThemePending">กำลังโหลด...</p>
                 </div>

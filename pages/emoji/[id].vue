@@ -156,9 +156,9 @@
                             :stickers="promoteStickerData"
                             :showPromote="true"
                         />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
-                    <p v-else-if="promoteStickerPending">Loading...</p>
+                    <p v-else-if="promoteStickerPending">กำลังโหลด...</p>
 
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -168,7 +168,7 @@
                             color="text-teal-500"
                         />
                         <EmojiCard :emojis="authorEmojiData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-if="authorEmojiPending">กำลังโหลด...</p>
 
@@ -182,9 +182,9 @@
                             color="text-sky-400"
                         />
                         <StickerCard :stickers="authorStickerData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
-                    <p v-if="pending">กำลังโหลด...</p>
+                    <p v-if="authorStickerPending">กำลังโหลด...</p>
 
                     <!-- ธีมตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -194,7 +194,7 @@
                             color="text-rose-400"
                         />
                         <ThemeCard :themes="authorThemeData" />
-                        <hr class="my-10" />
+                        <hr class="my-5" />
                     </div>
                     <p v-if="authorThemePending">กำลังโหลด...</p>
                 </div>
@@ -214,28 +214,114 @@
             </div>
         </div>
 
-        <p v-else-if="pending">Loading...</p>
-        <p v-else>Error loading data</p>
+        <p v-else-if="emojiPending">Loading...</p>
     </div>
 </template>
 
 <script setup>
+    import { ref, onMounted } from "vue";
     import { useRoute } from "#app";
     import BuyButton from "~/components/BuyButton.vue";
 
+    // ดึงค่า route ID
     const route = useRoute();
     const id = route.params.id;
 
-    const {
-        data: emoji,
-        error,
-        pending,
-    } = await useAsyncData(`fetchEmoji-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/emoji-view/${id}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch API");
-        return res.json();
+    // ตั้งค่า States
+    const emoji = ref(null);
+    const promoteStickerData = ref(null);
+    const authorStickerData = ref(null);
+    const authorThemeData = ref(null);
+    const authorEmojiData = ref(null);
+
+    const emojiPending = ref(true);
+    const promoteStickerPending = ref(true);
+    const authorStickerPending = ref(true);
+    const authorThemePending = ref(true);
+    const authorEmojiPending = ref(true);
+
+    //===== onMounted จะทำงานฝั่ง client ไม่เป็น SSR (Server Side Rendering) =====/
+    onMounted(async () => {
+        try {
+            // 1. โหลดข้อมูลอิโมจิ
+            const emojiRes = await fetch(
+                `https://api.line2me.in.th/api/emoji-view/${id}`
+            );
+            if (emojiRes.ok) emoji.value = await emojiRes.json();
+            emojiPending.value = false;
+
+            // 2. LOG Product View
+            if (emoji.value) {
+                sendRecordProductView("emoji", id);
+            }
+
+            // 3. โหลด API อื่น ๆ ตามลำดับ
+            if (emoji.value) {
+                // สติกเกอร์โปรโมท
+                const promoteStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/promote-sticker`
+                );
+                if (promoteStickerRes.ok)
+                    promoteStickerData.value = await promoteStickerRes.json();
+                promoteStickerPending.value = false;
+
+                // สติกเกอร์อื่นๆ ตามผู้สร้าง
+                const stickerParams = new URLSearchParams({
+                    sticker_code: emoji.value?.id || "",
+                    author_th: emoji.value?.creator_name || "",
+                    category: emoji.value?.category || "",
+                    country: emoji.value?.country || "",
+                }).toString();
+                const authorStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/sticker-by-author?${stickerParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorStickerRes.ok)
+                    authorStickerData.value = await authorStickerRes.json();
+                authorStickerPending.value = false;
+
+                // ธีมอื่นๆ ตามผู้สร้าง
+                const themeParams = new URLSearchParams({
+                    id: emoji.value?.id || "",
+                    author: emoji.value?.creator_name || "",
+                    category: emoji.value?.category || "",
+                    country: emoji.value?.country || "",
+                }).toString();
+                const authorThemeRes = await fetch(
+                    `https://api.line2me.in.th/api/theme-by-author?${themeParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorThemeRes.ok)
+                    authorThemeData.value = await authorThemeRes.json();
+                authorThemePending.value = false;
+
+                // อิโมจิอื่นๆ ตามผู้สร้าง
+                const emojiParams = new URLSearchParams({
+                    id: emoji.value?.id || "",
+                    creator_name: emoji.value?.creator_name || "",
+                    category: emoji.value?.category || "",
+                    country: emoji.value?.country || "",
+                }).toString();
+                const authorEmojiRes = await fetch(
+                    `https://api.line2me.in.th/api/emoji-by-author?${emojiParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorEmojiRes.ok)
+                    authorEmojiData.value = await authorEmojiRes.json();
+                authorEmojiPending.value = false;
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        }
     });
 
     const getCategoryLink = () => {
@@ -283,73 +369,7 @@
         }
     };
 
-    if (error.value) {
-        console.error("Error fetching data:", error.value);
-    }
-
-    //===== สติกเกอร์โปรโมท API =====/
-    const {
-        data: promoteStickerData,
-        error: promoteStickerError,
-        pending: promoteStickerPending,
-    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/promote-sticker`
-        );
-        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
-        return res.json();
-    });
-
-    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorEmojiData,
-        pending: authorEmojiPending,
-        error: authorEmojiError,
-    } = useAsyncData("authorEmoji", () =>
-        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
-            params: {
-                id: emoji.value?.id || "",
-                creator_name: emoji.value?.creator_name || "",
-                category: emoji.value?.category || "",
-                country: emoji.value?.country || "",
-            },
-        })
-    );
-
-    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorStickerData,
-        pending: authorStickerPending,
-        error: authorStickerError,
-    } = useAsyncData("authorSticker", () => {
-        const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
-        const params = {
-            sticker_code: emoji.value?.sticker_code || "",
-            author_th: emoji.value?.creator_name || "",
-            category: emoji.value?.category || "",
-            country: emoji.value?.country || "",
-        };
-        return $fetch(apiUrl, { params });
-    });
-
-    //===== ธีมอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorThemeData,
-        pending: authorThemePending,
-        error: authorThemeError,
-    } = useAsyncData("authorTheme", () =>
-        $fetch(`https://api.line2me.in.th/api/theme-by-author`, {
-            params: {
-                id: emoji.value?.id || "",
-                author: emoji.value?.creator_name || "",
-                category: emoji.value?.category || "",
-                country: emoji.value?.country || "",
-            },
-        })
-    );
-
     //===== LOG Product View =====/
-    // ฟังก์ชันส่งข้อมูลไปยัง API
     const sendRecordProductView = async (type, id) => {
         try {
             const clientIp = await $fetch("/api/get-client-ip")
@@ -370,13 +390,6 @@
             console.error("Error sending record-product-view:", error);
         }
     };
-
-    // Trigger sendRecordProductView after everything is loaded
-    onMounted(() => {
-        if (!pending.value && !error.value) {
-            sendRecordProductView("emoji", id);
-        }
-    });
 
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
