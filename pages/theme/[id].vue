@@ -270,30 +270,32 @@
             // 2. LOG Product View
             if (theme.value) {
                 try {
+                    // ดึง IP ของ client
                     const clientIp = await fetch("/api/get-client-ip")
                         .then((res) => res.json())
                         .then((data) => data.ip) // รับค่า IP ตรง ๆ โดยไม่ต้องแยก
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
-                    // console.log(clientIp);
 
-                    // สร้าง query parameters สำหรับการส่งข้อมูลแบบ GET
-                    const queryParams = new URLSearchParams({
+                    // สร้าง payload สำหรับการส่งข้อมูลแบบ POST
+                    const payload = {
                         type: "theme",
                         id: theme.value.id,
                         ip_address: clientIp,
-                    }).toString();
+                    };
 
-                    // ส่งคำขอ GET พร้อม query parameters
+                    // ส่งคำขอ POST พร้อม payload
                     await fetch(
-                        `https://api.line2me.in.th/api/record-product-view?${queryParams}`,
+                        "https://api.line2me.in.th/api/record-product-view",
                         {
-                            method: "GET",
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json", // กำหนดให้ส่งเป็น JSON
+                            },
+                            body: JSON.stringify(payload), // แปลง payload เป็น JSON
                         }
                     );
 
-                    console.log(
-                        "Record Product View Successfully Sent (GET, no-cors)"
-                    );
+                    // console.log("Record Product View Successfully Sent (POST)");
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
                 }

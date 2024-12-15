@@ -348,7 +348,7 @@
                         }
                     );
 
-                    console.log("Record Product View Successfully Sent (POST)");
+                    // console.log("Record Product View Successfully Sent (POST)");
                 } catch (error) {
                     console.error("Error sending record-product-view:", error);
                 }
