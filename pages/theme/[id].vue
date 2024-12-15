@@ -197,7 +197,7 @@
                             <StickerCard :stickers="authorStickerData" />
                             <hr class="my-10" />
                         </div>
-                        <p v-if="pending">กำลังโหลด...</p>
+                        <p v-if="authorStickerPending">กำลังโหลด...</p>
 
                         <!-- อิโมจิตามผู้สร้าง -->
                         <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -230,12 +230,12 @@
             </div>
         </div>
 
-        <p v-else-if="pending">Loading...</p>
-        <p v-else class="text-red-500">ไม่พบข้อมูลธีม หรือ API มีปัญหา</p>
+        <p v-else-if="themePending">Loading...</p>
     </div>
 </template>
 
 <script setup>
+    import { ref, onMounted } from "vue";
     import { useRoute } from "#app";
     import PhotoSwipeLightbox from "photoswipe/lightbox";
     import "photoswipe/style.css";
@@ -244,17 +244,126 @@
     const route = useRoute();
     const id = route.params.id;
 
-    // ดึงข้อมูลธีมจาก API
-    const {
-        data: theme,
-        error,
-        pending,
-    } = await useAsyncData(`fetchTheme-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/theme-view/${id}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch API");
-        return res.json();
+    // ตั้งค่า States
+    const theme = ref(null);
+    const promoteStickerData = ref(null);
+    const authorStickerData = ref(null);
+    const authorThemeData = ref(null);
+    const authorEmojiData = ref(null);
+
+    const themePending = ref(true);
+    const promoteStickerPending = ref(true);
+    const authorStickerPending = ref(true);
+    const authorThemePending = ref(true);
+    const authorEmojiPending = ref(true);
+
+    //===== onMounted จะทำงานฝั่ง client ไม่เป็น SSR (Server Side Rendering) =====/
+    onMounted(async () => {
+        try {
+            // 1. โหลดข้อมูลธีม
+            const themeRes = await fetch(
+                `https://api.line2me.in.th/api/theme-view/${id}`
+            );
+            if (themeRes.ok) theme.value = await themeRes.json();
+            themePending.value = false;
+
+            // 2. LOG Product View
+            if (theme.value) {
+                try {
+                    const clientIp = await fetch("/api/get-client-ip")
+                        .then((res) => res.json())
+                        .then((data) => data.ip)
+                        .catch(() => "Unknown"); // Default IP เป็น Unknown
+
+                    await fetch(
+                        "https://api.line2me.in.th/api/record-product-view",
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                type: "theme",
+                                id: theme.value.id,
+                                ip_address: clientIp,
+                            }),
+                        }
+                    );
+
+                    console.log("Record Product View Successfully Sent");
+                } catch (error) {
+                    console.error("Error sending record-product-view:", error);
+                }
+            }
+
+            // 3. โหลด API อื่น ๆ ตามลำดับ
+            if (theme.value) {
+                // สติกเกอร์โปรโมท
+                const promoteStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/promote-sticker`
+                );
+                if (promoteStickerRes.ok)
+                    promoteStickerData.value = await promoteStickerRes.json();
+                promoteStickerPending.value = false;
+
+                // สติกเกอร์อื่นๆ ตามผู้สร้าง
+                const stickerParams = new URLSearchParams({
+                    sticker_code: theme.value?.id || "",
+                    author_th: theme.value?.author || "",
+                    category: theme.value?.category || "",
+                    country: theme.value?.country || "",
+                }).toString();
+                const authorStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/sticker-by-author?${stickerParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorStickerRes.ok)
+                    authorStickerData.value = await authorStickerRes.json();
+                authorStickerPending.value = false;
+
+                // ธีมอื่นๆ ตามผู้สร้าง
+                const themeParams = new URLSearchParams({
+                    id: theme.value?.id || "",
+                    author: theme.value?.author || "",
+                    category: theme.value?.category || "",
+                    country: theme.value?.country || "",
+                }).toString();
+                const authorThemeRes = await fetch(
+                    `https://api.line2me.in.th/api/theme-by-author?${themeParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorThemeRes.ok)
+                    authorThemeData.value = await authorThemeRes.json();
+                authorThemePending.value = false;
+
+                // อิโมจิอื่นๆ ตามผู้สร้าง
+                const emojiParams = new URLSearchParams({
+                    id: theme.value?.id || "",
+                    creator_name: theme.value?.author || "",
+                    category: theme.value?.category || "",
+                    country: theme.value?.country || "",
+                }).toString();
+                const authorEmojiRes = await fetch(
+                    `https://api.line2me.in.th/api/emoji-by-author?${emojiParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorEmojiRes.ok)
+                    authorEmojiData.value = await authorEmojiRes.json();
+                authorEmojiPending.value = false;
+
+                // PhotoSwipe Lightbox
+                initLightbox();
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        }
     });
 
     // ฟังก์ชันสร้าง URL ของหมวดหมู่
@@ -312,103 +421,7 @@
         lightbox.init();
     };
 
-    // เรียกใช้ Lightbox เมื่อ component mount
-    onMounted(() => {
-        initLightbox();
-    });
-
-    //===== สติกเกอร์โปรโมท API =====/
-    const {
-        data: promoteStickerData,
-        error: promoteStickerError,
-        pending: promoteStickerPending,
-    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/promote-sticker`
-        );
-        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
-        return res.json();
-    });
-
-    //===== ธีมอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorThemeData,
-        pending: authorThemePending,
-        error: authorThemeError,
-    } = useAsyncData("authorTheme", () =>
-        $fetch(`https://api.line2me.in.th/api/theme-by-author`, {
-            params: {
-                id: theme.value?.id || "",
-                author: theme.value?.author || "",
-                category: theme.value?.category || "",
-                country: theme.value?.country || "",
-            },
-        })
-    );
-
-    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorStickerData,
-        pending: authorStickerPending,
-        error: authorStickerError,
-    } = useAsyncData("authorSticker", () => {
-        const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
-        const params = {
-            sticker_code: theme.value?.id || "",
-            author_th: theme.value?.author || "",
-            category: theme.value?.category || "",
-            country: theme.value?.country || "",
-        };
-        return $fetch(apiUrl, { params });
-    });
-
-    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorEmojiData,
-        pending: authorEmojiPending,
-        error: authorEmojiError,
-    } = useAsyncData("authorEmoji", () =>
-        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
-            params: {
-                id: theme.value?.id || "",
-                creator_name: theme.value?.author || "",
-                category: theme.value?.category || "",
-                country: theme.value?.country || "",
-            },
-        })
-    );
-
-    //===== LOG Product View =====/
-    // ฟังก์ชันส่งข้อมูลไปยัง API
-    const sendRecordProductView = async (type, id) => {
-        try {
-            const clientIp = await $fetch("/api/get-client-ip")
-                .then((res) => res.ip)
-                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
-
-            await $fetch("https://api.line2me.in.th/api/record-product-view", {
-                method: "POST",
-                body: {
-                    type,
-                    id,
-                    ip_address: clientIp, // IP address from client
-                },
-            });
-
-            console.log("Record Product View Successfully Sent");
-        } catch (error) {
-            console.error("Error sending record-product-view:", error);
-        }
-    };
-
-    // Trigger sendRecordProductView after everything is loaded
-    onMounted(() => {
-        if (!pending.value && !error.value) {
-            sendRecordProductView("theme", id);
-        }
-    });
-
-    //===== SEO =====/
+    //===== SEO เป็น Server Side Rendering ต้องใช้ useAsyncData =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
         const res = await fetch(
             `https://api.line2me.in.th/api/theme-seo/${id}`

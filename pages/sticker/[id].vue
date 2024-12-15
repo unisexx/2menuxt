@@ -243,7 +243,7 @@
                         <StickerCard :stickers="authorStickerData" />
                         <hr class="my-10" />
                     </div>
-                    <p v-if="pending">กำลังโหลด...</p>
+                    <p v-if="authorStickerPending">กำลังโหลด...</p>
 
                     <!-- อิโมจิตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
@@ -293,9 +293,11 @@
     import { ref, onMounted } from "vue";
     import { useRoute } from "#app";
 
+    // ดึงค่า route ID
     const route = useRoute();
     const id = route.params.id;
 
+    // ตั้งค่า States
     const sticker = ref(null);
     const promoteStickerData = ref(null);
     const authorStickerData = ref(null);
@@ -308,6 +310,7 @@
     const authorThemePending = ref(true);
     const authorEmojiPending = ref(true);
 
+    //===== onMounted จะทำงานฝั่ง client ไม่เป็น SSR (Server Side Rendering) =====/
     onMounted(async () => {
         try {
             // 1. โหลดข้อมูลสติกเกอร์
@@ -499,7 +502,7 @@
         }
     };
 
-    //===== SEO =====/
+    //===== SEO เป็น Server Side Rendering ต้องใช้ useAsyncData =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
         const res = await fetch(
             `https://api.line2me.in.th/api/sticker-seo/${id}`
