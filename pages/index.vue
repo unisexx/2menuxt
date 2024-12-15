@@ -351,22 +351,40 @@
     const creatorThaiEmojiData = ref(null);
     const creatorOverseaEmojiData = ref(null);
 
-    const promoteStickerPending = ref(true);
-    const stickerPending = ref(true);
-    const themePending = ref(true);
-    const emojiPending = ref(true);
-    const officialThaiStickerPending = ref(true);
-    const officialOverseaStickerPending = ref(true);
-    const creatorThaiStickerPending = ref(true);
-    const creatorOverseaStickerPending = ref(true);
-    const officialThaiThemePending = ref(true);
-    const officialOverseaThemePending = ref(true);
-    const creatorThaiThemePending = ref(true);
-    const creatorOverseaThemePending = ref(true);
-    const officialThaiEmojiPending = ref(true);
-    const officialOverseaEmojiPending = ref(true);
-    const creatorThaiEmojiPending = ref(true);
-    const creatorOverseaEmojiPending = ref(true);
+    // const promoteStickerPending = ref(true);
+    // const stickerPending = ref(true);
+    // const themePending = ref(true);
+    // const emojiPending = ref(true);
+    // const officialThaiStickerPending = ref(true);
+    // const officialOverseaStickerPending = ref(true);
+    // const creatorThaiStickerPending = ref(true);
+    // const creatorOverseaStickerPending = ref(true);
+    // const officialThaiThemePending = ref(true);
+    // const officialOverseaThemePending = ref(true);
+    // const creatorThaiThemePending = ref(true);
+    // const creatorOverseaThemePending = ref(true);
+    // const officialThaiEmojiPending = ref(true);
+    // const officialOverseaEmojiPending = ref(true);
+    // const creatorThaiEmojiPending = ref(true);
+    // const creatorOverseaEmojiPending = ref(true);
+
+    // ให้ค่าเริ่มต้นเป็น false จะได้ไม่ต้องแสดงข้อความ Loading
+    const promoteStickerPending = ref(false);
+    const stickerPending = ref(false);
+    const themePending = ref(false);
+    const emojiPending = ref(false);
+    const officialThaiStickerPending = ref(false);
+    const officialOverseaStickerPending = ref(false);
+    const creatorThaiStickerPending = ref(false);
+    const creatorOverseaStickerPending = ref(false);
+    const officialThaiThemePending = ref(false);
+    const officialOverseaThemePending = ref(false);
+    const creatorThaiThemePending = ref(false);
+    const creatorOverseaThemePending = ref(false);
+    const officialThaiEmojiPending = ref(false);
+    const officialOverseaEmojiPending = ref(false);
+    const creatorThaiEmojiPending = ref(false);
+    const creatorOverseaEmojiPending = ref(false);
 
     // โหลด API จริง
     onMounted(async () => {
