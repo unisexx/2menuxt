@@ -285,27 +285,132 @@
             </div>
         </div>
 
-        <p v-else-if="pending">Loading...</p>
-        <p v-else>Error loading data</p>
+        <p v-else-if="stickerPending">Loading...</p>
     </div>
 </template>
 
 <script setup>
+    import { ref, onMounted } from "vue";
     import { useRoute } from "#app";
 
     const route = useRoute();
     const id = route.params.id;
 
-    const {
-        data: sticker,
-        error,
-        pending,
-    } = await useAsyncData(`fetchSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/sticker-view/${id}`
-        );
-        if (!res.ok) throw new Error("Failed to fetch API");
-        return res.json();
+    const sticker = ref(null);
+    const promoteStickerData = ref(null);
+    const authorStickerData = ref(null);
+    const authorThemeData = ref(null);
+    const authorEmojiData = ref(null);
+
+    const stickerPending = ref(true);
+    const promoteStickerPending = ref(true);
+    const authorStickerPending = ref(true);
+    const authorThemePending = ref(true);
+    const authorEmojiPending = ref(true);
+
+    onMounted(async () => {
+        try {
+            // 1. โหลดข้อมูลสติกเกอร์
+            const stickerRes = await fetch(
+                `https://api.line2me.in.th/api/sticker-view/${id}`
+            );
+            if (stickerRes.ok) sticker.value = await stickerRes.json();
+            stickerPending.value = false;
+
+            // 2. LOG Product View
+            if (sticker.value) {
+                try {
+                    const clientIp = await fetch("/api/get-client-ip")
+                        .then((res) => res.json())
+                        .then((data) => data.ip)
+                        .catch(() => "Unknown"); // Default IP เป็น Unknown
+
+                    await fetch(
+                        "https://api.line2me.in.th/api/record-product-view",
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                type: "sticker",
+                                id: sticker.value.sticker_code,
+                                ip_address: clientIp,
+                            }),
+                        }
+                    );
+
+                    console.log("Record Product View Successfully Sent");
+                } catch (error) {
+                    console.error("Error sending record-product-view:", error);
+                }
+            }
+
+            // 3. โหลด API อื่น ๆ ตามลำดับ
+            if (sticker.value) {
+                // สติกเกอร์โปรโมท
+                const promoteStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/promote-sticker`
+                );
+                if (promoteStickerRes.ok)
+                    promoteStickerData.value = await promoteStickerRes.json();
+                promoteStickerPending.value = false;
+
+                // สติกเกอร์อื่นๆ ตามผู้สร้าง
+                const stickerParams = new URLSearchParams({
+                    sticker_code: sticker.value?.sticker_code || "",
+                    author_th: sticker.value?.author_th || "",
+                    category: sticker.value?.category || "",
+                    country: sticker.value?.country || "",
+                }).toString();
+                const authorStickerRes = await fetch(
+                    `https://api.line2me.in.th/api/sticker-by-author?${stickerParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorStickerRes.ok)
+                    authorStickerData.value = await authorStickerRes.json();
+                authorStickerPending.value = false;
+
+                // ธีมอื่นๆ ตามผู้สร้าง
+                const themeParams = new URLSearchParams({
+                    id: sticker.value?.sticker_code || "",
+                    author: sticker.value?.author_th || "",
+                    category: sticker.value?.category || "",
+                    country: sticker.value?.country || "",
+                }).toString();
+                const authorThemeRes = await fetch(
+                    `https://api.line2me.in.th/api/theme-by-author?${themeParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorThemeRes.ok)
+                    authorThemeData.value = await authorThemeRes.json();
+                authorThemePending.value = false;
+
+                // อิโมจิอื่นๆ ตามผู้สร้าง
+                const emojiParams = new URLSearchParams({
+                    id: sticker.value?.sticker_code || "",
+                    creator_name: sticker.value?.author_th || "",
+                    category: sticker.value?.category || "",
+                    country: sticker.value?.country || "",
+                }).toString();
+                const authorEmojiRes = await fetch(
+                    `https://api.line2me.in.th/api/emoji-by-author?${emojiParams}`,
+                    {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                if (authorEmojiRes.ok)
+                    authorEmojiData.value = await authorEmojiRes.json();
+                authorEmojiPending.value = false;
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        }
     });
 
     const getCategoryLink = () => {
@@ -393,101 +498,6 @@
             audioElement.play();
         }
     };
-
-    if (error.value) {
-        console.error("Error fetching data:", error.value);
-    }
-
-    //===== สติกเกอร์โปรโมท API =====/
-    const {
-        data: promoteStickerData,
-        error: promoteStickerError,
-        pending: promoteStickerPending,
-    } = await useAsyncData(`fetchPromoteSticker-${id}`, async () => {
-        const res = await fetch(
-            `https://api.line2me.in.th/api/promote-sticker`
-        );
-        if (!res.ok) throw new Error("Failed to fetch promote-sticker API");
-        return res.json();
-    });
-
-    //===== สติกเกอร์อื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorStickerData,
-        pending: authorStickerPending,
-        error: authorStickerError,
-    } = useAsyncData("authorSticker", () => {
-        const apiUrl = `https://api.line2me.in.th/api/sticker-by-author`;
-        const params = {
-            sticker_code: sticker.value?.sticker_code || "",
-            author_th: sticker.value?.author_th || "",
-            category: sticker.value?.category || "",
-            country: sticker.value?.country || "",
-        };
-        return $fetch(apiUrl, { params });
-    });
-
-    //===== ธีมอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorThemeData,
-        pending: authorThemePending,
-        error: authorThemeError,
-    } = useAsyncData("authorTheme", () =>
-        $fetch(`https://api.line2me.in.th/api/theme-by-author`, {
-            params: {
-                id: sticker.value?.id || "",
-                author: sticker.value?.author_th || "",
-                category: sticker.value?.category || "",
-                country: sticker.value?.country || "",
-            },
-        })
-    );
-
-    //===== อิโมจิอื่นๆตามผู้สร้าง =====/
-    const {
-        data: authorEmojiData,
-        pending: authorEmojiPending,
-        error: authorEmojiError,
-    } = useAsyncData("authorEmoji", () =>
-        $fetch(`https://api.line2me.in.th/api/emoji-by-author`, {
-            params: {
-                id: sticker.value?.id || "",
-                creator_name: sticker.value?.author_th || "",
-                category: sticker.value?.category || "",
-                country: sticker.value?.country || "",
-            },
-        })
-    );
-
-    //===== LOG Product View =====/
-    // ฟังก์ชันส่งข้อมูลไปยัง API
-    const sendRecordProductView = async (type, id) => {
-        try {
-            const clientIp = await $fetch("/api/get-client-ip")
-                .then((res) => res.ip)
-                .catch(() => "Unknown"); // Default to 'Unknown' if IP fetch fails
-
-            await $fetch("https://api.line2me.in.th/api/record-product-view", {
-                method: "POST",
-                body: {
-                    type,
-                    id,
-                    ip_address: clientIp, // IP address from client
-                },
-            });
-
-            console.log("Record Product View Successfully Sent");
-        } catch (error) {
-            console.error("Error sending record-product-view:", error);
-        }
-    };
-
-    // Trigger sendRecordProductView after everything is loaded
-    onMounted(() => {
-        if (!pending.value && !error.value) {
-            sendRecordProductView("sticker", id);
-        }
-    });
 
     //===== SEO =====/
     const { data: seo } = await useAsyncData(`fetchSeo-${id}`, async () => {
