@@ -327,12 +327,12 @@
                         .then((res) => res.json())
                         .then((data) => data.ip) // รับค่า IP ตรง ๆ โดยไม่ต้องแยก
                         .catch(() => "Unknown"); // Default IP เป็น Unknown
-                    console.log(clientIp);
+                    // console.log(clientIp);
 
                     // สร้าง query parameters สำหรับการส่งข้อมูลแบบ GET
                     const queryParams = new URLSearchParams({
                         type: "sticker",
-                        id: sticker.value.sticker_code,
+                        id: sticker.value.id,
                         ip_address: clientIp,
                     }).toString();
 
