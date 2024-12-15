@@ -177,15 +177,26 @@
                 }
             },
             isActive(link) {
-                const currentPath = this.$route.path.split("/")[1] || "";
-                const menuPath = link.split("/")[1] || "";
+                const currentPath = this.$route.path.split("/")[1]; // ตัดเอา path ส่วนแรกมาเทียบ
+                const cleanLink = link.split("?")[0].split("/")[1]; // ตัด query parameters และ path ส่วนแรก
                 const activeRules = {
                     "": [""],
                     stickers: ["sticker", "stickers"],
                     themes: ["theme", "themes"],
                     emojis: ["emoji", "emojis"],
                 };
-                return activeRules[menuPath]?.includes(currentPath) || false;
+
+                // ตรวจสอบว่า currentPath อยู่ใน rules หรือไม่
+                for (const key in activeRules) {
+                    if (
+                        activeRules[key].includes(currentPath) &&
+                        activeRules[key].includes(cleanLink)
+                    ) {
+                        return true;
+                    }
+                }
+
+                return currentPath === cleanLink; // เปรียบเทียบกรณีตรงกันเป๊ะ
             },
             redirectToSearch() {
                 if (this.searchQuery.trim()) {
