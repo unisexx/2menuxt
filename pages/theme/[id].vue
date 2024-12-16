@@ -251,11 +251,17 @@
     const authorThemeData = ref(null);
     const authorEmojiData = ref(null);
 
-    const themePending = ref(true);
-    const promoteStickerPending = ref(true);
-    const authorStickerPending = ref(true);
-    const authorThemePending = ref(true);
-    const authorEmojiPending = ref(true);
+    // const themePending = ref(true);
+    // const promoteStickerPending = ref(true);
+    // const authorStickerPending = ref(true);
+    // const authorThemePending = ref(true);
+    // const authorEmojiPending = ref(true);
+
+    const themePending = ref(false);
+    const promoteStickerPending = ref(false);
+    const authorStickerPending = ref(false);
+    const authorThemePending = ref(false);
+    const authorEmojiPending = ref(false);
 
     //===== onMounted จะทำงานฝั่ง client ไม่เป็น SSR (Server Side Rendering) =====/
     onMounted(async () => {

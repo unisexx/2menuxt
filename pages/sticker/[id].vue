@@ -304,11 +304,17 @@
     const authorThemeData = ref(null);
     const authorEmojiData = ref(null);
 
-    const stickerPending = ref(true);
-    const promoteStickerPending = ref(true);
-    const authorStickerPending = ref(true);
-    const authorThemePending = ref(true);
-    const authorEmojiPending = ref(true);
+    // const stickerPending = ref(true);
+    // const promoteStickerPending = ref(true);
+    // const authorStickerPending = ref(true);
+    // const authorThemePending = ref(true);
+    // const authorEmojiPending = ref(true);
+
+    const stickerPending = ref(false);
+    const promoteStickerPending = ref(false);
+    const authorStickerPending = ref(false);
+    const authorThemePending = ref(false);
+    const authorEmojiPending = ref(false);
 
     //===== onMounted จะทำงานฝั่ง client ไม่เป็น SSR (Server Side Rendering) =====/
     onMounted(async () => {
