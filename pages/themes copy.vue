@@ -5,82 +5,55 @@
             <div class="w-full lg:w-9/12 xl:w-8/12 p-4">
                 <!-- Filters -->
                 <div class="flex flex-wrap gap-4 mb-4">
-                    <!-- Filter Buttons for Category -->
+                    <!-- เลือกประเภท -->
                     <div>
-                        <span class="block mb-2 font-medium">เลือกประเภท:</span>
-                        <div class="flex gap-2">
-                            <button
-                                @click="setFilter('category', 'official')"
-                                :class="[
-                                    'px-3 py-1 sm:px-4 sm:py-2 font-medium rounded text-sm sm:text-base',
-                                    selectedCategory === 'official'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-200 text-gray-800',
-                                ]"
-                            >
-                                ธีมทางการ
-                            </button>
-                            <button
-                                @click="setFilter('category', 'creator')"
-                                :class="[
-                                    'px-3 py-1 sm:px-4 sm:py-2 font-medium rounded text-sm sm:text-base',
-                                    selectedCategory === 'creator'
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-200 text-gray-800',
-                                ]"
-                            >
-                                ธีมครีเอเตอร์
-                            </button>
-                        </div>
+                        <label for="category" class="block mb-2 font-medium">
+                            เลือกประเภท:
+                        </label>
+                        <select
+                            id="category"
+                            v-model="selectedCategory"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option value="official">ธีมทางการ</option>
+                            <option value="creator">ธีมครีเอเตอร์</option>
+                        </select>
                     </div>
-
-                    <!-- Filter Buttons for Country -->
+                    <!-- เลือกประเทศ -->
                     <div>
-                        <span class="block mb-2 font-medium">เลือกประเทศ:</span>
-                        <div class="flex gap-2">
-                            <button
+                        <label for="country" class="block mb-2 font-medium">
+                            เลือกประเทศ:
+                        </label>
+                        <select
+                            id="country"
+                            v-model="selectedCountry"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option
                                 v-for="(label, key) in countries"
                                 :key="key"
-                                @click="setFilter('country', key)"
-                                :class="[
-                                    'px-3 py-1 sm:px-4 sm:py-2 font-medium rounded text-sm sm:text-base',
-                                    selectedCountry === key
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-gray-200 text-gray-800',
-                                ]"
+                                :value="key"
                             >
                                 {{ label }}
-                            </button>
-                        </div>
+                            </option>
+                        </select>
                     </div>
-
-                    <!-- Filter Buttons for Order -->
+                    <!-- เลือกการเรียงลำดับ -->
                     <div>
-                        <span class="block mb-2 font-medium">เรียงลำดับ:</span>
-                        <div class="inline-flex gap-2">
-                            <button
-                                @click="setFilter('order', 'new')"
-                                :class="[
-                                    'px-3 py-1 sm:px-4 sm:py-2 font-medium rounded text-sm sm:text-base',
-                                    selectedOrder === 'new'
-                                        ? 'bg-purple-500 text-white'
-                                        : 'bg-gray-200 text-gray-800',
-                                ]"
-                            >
-                                ล่าสุด
-                            </button>
-                            <button
-                                @click="setFilter('order', 'popular')"
-                                :class="[
-                                    'px-3 py-1 sm:px-4 sm:py-2 font-medium rounded text-sm sm:text-base',
-                                    selectedOrder === 'popular'
-                                        ? 'bg-purple-500 text-white'
-                                        : 'bg-gray-200 text-gray-800',
-                                ]"
-                            >
-                                ฮิต
-                            </button>
-                        </div>
+                        <label for="order" class="block mb-2 font-medium">
+                            เรียงลำดับ:
+                        </label>
+                        <select
+                            id="order"
+                            v-model="selectedOrder"
+                            @change="applyFilters"
+                            class="border rounded px-3 py-2"
+                        >
+                            <option value="new">ล่าสุด</option>
+                            <option value="popular">ฮิต</option>
+                        </select>
                     </div>
                 </div>
 
@@ -120,7 +93,21 @@
             <div
                 class="hidden lg:block w-full lg:w-3/12 xl:w-4/12 border-l border-gray-200 pl-4"
             >
-                <!-- Placeholder for Additional Content -->
+                <!-- <div class="sticky top-4">
+                    <p class="text-gray-700 font-medium mb-4">
+                        เนื้อหาเพิ่มเติม
+                    </p>
+                    <ul>
+                        <li v-for="promo in promotions" :key="promo.id">
+                            <a
+                                :href="promo.link"
+                                class="text-blue-500 hover:underline"
+                            >
+                                {{ promo.title }}
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
             </div>
         </div>
     </div>
@@ -130,33 +117,28 @@
     import { ref, computed, watch } from "vue";
     import { useRouter, useRoute } from "vue-router";
 
-    // Data variables
+    // ตัวแปรสำหรับเก็บข้อมูล API
     const themeData = ref(null);
     const themePending = ref(false);
     const themeError = ref(null);
 
-    // Filters
+    // ตัวแปรสำหรับฟิลเตอร์
     const selectedCountry = ref("");
     const selectedCategory = ref("");
-    const selectedOrder = ref("new");
+    const selectedOrder = ref("new"); // ค่าดีฟอลต์เป็น "ล่าสุด"
 
-    // Country options
+    // ตัวเลือกประเทศ
     const countries = {
         "": "ทั้งหมด",
         th: "ไทย",
         jp: "ญี่ปุ่น",
     };
 
+    // Router และ Route
     const router = useRouter();
     const route = useRoute();
 
-    function setFilter(type, value) {
-        if (type === "category") selectedCategory.value = value;
-        if (type === "country") selectedCountry.value = value;
-        if (type === "order") selectedOrder.value = value;
-        applyFilters();
-    }
-
+    // ฟังก์ชันดึงข้อมูลธีม
     async function fetchThemes(query) {
         try {
             themePending.value = true;
@@ -164,34 +146,40 @@
             const res = await fetch(url);
             if (!res.ok) throw new Error("Failed to fetch theme API");
             const data = await res.json();
-            themeData.value = data;
+            themeData.value = data; // เก็บข้อมูลในตัวแปร
         } catch (error) {
             themeError.value = error.message;
+            console.error("Error fetching theme data:", error.message);
         } finally {
             themePending.value = false;
         }
     }
 
+    // ฟังก์ชันอัปเดต URL และดึงข้อมูล
     function applyFilters() {
         const newQuery = {
             ...route.query,
-            page: 1,
+            page: 1, // รีเซ็ตหน้าเมื่อเปลี่ยนฟิลเตอร์
             country: selectedCountry.value,
             category: selectedCategory.value,
-            order: selectedOrder.value,
+            order: selectedOrder.value, // เพิ่มตัวเลือกการเรียงลำดับ
         };
-        router.push({ query: newQuery });
+
+        router.push({ query: newQuery }); // อัปเดต URL
     }
 
+    // ฟังก์ชันเปลี่ยนหน้า
     function changePage(page) {
         const newQuery = {
             ...route.query,
             page,
         };
-        router.push({ query: newQuery });
-        window.scrollTo({ top: 0 });
+
+        router.push({ query: newQuery }); // อัปเดต URL
+        window.scrollTo({ top: 0 }); // เลื่อนกลับไปด้านบน
     }
 
+    // สร้างหัวข้อจาก parameter
     const headerTitle = computed(() => {
         const countryLabel = countries[selectedCountry.value] || "ทั้งหมด";
         const categoryLabel =
@@ -205,48 +193,44 @@
         return `${categoryLabel} ${countryLabel} (${orderLabel})`;
     });
 
+    // อัปเดต SEO
     useHead(() => {
         const title = `${headerTitle.value} | line2me`;
         const description = `ค้นหา ${headerTitle.value} ที่ line2me พร้อมข้อมูลที่อัปเดตล่าสุด`;
-        const canonicalUrl = window?.location?.href || "";
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: headerTitle.value,
-            description: description,
-            url: canonicalUrl,
-            offers: {
-                "@type": "Offer",
-                priceCurrency: "THB",
-                availability: "https://schema.org/InStock",
-            },
-        };
+        const keywords = `ธีมไลน์, ${headerTitle.value}, ซื้อธีม, line2me`;
+
         return {
             title,
             meta: [
                 { name: "description", content: description },
+                { name: "keywords", content: keywords },
                 { property: "og:title", content: title },
-                { rel: "canonical", href: canonicalUrl },
-            ],
-            script: [
+                { property: "og:description", content: description },
+                { property: "og:type", content: "website" },
                 {
-                    type: "application/ld+json",
-                    innerHTML: JSON.stringify(structuredData),
+                    property: "og:url",
+                    content: window?.location?.href || "",
+                },
+                {
+                    property: "og:image",
+                    content: "https://example.com/default-theme-image.jpg", // เปลี่ยน URL รูปภาพตามจริง
                 },
             ],
         };
     });
 
+    // Watch การเปลี่ยนแปลงของ query string
     watch(
         () => route.query,
         (newQuery) => {
             const query = new URLSearchParams(newQuery).toString();
-            fetchThemes(query);
+            fetchThemes(query); // ดึงข้อมูลใหม่เมื่อ query string เปลี่ยน
         },
         { immediate: true }
     );
 
+    // ดึงค่าจาก query string ครั้งแรก
     selectedCountry.value = route.query.country || "";
     selectedCategory.value = route.query.category || "";
-    selectedOrder.value = route.query.order || "new";
+    selectedOrder.value = route.query.order || "new"; // ค่าดีฟอลต์เป็น "new"
 </script>
