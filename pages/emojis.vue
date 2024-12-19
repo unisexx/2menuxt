@@ -145,7 +145,7 @@
 
     // ตัวเลือกประเทศ
     const countries = {
-        "": "ทั้งหมด",
+        // "": "ทั้งหมด",
         th: "ไทย",
         jp: "ญี่ปุ่น",
         tw: "ไต้หวัน",
@@ -247,8 +247,8 @@
     );
 
     // ดึงค่าจาก query string ครั้งแรก
-    selectedCountry.value = route.query.country || "";
-    selectedCategory.value = route.query.category || "";
+    selectedCountry.value = route.query.country || "th";
+    selectedCategory.value = route.query.category || "official";
     selectedOrder.value = route.query.order || "new"; // ค่าดีฟอลต์เป็น "new"
 
     // ฟังก์ชันดึงข้อมูลอีโมจิ

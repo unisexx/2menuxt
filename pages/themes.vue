@@ -142,7 +142,7 @@
 
     // Country options
     const countries = {
-        "": "ทั้งหมด",
+        // "": "ทั้งหมด",
         th: "ไทย",
         jp: "ญี่ปุ่น",
     };
@@ -246,7 +246,7 @@
         { immediate: true }
     );
 
-    selectedCountry.value = route.query.country || "";
-    selectedCategory.value = route.query.category || "";
+    selectedCountry.value = route.query.country || "th";
+    selectedCategory.value = route.query.category || "official";
     selectedOrder.value = route.query.order || "new";
 </script>
