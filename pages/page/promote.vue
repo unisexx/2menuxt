@@ -175,11 +175,11 @@
                                 <!-- Description -->
                                 <p class="text-gray-700 mb-4">
                                     สติกเกอร์ทุกชุดที่โปรโมทกับทางเราจะถูกแสดงใน
-                                    <a
-                                        href="https://line2me.in.th/featured/stickers"
+                                    <NuxtLink
+                                        href="/featured/stickers"
                                         target="_blank"
                                         class="text-blue-600 font-semibold underline hover:text-blue-800"
-                                        >หมวดสติกเกอร์แนะนำของเรา</a
+                                        >หมวดสติกเกอร์แนะนำของเรา</NuxtLink
                                     >
                                     อย่างถาวร โดยไม่มีวันลบออกจากระบบ!
                                 </p>
@@ -257,7 +257,7 @@
                             </div>
 
                             <div class="mt-5">
-                                <a
+                                <NuxtLink
                                     href="https://line.me/ti/p/~ratasak1234"
                                     rel="noopener noreferrer"
                                     target="_blank"
@@ -267,7 +267,7 @@
                                         >arrow_forward</span
                                     >
                                     สนใจโปรโมทสติกเกอร์ไลน์แอดไลน์ไอดี
-                                    ratasak1234</a
+                                    ratasak1234</NuxtLink
                                 >
                             </div>
                         </div>

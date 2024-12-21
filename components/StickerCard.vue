@@ -39,7 +39,7 @@
         <!-- Card Promote -->
         <NuxtLink
             v-if="showPromote"
-            href="/promote"
+            href="/page/promote"
             class="overflow-hidden block relative bg-teal-500 rounded-lg shadow-lg"
         >
             <svg
