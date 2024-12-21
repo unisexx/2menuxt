@@ -638,7 +638,7 @@
         width: 80px;
         height: 80px;
         animation-delay: 0s;
-        background-color: rgba(255, 182, 193, 0.5);
+        background-color: rgba(240, 128, 128, 0.6); /* Light Coral */
     }
 
     .circles li:nth-child(2) {
@@ -647,7 +647,7 @@
         height: 20px;
         animation-delay: 2s;
         animation-duration: 12s;
-        background-color: rgba(173, 216, 230, 0.5);
+        background-color: rgba(135, 206, 235, 0.6); /* Sky Blue */
     }
 
     .circles li:nth-child(3) {
@@ -655,7 +655,7 @@
         width: 20px;
         height: 20px;
         animation-delay: 4s;
-        background-color: rgba(152, 251, 152, 0.5);
+        background-color: rgba(144, 238, 144, 0.6); /* Light Green */
     }
 
     .circles li:nth-child(4) {
@@ -664,7 +664,7 @@
         height: 60px;
         animation-delay: 0s;
         animation-duration: 18s;
-        background-color: rgba(255, 223, 128, 0.5);
+        background-color: rgba(255, 218, 185, 0.6); /* Peach Puff */
     }
 
     .circles li:nth-child(5) {
@@ -672,7 +672,7 @@
         width: 20px;
         height: 20px;
         animation-delay: 0s;
-        background-color: rgba(216, 191, 216, 0.5);
+        background-color: rgba(186, 85, 211, 0.6); /* Medium Orchid */
     }
 
     .circles li:nth-child(6) {
@@ -680,7 +680,7 @@
         width: 110px;
         height: 110px;
         animation-delay: 3s;
-        background-color: rgba(255, 204, 153, 0.5);
+        background-color: rgba(255, 182, 193, 0.6); /* Light Pink */
     }
 
     .circles li:nth-child(7) {
@@ -688,7 +688,7 @@
         width: 150px;
         height: 150px;
         animation-delay: 7s;
-        background-color: rgba(211, 211, 211, 0.5);
+        background-color: rgba(176, 196, 222, 0.6); /* Light Steel Blue */
     }
 
     .circles li:nth-child(8) {
@@ -697,7 +697,7 @@
         height: 25px;
         animation-delay: 15s;
         animation-duration: 45s;
-        background-color: rgba(250, 128, 114, 0.5);
+        background-color: rgba(255, 160, 122, 0.6); /* Light Salmon */
     }
 
     .circles li:nth-child(9) {
@@ -706,7 +706,7 @@
         height: 15px;
         animation-delay: 2s;
         animation-duration: 35s;
-        background-color: rgba(189, 252, 201, 0.5);
+        background-color: rgba(175, 238, 238, 0.6); /* Pale Turquoise */
     }
 
     .circles li:nth-child(10) {
@@ -715,7 +715,7 @@
         height: 150px;
         animation-delay: 0s;
         animation-duration: 11s;
-        background-color: rgba(255, 239, 213, 0.5);
+        background-color: rgba(240, 230, 140, 0.6); /* Khaki */
     }
 
     @keyframes animate {
