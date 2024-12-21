@@ -87,6 +87,7 @@
                             :stickers="promoteStickerData"
                             :showPromote="true"
                         />
+                        <SeeMoreButton href="featured/stickers"></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
                     <p v-else-if="promoteStickerPending">Loading...</p>

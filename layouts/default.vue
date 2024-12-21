@@ -124,7 +124,7 @@
                     },
                     { separator: true },
                     {
-                        to: "/promote",
+                        to: "/page/promote",
                         label: "โปรโมทสติกเกอร์ไลน์",
                         icon: "star",
                     },
