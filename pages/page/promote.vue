@@ -158,9 +158,50 @@
                                 </p>
                             </div>
 
+                            <div>
+                                <!-- Heading with Rotating Red Star Icon -->
+                                <div class="flex items-center mb-4">
+                                    <span
+                                        class="material-symbols-outlined text-red-500 text-3xl animate-bounce mr-2"
+                                    >
+                                        star
+                                    </span>
+                                    <HeadingWithLine
+                                        text="(พิเศษสุดช่วงนี้เท่านั้น!) สติกเกอร์ของคุณจะอยู่ในหมวดสติกเกอร์แนะนำแบบถาวร!"
+                                        color="text-red-500"
+                                    />
+                                </div>
+
+                                <!-- Description -->
+                                <p class="text-gray-700 mb-4">
+                                    สติกเกอร์ทุกชุดที่โปรโมทกับทางเราจะถูกแสดงใน
+                                    <a
+                                        href="https://line2me.in.th/featured/stickers"
+                                        target="_blank"
+                                        class="text-blue-600 font-semibold underline hover:text-blue-800"
+                                        >หมวดสติกเกอร์แนะนำของเรา</a
+                                    >
+                                    อย่างถาวร โดยไม่มีวันลบออกจากระบบ!
+                                </p>
+                                <p class="text-gray-700 font-bold">
+                                    หมวดสติกเกอร์แนะนำได้รับการเยี่ยมชมบ่อยที่สุดบนเว็บไซต์ของเรา
+                                    เพิ่มโอกาสในการมองเห็นและการขายสติกเกอร์ของคุณได้สูงสุด!
+                                </p>
+
+                                <!-- Image -->
+                                <div class="text-center">
+                                    <img
+                                        src="https://i.imgur.com/cAM3B7a.png"
+                                        class="rounded-lg shadow-md"
+                                        alt="สกรีนช็อต สติกเกอร์แนะนำ"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            </div>
+
                             <!-- Promotion Alert -->
                             <div
-                                class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-8"
+                                class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 mt-10"
                             >
                                 <p class="font-bold">พิเศษ!</p>
                                 <p>
@@ -180,7 +221,7 @@
                                 <p>
                                     โดยเฉลี่ยประมาณ 50,000 - 80,000 หน้าต่อวัน
                                     หรือ 1,500,000 - 2,400,000 หน้าต่อเดือน
-                                    คุ้มค่ามากกับราคาค่าโฆษณาที่คุณจ่าย!
+                                    คุ้มค่ามากกับราคาค่าโฆษณาที่จ่าย!
                                 </p>
                             </div>
 
