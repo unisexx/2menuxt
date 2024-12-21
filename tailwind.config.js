@@ -8,7 +8,11 @@ export default {
         "./nuxt.config.{js,ts}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            animation: {
+                slowspin: "spin 2s linear infinite", // กำหนดให้หมุน 1 รอบใน 2 วินาที
+            },
+        },
     },
     plugins: [],
 };

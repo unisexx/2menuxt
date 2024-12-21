@@ -102,33 +102,75 @@
             return {
                 isCollapsed: true,
                 searchQuery: "", // คำค้นหาสติกเกอร์
+                // menus: [
+                //     { to: "/", label: "หน้าแรก", icon: "home" },
+                //     { separator: true },
+                //     {
+                //         to: "/stickers?category=official",
+                //         label: "สติกเกอร์ไลน์",
+                //         icon: "rocket_launch",
+                //     },
+                //     { separator: true },
+                //     {
+                //         to: "/emojis?category=official",
+                //         label: "อิโมจิไลน์",
+                //         icon: "emoji_emotions",
+                //     },
+                //     { separator: true },
+                //     {
+                //         to: "/themes?category=official",
+                //         label: "ธีมไลน์",
+                //         icon: "palette",
+                //     },
+                //     { separator: true },
+                //     {
+                //         to: "/page/promote",
+                //         label: "โปรโมทสติกเกอร์ไลน์",
+                //         icon: "star",
+                //     },
+                // ],
                 menus: [
-                    { to: "/", label: "หน้าแรก", icon: "home" },
+                    {
+                        to: "/",
+                        label: "หน้าแรก",
+                        icon: "home",
+                        iconClass:
+                            "bg-gradient-to-br from-indigo-400 to-blue-500",
+                    },
                     { separator: true },
                     {
                         to: "/stickers?category=official",
                         label: "สติกเกอร์ไลน์",
                         icon: "rocket_launch",
+                        iconClass:
+                            "bg-gradient-to-br from-purple-400 to-pink-500",
                     },
                     { separator: true },
                     {
                         to: "/emojis?category=official",
                         label: "อิโมจิไลน์",
                         icon: "emoji_emotions",
+                        iconClass:
+                            "bg-gradient-to-br from-yellow-400 to-red-500",
                     },
                     { separator: true },
                     {
                         to: "/themes?category=official",
                         label: "ธีมไลน์",
                         icon: "palette",
+                        iconClass:
+                            "bg-gradient-to-br from-teal-400 to-cyan-500",
                     },
                     { separator: true },
                     {
                         to: "/page/promote",
                         label: "โปรโมทสติกเกอร์ไลน์",
                         icon: "star",
+                        iconClass:
+                            "bg-gradient-to-br from-red-400 to-red-600 animate-slowspin",
                     },
                 ],
+
                 screenIsLarge: false,
                 showScrollTop: false, // แสดงปุ่ม Scroll to Top
             };

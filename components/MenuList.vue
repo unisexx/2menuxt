@@ -13,11 +13,11 @@
                         ),
                     },
                 ]"
-                @click="() => closeAside()"
+                @click="closeAside"
             >
                 <span
                     v-if="menu.icon"
-                    class="material-symbols-outlined text-lg bg-gradient-to-br from-indigo-400 to-blue-400 bg-clip-text text-transparent"
+                    :class="[defaultIconClass, menu.iconClass]"
                 >
                     {{ menu.icon }}
                 </span>
@@ -40,7 +40,10 @@
         },
         closeAside: {
             type: Function,
-            default: () => {}, // ฟังก์ชันเปล่า กรณีไม่ต้องการปิดเมนู
+            default: () => {}, // ฟังก์ชันเปล่า
         },
     });
+
+    const defaultIconClass =
+        "material-symbols-outlined text-lg bg-clip-text text-transparent"; // ไม่ใส่สีเริ่มต้น
 </script>
