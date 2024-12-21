@@ -150,10 +150,11 @@
     };
 
     const filteredCountries = computed(() => {
+        /*
         if (selectedCategory.value === "creator") {
             const { id, ...rest } = allCountries;
             return rest;
-        }
+        }*/
         return allCountries;
     });
 
