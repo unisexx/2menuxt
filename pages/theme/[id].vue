@@ -77,7 +77,7 @@
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">รหัสสินค้า:</span>
-                                {{ theme.id }}
+                                T-{{ theme.id }}
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">ประเทศ:</span>

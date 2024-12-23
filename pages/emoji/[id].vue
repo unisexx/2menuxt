@@ -80,7 +80,7 @@
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">รหัสสินค้า:</span>
-                                {{ emoji.id }}
+                                E-{{ emoji.id }}
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">ประเทศ:</span>

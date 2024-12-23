@@ -117,7 +117,7 @@
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold"> รหัสสินค้า:</span>
-                                {{ sticker.sticker_code }}
+                                S-{{ sticker.sticker_code }}
                             </p>
                             <p class="mb-2">
                                 <span class="font-bold">ประเทศ:</span>
