@@ -136,13 +136,45 @@
 
                     <!-- สติกเกอร์ทางการไทย -->
                     <div v-if="officialThaiStickerData">
-                        <HeadingWithLine
-                            text="สติกเกอร์ทางการไทย"
-                            color="text-sky-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="สติกเกอร์ทางการไทย"
+                                color="text-sky-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialThaiStickers('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiStickerOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchOfficialThaiStickers('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiStickerOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <StickerCard :stickers="officialThaiStickerData" />
                         <SeeMoreButton
-                            href="stickers?page=1&country=th&category=official&order=popular"
+                            :href="`stickers?page=1&country=th&category=official&order=${selectedOfficialThaiStickerOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -150,13 +182,45 @@
 
                     <!-- สติกเกอร์ทางการต่างประเทศ -->
                     <div v-if="officialOverseaStickerData">
-                        <HeadingWithLine
-                            text="สติกเกอร์ทางการต่างประเทศ"
-                            color="text-sky-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="สติกเกอร์ทางการต่างประเทศ"
+                                color="text-sky-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialOverseaStickers('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaStickerOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchOfficialOverseaStickers('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaStickerOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <StickerCard :stickers="officialOverseaStickerData" />
                         <SeeMoreButton
-                            href="stickers?page=1&country=jp&category=official&order=popular"
+                            :href="`stickers?page=1&country=jp&category=official&order=${selectedOfficialOverseaStickerOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -164,27 +228,89 @@
 
                     <!-- สติกเกอร์ครีเอเตอร์ไทย -->
                     <div v-if="creatorThaiStickerData">
-                        <HeadingWithLine
-                            text="สติกเกอร์ครีเอเตอร์ไทย"
-                            color="text-sky-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="สติกเกอร์ครีเอเตอร์ไทย"
+                                color="text-sky-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorThaiStickers('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiStickerOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="fetchCreatorThaiStickers('popular')"
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiStickerOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <StickerCard :stickers="creatorThaiStickerData" />
                         <SeeMoreButton
-                            href="stickers?page=1&country=th&category=creator&order=popular"
+                            :href="`stickers?page=1&country=th&category=creator&order=${selectedCreatorThaiStickerOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
                     <p v-else-if="creatorThaiStickerPending">Loading...</p>
 
-                    <!-- สติกเกอร์ครีเอเตอร์ไทยต่างประเทศ -->
+                    <!-- สติกเกอร์ครีเอเตอร์ต่างประเทศ -->
                     <div v-if="creatorOverseaStickerData">
-                        <HeadingWithLine
-                            text="สติกเกอร์ครีเอเตอร์ต่างประเทศ"
-                            color="text-sky-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="สติกเกอร์ครีเอเตอร์ต่างประเทศ"
+                                color="text-sky-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorOverseaStickers('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaStickerOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchCreatorOverseaStickers('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaStickerOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <StickerCard :stickers="creatorOverseaStickerData" />
                         <SeeMoreButton
-                            href="stickers?page=1&country=jp&category=creator&order=popular"
+                            :href="`stickers?page=1&country=jp&category=creator&order=${selectedCreatorOverseaStickerOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -192,13 +318,42 @@
 
                     <!-- อิโมจิทางการไทย -->
                     <div v-if="officialThaiEmojiData">
-                        <HeadingWithLine
-                            text="อิโมจิทางการไทย"
-                            color="text-teal-500"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="อิโมจิทางการไทย"
+                                color="text-teal-500"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialThaiEmojis('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiEmojiOrder === 'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="fetchOfficialThaiEmojis('popular')"
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiEmojiOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <EmojiCard :emojis="officialThaiEmojiData" />
                         <SeeMoreButton
-                            href="emojis?page=1&country=th&category=official&order=popular"
+                            :href="`emojis?page=1&country=th&category=official&order=${selectedOfficialThaiEmojiOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -206,13 +361,45 @@
 
                     <!-- อิโมจิทางการต่างประเทศ -->
                     <div v-if="officialOverseaEmojiData">
-                        <HeadingWithLine
-                            text="อิโมจิทางการต่างประเทศ"
-                            color="text-teal-500"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="อิโมจิทางการต่างประเทศ"
+                                color="text-teal-500"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialOverseaEmojis('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaEmojiOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchOfficialOverseaEmojis('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaEmojiOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <EmojiCard :emojis="officialOverseaEmojiData" />
                         <SeeMoreButton
-                            href="emojis?page=1&country=jp&category=official&order=popular"
+                            :href="`emojis?page=1&country=jp&category=official&order=${selectedOfficialOverseaEmojiOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -220,13 +407,42 @@
 
                     <!-- อิโมจิครีเอเตอร์ไทย -->
                     <div v-if="creatorThaiEmojiData">
-                        <HeadingWithLine
-                            text="อิโมจิครีเอเตอร์ไทย"
-                            color="text-teal-500"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="อิโมจิครีเอเตอร์ไทย"
+                                color="text-teal-500"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorThaiEmojis('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiEmojiOrder === 'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="fetchCreatorThaiEmojis('popular')"
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiEmojiOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <EmojiCard :emojis="creatorThaiEmojiData" />
                         <SeeMoreButton
-                            href="emojis?page=1&country=th&category=creator&order=popular"
+                            :href="`emojis?page=1&country=th&category=creator&order=${selectedCreatorThaiEmojiOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -234,13 +450,45 @@
 
                     <!-- อิโมจิครีเอเตอร์ต่างประเทศ -->
                     <div v-if="creatorOverseaEmojiData">
-                        <HeadingWithLine
-                            text="อิโมจิครีเอเตอร์ต่างประเทศ"
-                            color="text-teal-500"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="อิโมจิครีเอเตอร์ต่างประเทศ"
+                                color="text-teal-500"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorOverseaEmojis('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaEmojiOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchCreatorOverseaEmojis('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaEmojiOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <EmojiCard :emojis="creatorOverseaEmojiData" />
                         <SeeMoreButton
-                            href="emojis?page=1&country=jp&category=creator&order=popular"
+                            :href="`emojis?page=1&country=jp&category=creator&order=${selectedCreatorOverseaEmojiOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -248,13 +496,43 @@
 
                     <!-- ธีมทางการไทย -->
                     <div v-if="officialThaiThemeData">
-                        <HeadingWithLine
-                            text="ธีมทางการไทย"
-                            color="text-rose-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="ธีมทางการไทย"
+                                color="text-rose-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialThaiThemes('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiThemesOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="fetchOfficialThaiThemes('popular')"
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialThaiThemesOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <ThemeCard :themes="officialThaiThemeData" />
                         <SeeMoreButton
-                            href="themes?page=1&country=th&category=official&order=popular"
+                            :href="`themes?page=1&country=th&category=official&order=${selectedOfficialThaiThemesOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -262,13 +540,45 @@
 
                     <!-- ธีมทางการต่างประเทศ -->
                     <div v-if="officialOverseaThemeData">
-                        <HeadingWithLine
-                            text="ธีมทางการต่างประเทศ"
-                            color="text-rose-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="ธีมทางการต่างประเทศ"
+                                color="text-rose-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchOfficialOverseaThemes('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaThemesOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchOfficialOverseaThemes('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedOfficialOverseaThemesOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <ThemeCard :themes="officialOverseaThemeData" />
                         <SeeMoreButton
-                            href="themes?page=1&country=jp&category=official&order=popular"
+                            :href="`themes?page=1&country=jp&category=official&order=${selectedOfficialOverseaThemesOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -276,13 +586,42 @@
 
                     <!-- ธีมครีเอเตอร์ไทย -->
                     <div v-if="creatorThaiThemeData">
-                        <HeadingWithLine
-                            text="ธีมครีเอเตอร์ไทย"
-                            color="text-rose-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="ธีมครีเอเตอร์ไทย"
+                                color="text-rose-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorThaiThemes('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiThemesOrder === 'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="fetchCreatorThaiThemes('popular')"
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorThaiThemesOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <ThemeCard :themes="creatorThaiThemeData" />
                         <SeeMoreButton
-                            href="themes?page=1&country=th&category=creator&order=popular"
+                            :href="`themes?page=1&country=th&category=creator&order=${selectedCreatorThaiThemesOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -290,13 +629,45 @@
 
                     <!-- ธีมครีเอเตอร์ต่างประเทศ -->
                     <div v-if="creatorOverseaThemeData">
-                        <HeadingWithLine
-                            text="ธีมครีเอเตอร์ต่างประเทศ"
-                            color="text-rose-400"
-                        />
+                        <div class="flex items-center justify-between mb-4">
+                            <HeadingWithLine
+                                text="ธีมครีเอเตอร์ต่างประเทศ"
+                                color="text-rose-400"
+                            />
+                            <!-- ปุ่มเลือกการเรียงลำดับ -->
+                            <div class="mb-4 min-w-[120px]">
+                                <button
+                                    @click="fetchCreatorOverseaThemes('new')"
+                                    :class="[
+                                        'mr-2 py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaThemesOrder ===
+                                        'new'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ล่าสุด
+                                </button>
+                                <button
+                                    @click="
+                                        fetchCreatorOverseaThemes('popular')
+                                    "
+                                    :class="[
+                                        'py-1 px-3 sm:py-2 sm:px-4 font-bold rounded transition',
+                                        selectedCreatorOverseaThemesOrder ===
+                                        'popular'
+                                            ? 'bg-purple-500 text-white'
+                                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+                                    ]"
+                                >
+                                    ฮิต
+                                </button>
+                            </div>
+                        </div>
+
                         <ThemeCard :themes="creatorOverseaThemeData" />
                         <SeeMoreButton
-                            href="themes?page=1&country=jp&category=creator&order=popular"
+                            :href="`themes?page=1&country=jp&category=creator&order=${selectedCreatorOverseaThemesOrder}`"
                         ></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
@@ -387,6 +758,260 @@
     const creatorThaiEmojiPending = ref(false);
     const creatorOverseaEmojiPending = ref(false);
 
+    // ตั้าค่า order ที่เป็นค่า Default
+    const selectedOfficialThaiStickerOrder = ref("popular");
+    const selectedOfficialOverseaStickerOrder = ref("popular");
+    const selectedCreatorThaiStickerOrder = ref("popular");
+    const selectedCreatorOverseaStickerOrder = ref("popular");
+    const selectedOfficialThaiEmojiOrder = ref("popular");
+    const selectedOfficialOverseaEmojiOrder = ref("popular");
+    const selectedCreatorThaiEmojiOrder = ref("popular");
+    const selectedCreatorOverseaEmojiOrder = ref("popular");
+    const selectedOfficialThaiThemesOrder = ref("popular");
+    const selectedOfficialOverseaThemesOrder = ref("popular");
+    const selectedCreatorThaiThemesOrder = ref("popular");
+    const selectedCreatorOverseaThemesOrder = ref("popular");
+
+    // ฟังก์ชันสำหรับดึงข้อมูลสติกเกอร์ทางการไทย
+    const fetchOfficialThaiStickers = async (order = "popular") => {
+        selectedOfficialThaiStickerOrder.value = order; // อัปเดตลำดับการเรียง
+        officialThaiStickerPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/sticker-official-thai?order=${order}`
+            );
+            if (response.ok) {
+                officialThaiStickerData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialThaiStickerPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลสติกเกอร์ทางการต่างประเทศ
+    const fetchOfficialOverseaStickers = async (order = "popular") => {
+        selectedOfficialOverseaStickerOrder.value = order; // อัปเดตลำดับการเรียง
+        officialOverseaStickerPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/sticker-official-oversea?order=${order}`
+            );
+            if (response.ok) {
+                officialOverseaStickerData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialOverseaStickerPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลสติกเกอร์ครีเอเตอร์ไทย
+    const fetchCreatorThaiStickers = async (order = "popular") => {
+        selectedCreatorThaiStickerOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorThaiStickerPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/sticker-creator-thai?order=${order}`
+            );
+            if (response.ok) {
+                creatorThaiStickerData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorThaiStickerPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลสติกเกอร์ครีเอเตอร์ต่างประเทศ
+    const fetchCreatorOverseaStickers = async (order = "popular") => {
+        selectedCreatorOverseaStickerOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorOverseaStickerPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/sticker-creator-oversea?order=${order}`
+            );
+            if (response.ok) {
+                creatorOverseaStickerData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorOverseaStickerPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลอิโมจิทางการไทย
+    const fetchOfficialThaiEmojis = async (order = "popular") => {
+        selectedOfficialThaiEmojiOrder.value = order; // อัปเดตลำดับการเรียง
+        officialThaiEmojiPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/emoji-official-thai?order=${order}`
+            );
+            if (response.ok) {
+                officialThaiEmojiData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialThaiEmojiPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลอิโมจิทางการต่างประเทศ
+    const fetchOfficialOverseaEmojis = async (order = "popular") => {
+        selectedOfficialOverseaEmojiOrder.value = order; // อัปเดตลำดับการเรียง
+        officialOverseaEmojiPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/emoji-official-oversea?order=${order}`
+            );
+            if (response.ok) {
+                officialOverseaEmojiData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialOverseaEmojiPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลอิโมจิครีเอเตอร์ไทย
+    const fetchCreatorThaiEmojis = async (order = "popular") => {
+        selectedCreatorThaiEmojiOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorThaiEmojiPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/emoji-creator-thai?order=${order}`
+            );
+            if (response.ok) {
+                creatorThaiEmojiData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorThaiEmojiPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลอิโมจิครีเอเตอร์ต่างประเทศ
+    const fetchCreatorOverseaEmojis = async (order = "popular") => {
+        selectedCreatorOverseaEmojiOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorOverseaEmojiPending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/emoji-creator-oversea?order=${order}`
+            );
+            if (response.ok) {
+                creatorOverseaEmojiData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorOverseaEmojiPending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลธีมทางการไทย
+    const fetchOfficialThaiThemes = async (order = "popular") => {
+        selectedOfficialThaiThemesOrder.value = order; // อัปเดตลำดับการเรียง
+        officialThaiThemePending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/theme-official-thai?order=${order}`
+            );
+            if (response.ok) {
+                officialThaiThemeData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialThaiThemePending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลธีมทางการต่างประเทศ
+    const fetchOfficialOverseaThemes = async (order = "popular") => {
+        selectedOfficialOverseaThemesOrder.value = order; // อัปเดตลำดับการเรียง
+        officialOverseaThemePending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/theme-official-oversea?order=${order}`
+            );
+            if (response.ok) {
+                officialOverseaThemeData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            officialOverseaThemePending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลธีมครีเอเตอร์ไทย
+    const fetchCreatorThaiThemes = async (order = "popular") => {
+        selectedCreatorThaiThemesOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorThaiThemePending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/theme-creator-thai?order=${order}`
+            );
+            if (response.ok) {
+                creatorThaiThemeData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorThaiThemePending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
+    // ฟังก์ชันสำหรับดึงข้อมูลธีมครีเอเตอร์ต่างประเทศ
+    const fetchCreatorOverseaThemes = async (order = "popular") => {
+        selectedCreatorOverseaThemesOrder.value = order; // อัปเดตลำดับการเรียง
+        creatorOverseaThemePending.value = true; // แสดงสถานะกำลังโหลด
+        try {
+            const response = await fetch(
+                `https://api.line2me.in.th/api/theme-creator-oversea?order=${order}`
+            );
+            if (response.ok) {
+                creatorOverseaThemeData.value = await response.json();
+            } else {
+                console.error("Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("API fetch error:", error);
+        } finally {
+            creatorOverseaThemePending.value = false; // ซ่อนสถานะกำลังโหลด
+        }
+    };
+
     // โหลด API จริง
     onMounted(async () => {
         try {
@@ -419,109 +1044,18 @@
             if (emojiRes.ok) emojiData.value = await emojiRes.json();
             emojiPending.value = false;
 
-            // สติกเกอร์ทางการไทย
-            const officialThaiStickerRes = await fetch(
-                `https://api.line2me.in.th/api/sticker-official-thai`
-            );
-            if (officialThaiStickerRes.ok)
-                officialThaiStickerData.value =
-                    await officialThaiStickerRes.json();
-            officialThaiStickerPending.value = false;
-
-            // สติกเกอร์ทางการต่างประเทศ
-            const officialOverseaStickerRes = await fetch(
-                `https://api.line2me.in.th/api/sticker-official-oversea`
-            );
-            if (officialThaiStickerRes.ok)
-                officialOverseaStickerData.value =
-                    await officialOverseaStickerRes.json();
-            officialOverseaStickerPending.value = false;
-
-            // สติกเกอร์ครีเอเตอร์ไทย
-            const creatorThaiStickerRes = await fetch(
-                `https://api.line2me.in.th/api/sticker-creator-thai`
-            );
-            if (creatorThaiStickerRes.ok)
-                creatorThaiStickerData.value =
-                    await creatorThaiStickerRes.json();
-            creatorThaiStickerPending.value = false;
-
-            // สติกเกอร์ครีเอเตอร์ต่างประเทศ
-            const creatorOverseaStickerRes = await fetch(
-                `https://api.line2me.in.th/api/sticker-creator-oversea`
-            );
-            if (creatorOverseaStickerRes.ok)
-                creatorOverseaStickerData.value =
-                    await creatorOverseaStickerRes.json();
-            creatorOverseaStickerPending.value = false;
-
-            // อิโมจิทางการไทย
-            const officialThaiEmojiRes = await fetch(
-                `https://api.line2me.in.th/api/emoji-official-thai`
-            );
-            if (officialThaiEmojiRes.ok)
-                officialThaiEmojiData.value = await officialThaiEmojiRes.json();
-            officialThaiEmojiPending.value = false;
-
-            // อิโมจิการต่างประเทศ
-            const officialOverseaEmojiRes = await fetch(
-                `https://api.line2me.in.th/api/emoji-official-oversea`
-            );
-            if (officialOverseaEmojiRes.ok)
-                officialOverseaEmojiData.value =
-                    await officialOverseaEmojiRes.json();
-            officialOverseaEmojiPending.value = false;
-
-            // อิโมจิครีเอเตอร์ไทย API
-            const creatorThaiEmojiRes = await fetch(
-                `https://api.line2me.in.th/api/emoji-creator-thai`
-            );
-            if (creatorThaiEmojiRes.ok)
-                creatorThaiEmojiData.value = await creatorThaiEmojiRes.json();
-            creatorThaiEmojiPending.value = false;
-
-            // อิโมจิครีเอเตอร์ต่างประเทศ API
-            const creatorOverseaEmojiRes = await fetch(
-                `https://api.line2me.in.th/api/emoji-creator-oversea`
-            );
-            if (creatorOverseaEmojiRes.ok)
-                creatorOverseaEmojiData.value =
-                    await creatorOverseaEmojiRes.json();
-            creatorOverseaEmojiPending.value = false;
-
-            // ธีมทางการไทย
-            const officialThaiThemeRes = await fetch(
-                `https://api.line2me.in.th/api/theme-official-thai`
-            );
-            if (officialThaiThemeRes.ok)
-                officialThaiThemeData.value = await officialThaiThemeRes.json();
-            officialThaiThemePending.value = false;
-
-            // ธีมทางการต่างประเทศ
-            const officialOverseaThemeRes = await fetch(
-                `https://api.line2me.in.th/api/theme-official-oversea`
-            );
-            if (officialOverseaThemeRes.ok)
-                officialOverseaThemeData.value =
-                    await officialOverseaThemeRes.json();
-            officialOverseaThemePending.value = false;
-
-            // ธีมครีเอเตอร์ไทย
-            const creatorThaiThemeRes = await fetch(
-                `https://api.line2me.in.th/api/theme-creator-thai`
-            );
-            if (creatorThaiThemeRes.ok)
-                creatorThaiThemeData.value = await creatorThaiThemeRes.json();
-            creatorThaiThemePending.value = false;
-
-            // ธีมครีเอเตอร์ต่างประเทศ
-            const creatorOverseaThemeRes = await fetch(
-                `https://api.line2me.in.th/api/theme-creator-oversea`
-            );
-            if (creatorOverseaThemeRes.ok)
-                creatorOverseaThemeData.value =
-                    await creatorOverseaThemeRes.json();
-            creatorOverseaThemePending.value = false;
+            fetchOfficialThaiStickers("popular");
+            fetchOfficialOverseaStickers("popular");
+            fetchCreatorThaiStickers("popular");
+            fetchCreatorOverseaStickers("popular");
+            fetchOfficialThaiEmojis("popular");
+            fetchOfficialOverseaEmojis("popular");
+            fetchCreatorThaiEmojis("popular");
+            fetchCreatorOverseaEmojis("popular");
+            fetchOfficialThaiThemes("popular");
+            fetchOfficialOverseaThemes("popular");
+            fetchCreatorThaiThemes("popular");
+            fetchCreatorOverseaThemes("popular");
         } catch (error) {
             console.error("API fetch error:", error);
         }
