@@ -69,6 +69,7 @@
 
                     <NuxtLink
                         href="https://line.me/ti/p/~ratasak1234"
+                        title="แอดไลน์ไอดี ratasak1234"
                         target="_blank"
                         class="mt-8 inline-block bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full text-md transition duration-300 ease-in-out"
                     >
@@ -78,7 +79,7 @@
 
                 <div class="px-4">
                     <!-- โปรโมทสติกเกอร์ -->
-                    <div v-if="promoteStickerData && promoteStickerData.length">
+                    <div>
                         <HeadingWithLine
                             text="สติกเกอร์แนะนำ"
                             color="text-green-500"
@@ -90,7 +91,6 @@
                         <SeeMoreButton href="featured/stickers"></SeeMoreButton>
                         <hr class="my-5" />
                     </div>
-                    <p v-else-if="promoteStickerPending">Loading...</p>
 
                     <!-- สติกเกอร์ -->
                     <div v-if="stickerData && stickerData.length">
