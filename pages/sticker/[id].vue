@@ -214,11 +214,7 @@
                     <hr class="mt-5 mb-5" />
 
                     <!-- โปรโมทสติกเกอร์ -->
-                    <div
-                        v-if="
-                            promoteStickerData && promoteStickerData.length > 0
-                        "
-                    >
+                    <div>
                         <HeadingWithLine
                             text="สติกเกอร์แนะนำ"
                             color="text-green-500"
@@ -229,7 +225,6 @@
                         />
                         <hr class="my-5" />
                     </div>
-                    <p v-else-if="promoteStickerPending">Loading...</p>
 
                     <!-- สติกเกอร์ตามผู้สร้าง -->
                     <!-- แสดงข้อมูลเมื่อโหลดเสร็จ -->
