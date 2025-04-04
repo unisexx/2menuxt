@@ -16,11 +16,11 @@
     defineProps({
         link: {
             type: String,
-            default: "https://line.me/ti/p/~ratasak1234", // ค่าดีฟอลต์สำหรับ link
+            default: "https://line.me/ti/p/~@icj3828l", // ค่าดีฟอลต์สำหรับ link
         },
         text: {
             type: String,
-            default: "สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234", // ค่าดีฟอลต์สำหรับข้อความ
+            default: "สั่งซื้อชุดนี้แอดไลน์ไอดี @icj3828l", // ค่าดีฟอลต์สำหรับข้อความ
         },
         additionalClass: {
             type: String,

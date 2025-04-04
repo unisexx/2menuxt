@@ -68,12 +68,12 @@
                     </p>
 
                     <NuxtLink
-                        href="https://line.me/ti/p/~ratasak1234"
-                        title="แอดไลน์ไอดี ratasak1234"
+                        href="https://line.me/ti/p/~@icj3828l"
+                        title="แอดไลน์ไอดี @icj3828l"
                         target="_blank"
                         class="mt-8 inline-block bg-blue-700 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full text-md transition duration-300 ease-in-out"
                     >
-                        แอดไลน์ไอดี ratasak1234
+                        แอดไลน์ไอดี @icj3828l
                     </NuxtLink>
                 </div>
 
