@@ -258,7 +258,7 @@
 
                             <div class="mt-5">
                                 <NuxtLink
-                                    href="https://line.me/ti/p/~ratasak1234"
+                                    href="https://line.me/ti/p/~@line2me"
                                     rel="noopener noreferrer"
                                     target="_blank"
                                     class="text-lg inline-block bg-blue-700 text-white text-center px-6 py-3 rounded-full hover:bg-blue-600 w-full transition duration-300 ease-in-out"
@@ -267,7 +267,7 @@
                                         >arrow_forward</span
                                     >
                                     สนใจโปรโมทสติกเกอร์ไลน์แอดไลน์ไอดี
-                                    ratasak1234</NuxtLink
+                                    @line2me</NuxtLink
                                 >
                             </div>
                         </div>
