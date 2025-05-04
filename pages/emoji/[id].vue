@@ -42,10 +42,11 @@
                                 <NuxtLink
                                     class="cursor-default"
                                     rel="nofollow"
-                                    :href="`https://line.me/S/emoji/?id=${emoji.emoji_code}`"
+                                    :href="`https://line.me/S/emoji/?id=${emoji.emoji_code}&lang=th&utm_source=gnsh_sticonDetail`"
                                     target="_blank"
-                                    >{{ emoji.title }}</NuxtLink
                                 >
+                                    {{ emoji.title }}
+                                </NuxtLink>
                             </li>
                         </ol>
                     </nav>
